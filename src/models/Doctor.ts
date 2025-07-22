@@ -39,9 +39,10 @@ export interface IWorkingDay {
 
 // Interface for break times
 export interface IBreakTime {
+  day: DayOfWeek;
   startTime: string;
   endTime: string;
-  description?: string;
+  title?: string;
 }
 
 // Interface for doctor schedule
@@ -122,7 +123,10 @@ export interface IDoctorModel extends Model<IDoctorDocument> {
   findByLicenseNumber(licenseNumber: string): Promise<IDoctorDocument | null>;
   findByEmail(email: string): Promise<IDoctorDocument | null>;
   findPendingVerification(): Promise<IDoctorDocument[]>;
-  findAndAuthenticateDoctor(email: string, password: string): Promise<IDoctorDocument | null>;
+  findAndAuthenticateDoctor(
+    email: string,
+    password: string
+  ): Promise<IDoctorDocument | null>;
 }
 
 // Mongoose schema definition with proper TypeScript integration
@@ -270,6 +274,14 @@ const doctorSchema = new Schema<IDoctorDocument, IDoctorModel>(
       breakTimes: {
         type: [
           {
+            day: {
+              type: String,
+              enum: {
+                values: Object.values(DayOfWeek),
+                message: "Invalid day for break time",
+              },
+              required: [true, "Break day is required"],
+            },
             startTime: {
               type: String,
               required: [true, "Break start time is required"],
@@ -292,7 +304,7 @@ const doctorSchema = new Schema<IDoctorDocument, IDoctorModel>(
                 message: "Break end time must be in HH:MM format",
               },
             },
-            description: {
+            title: {
               type: String,
               trim: true,
             },
@@ -480,14 +492,24 @@ doctorSchema.virtual("fullName").get(function (this: IDoctorDocument): string {
 // Pre-save middleware with proper typing
 doctorSchema.pre<IDoctorDocument>("save", async function (next): Promise<void> {
   // Hash password if modified
-  if (this.isModified("authentication.password") && this.authentication.password) {
-    this.authentication.password = await bcrypt.hash(this.authentication.password, 12);
+  if (
+    this.isModified("authentication.password") &&
+    this.authentication.password
+  ) {
+    this.authentication.password = await bcrypt.hash(
+      this.authentication.password,
+      12
+    );
     this.authentication.lastPasswordChange = new Date();
   }
 
   // Validate that statistics are consistent
-  if (this.statistics.completedAppointments > this.statistics.totalAppointments) {
-    return next(new Error("Completed appointments cannot exceed total appointments"));
+  if (
+    this.statistics.completedAppointments > this.statistics.totalAppointments
+  ) {
+    return next(
+      new Error("Completed appointments cannot exceed total appointments")
+    );
   }
 
   // Ensure email is lowercase
@@ -496,7 +518,11 @@ doctorSchema.pre<IDoctorDocument>("save", async function (next): Promise<void> {
   }
 
   // Set approval date when admin verifies
-  if (this.isModified("isVerifiedByAdmin") && this.isVerifiedByAdmin && !this.approvalDate) {
+  if (
+    this.isModified("isVerifiedByAdmin") &&
+    this.isVerifiedByAdmin &&
+    !this.approvalDate
+  ) {
     this.approvalDate = new Date();
   }
 
@@ -512,22 +538,30 @@ doctorSchema.methods.comparePassword = async function (
   return bcrypt.compare(candidatePassword, this.authentication.password);
 };
 
-doctorSchema.methods.generatePasswordResetToken = function (this: IDoctorDocument): string {
-  const crypto = require('crypto');
-  const resetToken = crypto.randomBytes(32).toString('hex');
+doctorSchema.methods.generatePasswordResetToken = function (
+  this: IDoctorDocument
+): string {
+  const crypto = require("crypto");
+  const resetToken = crypto.randomBytes(32).toString("hex");
   this.authentication.passwordResetToken = resetToken;
-  this.authentication.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+  this.authentication.passwordResetExpires = new Date(
+    Date.now() + 10 * 60 * 1000
+  ); // 10 minutes
   return resetToken;
 };
 
-doctorSchema.methods.generateEmailVerificationToken = function (this: IDoctorDocument): string {
-  const crypto = require('crypto');
-  const verificationToken = crypto.randomBytes(32).toString('hex');
+doctorSchema.methods.generateEmailVerificationToken = function (
+  this: IDoctorDocument
+): string {
+  const crypto = require("crypto");
+  const verificationToken = crypto.randomBytes(32).toString("hex");
   this.authentication.verificationToken = verificationToken;
   return verificationToken;
 };
 
-doctorSchema.methods.isAccountFullyVerified = function (this: IDoctorDocument): boolean {
+doctorSchema.methods.isAccountFullyVerified = function (
+  this: IDoctorDocument
+): boolean {
   return (
     !!this.authentication.isVerified &&
     !!this.isVerifiedByAdmin &&
@@ -622,10 +656,7 @@ doctorSchema.statics.findPendingVerification = function (
   this: IDoctorModel
 ): Promise<IDoctorDocument[]> {
   return this.find({
-    $or: [
-      { "authentication.isVerified": false },
-      { isVerifiedByAdmin: false },
-    ],
+    $or: [{ "authentication.isVerified": false }, { isVerifiedByAdmin: false }],
   })
     .sort({ registrationDate: -1 })
     .exec();

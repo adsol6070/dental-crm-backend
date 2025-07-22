@@ -6753,3 +6753,699 @@
 {"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 12.987 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-19T11:54:36.313Z"}
 {"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 12.015 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-19T11:54:36.333Z"}
 {"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-19T11:57:11.890Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T06:03:06.373Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T06:03:06.376Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T06:03:06.394Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T06:03:06.556Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T06:03:06.600Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T06:03:06.606Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T06:03:06.606Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T06:03:06.607Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T06:03:06.608Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T06:04:58.810Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T06:05:10.069Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T06:05:10.072Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T06:05:10.080Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T06:05:10.121Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T06:05:10.157Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T06:05:10.162Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T06:05:10.163Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T06:05:10.163Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T06:05:10.164Z"}
+{"level":"info","message":"\u001b[0mPOST /api/users/login \u001b[32m200\u001b[0m 1507.773 ms - 713\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:29:03.405Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[32m200\u001b[0m 47.070 ms - 512\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:29:03.480Z"}
+{"level":"info","message":"⏰ Checking for upcoming appointments","service":"appointment-crm","timestamp":"2025-07-22T06:30:00.067Z"}
+{"level":"info","message":"✅ Upcoming appointments check completed","service":"appointment-crm","timestamp":"2025-07-22T06:30:00.187Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 46.793 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:35:38.401Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 36.624 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:35:38.470Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 35.647 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:37:25.502Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 28.609 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:37:25.541Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T06:41:05.843Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T06:41:27.619Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T06:41:27.621Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T06:41:27.632Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T06:41:27.695Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T06:41:27.738Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T06:41:27.746Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T06:41:27.746Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T06:41:27.747Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T06:41:27.747Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 86.946 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:56:54.263Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 25.202 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:56:54.293Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 13.772 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:59:23.563Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 11.587 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:59:23.581Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 33.848 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:59:44.826Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 23.720 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:59:44.859Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/admin/all \u001b[32m200\u001b[0m 98.124 ms - 93\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:59:49.295Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/admin/all \u001b[36m304\u001b[0m 22.994 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T06:59:56.284Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/admin/all \u001b[36m304\u001b[0m 17.460 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:03:14.325Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","email":"harman@gmail.com","level":"info","message":"New doctor registered: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","specialization":"Cardiology","timestamp":"2025-07-22T07:06:54.551Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/register \u001b[32m201\u001b[0m 1281.086 ms - 442\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:06:54.555Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/admin/all \u001b[32m200\u001b[0m 25.812 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:06:54.716Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/admin/687f388d5a92cf29dcce5fc8 \u001b[32m200\u001b[0m 45.152 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:07:08.964Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/admin/687f388d5a92cf29dcce5fc8 \u001b[36m304\u001b[0m 34.495 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:07:20.242Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","email":"harman@gmail.com","level":"info","message":"Doctor logged in: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T07:09:42.683Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/login \u001b[32m200\u001b[0m 90.582 ms - 427\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:09:42.688Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 34.811 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:09:42.740Z"}
+{"error":{"message":"Doctor not found","name":"Error","stack":"Error: Doctor not found\n    at D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\src\\controllers\\doctorController.ts:454:15\n    at Generator.next (<anonymous>)\n    at fulfilled (D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\src\\controllers\\doctorController.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":404},"level":"error","message":"Development Error:","request":{"body":{},"headers":{"accept":"*/*","accept-encoding":"gzip, deflate, br","authorization":"[REDACTED]","cache-control":"no-cache","connection":"keep-alive","host":"localhost:3000","postman-token":"610d81c7-4ab2-4c07-a766-dad1fad5f3e0","user-agent":"PostmanRuntime/7.44.1"},"ip":"127.0.0.1","method":"GET","params":{},"query":{},"url":"/api/doctors/doctor/schedule","userAgent":"PostmanRuntime/7.44.1"},"service":"appointment-crm","timestamp":"2025-07-22T07:17:34.564Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[33m404\u001b[0m 126.123 ms - 557\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:17:34.568Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T07:17:48.375Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T07:18:07.456Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T07:18:07.459Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T07:18:07.486Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T07:18:08.532Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T07:18:08.584Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T07:18:08.622Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T07:18:08.623Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T07:18:08.623Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T07:18:08.623Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 38.104 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:18:11.491Z"}
+{"level":"warn","message":"MongoDB disconnected","service":"appointment-crm","timestamp":"2025-07-22T07:41:53.926Z"}
+{"level":"info","message":"MongoDB reconnected","service":"appointment-crm","timestamp":"2025-07-22T07:42:03.938Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 46.032 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:42:21.872Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 48.023 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:42:21.939Z"}
+{"level":"info","message":"\u001b[0mPOST /api/users/login \u001b[32m200\u001b[0m 455.504 ms - 713\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:48:03.068Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[32m200\u001b[0m 11.057 ms - 512\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:48:03.097Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","email":"harman@gmail.com","level":"info","message":"Doctor logged in: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T07:51:22.638Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/login \u001b[32m200\u001b[0m 121.414 ms - 427\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:51:22.643Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 20.115 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T07:51:22.677Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T07:52:55.391Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T07:53:48.749Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T07:53:48.752Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T07:53:48.766Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T07:53:48.807Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T07:53:48.846Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T07:53:48.852Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T07:53:48.853Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T07:53:48.854Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T07:53:48.854Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T07:54:43.724Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T08:21:33.201Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T08:21:33.204Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T08:21:33.214Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T08:21:33.250Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T08:21:33.296Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T08:21:33.303Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T08:21:33.304Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T08:21:33.305Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T08:21:33.306Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T08:21:34.695Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T08:21:57.480Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T08:21:57.484Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T08:21:57.493Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T08:21:57.529Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T08:21:57.568Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T08:21:57.573Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T08:21:57.573Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T08:21:57.574Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T08:21:57.575Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","email":"harman@gmail.com","level":"info","message":"Doctor logged in: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T08:22:17.421Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/login \u001b[32m200\u001b[0m 47.473 ms - 427\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T08:22:17.428Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 23.511 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T08:22:17.467Z"}
+{"level":"info","message":"⏰ Checking for upcoming appointments","service":"appointment-crm","timestamp":"2025-07-22T08:30:00.027Z"}
+{"level":"info","message":"✅ Upcoming appointments check completed","service":"appointment-crm","timestamp":"2025-07-22T08:30:00.069Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 35.412 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:04:33.590Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 18.617 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:04:33.617Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 25.717 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:13:14.021Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 26.132 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:13:14.053Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 17.117 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:14:45.763Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 12.756 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:14:45.782Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 11.403 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:14:58.339Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 19.868 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:14:58.363Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T09:15:22.279Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:15:41.699Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:15:41.702Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T09:15:41.713Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T09:15:41.778Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T09:15:41.864Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T09:15:41.915Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T09:15:41.915Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T09:15:41.917Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T09:15:41.918Z"}
+{"error":{"message":"Doctor validation failed: schedule.breakTimes.0.day: Break day is required","name":"ValidationError","stack":"ValidationError: Doctor validation failed: schedule.breakTimes.0.day: Break day is required\n    at model.Document.invalidate (D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\node_modules\\mongoose\\lib\\document.js:3354:32)\n    at EmbeddedDocument.Subdocument.invalidate (D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\node_modules\\mongoose\\lib\\types\\subdocument.js:229:12)\n    at D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\node_modules\\mongoose\\lib\\document.js:3115:17\n    at D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\node_modules\\mongoose\\lib\\schemaType.js:1410:9\n    at processTicksAndRejections (node:internal/process/task_queues:85:11)","statusCode":500},"level":"error","message":"Development Error:","request":{"body":{"day":"monday","endTime":"14:00","startTime":"13:00","title":"Lunch Break"},"headers":{"accept":"application/json, text/plain, */*","accept-encoding":"gzip, deflate, br, zstd","accept-language":"en-US,en;q=0.9","authorization":"[REDACTED]","connection":"keep-alive","content-length":"76","content-type":"application/json","host":"localhost:3000","origin":"http://localhost:5173","referer":"http://localhost:5173/","sec-ch-ua":"\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"","sec-ch-ua-mobile":"?0","sec-ch-ua-platform":"\"Windows\"","sec-fetch-dest":"empty","sec-fetch-mode":"cors","sec-fetch-site":"same-site","user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"},"ip":"127.0.0.1","method":"POST","params":{},"query":{},"url":"/api/doctors/doctor/schedule/break","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"},"service":"appointment-crm","timestamp":"2025-07-22T09:15:53.312Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/doctor/schedule/break \u001b[31m500\u001b[0m 132.661 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:15:53.334Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T09:17:05.170Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:17:17.603Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:17:17.606Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T09:17:17.616Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T09:17:17.664Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T09:17:17.711Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T09:17:17.717Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T09:17:17.718Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T09:17:17.719Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T09:17:17.720Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T09:17:50.239Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:18:05.726Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:18:05.729Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T09:18:05.740Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T09:18:05.787Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T09:18:05.831Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T09:18:05.836Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T09:18:05.836Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T09:18:05.837Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T09:18:05.837Z"}
+{"error":{"message":"Doctor validation failed: schedule.breakTimes.0.day: Break day is required","name":"ValidationError","stack":"ValidationError: Doctor validation failed: schedule.breakTimes.0.day: Break day is required\n    at model.Document.invalidate (D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\node_modules\\mongoose\\lib\\document.js:3354:32)\n    at EmbeddedDocument.Subdocument.invalidate (D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\node_modules\\mongoose\\lib\\types\\subdocument.js:229:12)\n    at D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\node_modules\\mongoose\\lib\\document.js:3115:17\n    at D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\node_modules\\mongoose\\lib\\schemaType.js:1410:9\n    at processTicksAndRejections (node:internal/process/task_queues:85:11)","statusCode":500},"level":"error","message":"Development Error:","request":{"body":{"day":"monday","endTime":"14:00","startTime":"13:00","title":"Lunch Break"},"headers":{"accept":"application/json, text/plain, */*","accept-encoding":"gzip, deflate, br, zstd","accept-language":"en-US,en;q=0.9","authorization":"[REDACTED]","connection":"keep-alive","content-length":"76","content-type":"application/json","host":"localhost:3000","origin":"http://localhost:5173","referer":"http://localhost:5173/","sec-ch-ua":"\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"","sec-ch-ua-mobile":"?0","sec-ch-ua-platform":"\"Windows\"","sec-fetch-dest":"empty","sec-fetch-mode":"cors","sec-fetch-site":"same-site","user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"},"ip":"127.0.0.1","method":"POST","params":{},"query":{},"url":"/api/doctors/doctor/schedule/break","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"},"service":"appointment-crm","timestamp":"2025-07-22T09:18:11.657Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/doctor/schedule/break \u001b[31m500\u001b[0m 51.824 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:18:11.678Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T09:21:39.724Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:21:50.040Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:21:50.043Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T09:21:50.054Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T09:21:50.103Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T09:21:50.148Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T09:21:50.155Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T09:21:50.156Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T09:21:50.157Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T09:21:50.158Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","endTime":"14:00","level":"info","message":"Break time added for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","startTime":"13:00","timestamp":"2025-07-22T09:22:46.453Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/doctor/schedule/break \u001b[32m200\u001b[0m 71.170 ms - 58\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:22:46.461Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T09:23:29.457Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:23:46.394Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:23:46.397Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T09:23:46.408Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T09:23:46.462Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T09:23:46.503Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T09:23:46.510Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T09:23:46.511Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T09:23:46.513Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T09:23:46.514Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T09:24:49.126Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:26:41.776Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T09:26:41.779Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T09:26:41.788Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T09:26:41.845Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T09:26:41.891Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T09:26:41.895Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T09:26:41.896Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T09:26:41.897Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T09:26:41.897Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 54.161 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:29:18.467Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 19.561 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:29:18.492Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","endTime":"14:00","level":"info","message":"Break time added for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","startTime":"13:00","timestamp":"2025-07-22T09:29:37.173Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/doctor/schedule/break \u001b[32m200\u001b[0m 46.288 ms - 58\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:29:37.176Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 15.878 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:29:56.373Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 62.003 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:44:46.519Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 52.816 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:44:46.584Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 14.522 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:45:07.989Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 14.776 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:45:08.014Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 28.032 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:47:30.742Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 39.728 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:47:30.797Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 29.651 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:48:12.015Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 57.720 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:48:12.108Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 19.351 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:49:30.686Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 11.493 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:49:30.703Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 21.748 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:53:46.296Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 21.501 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:53:46.322Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 18.814 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:54:47.832Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 74.996 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:54:47.938Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 19.206 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:54:50.207Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 40.337 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:54:50.299Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 20.857 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:54:53.286Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.666 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:55:31.553Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 24.953 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:55:32.898Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 23.023 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:55:36.695Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.685 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:55:42.865Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.431 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:55:44.270Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.468 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:55:49.330Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 15.115 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:55:50.625Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 28.679 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:55:51.275Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 88.027 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:56:00.010Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 18.132 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:56:00.828Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.010 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:56:09.658Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 12.165 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:56:16.203Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 14.100 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:56:16.222Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.317 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:57:38.281Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 36.735 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:57:50.610Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 39.994 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:57:50.660Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 24.490 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:57:55.830Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 27.008 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T09:59:19.696Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.088 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:01:07.622Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","endTime":"14:00","level":"info","message":"Break time added for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","startTime":"13:00","timestamp":"2025-07-22T10:01:41.221Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/doctor/schedule/break \u001b[32m200\u001b[0m 54.455 ms - 58\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:01:41.225Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 49.587 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:01:46.296Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 28.335 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:01:48.836Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 76.785 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:01:48.946Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 21.993 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:01:51.450Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.899 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:02:06.791Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 16.514 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:03:15.298Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.777 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:05:00.791Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.829 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:05:31.593Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 20.461 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:05:35.582Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 7.234 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:05:44.942Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.598 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:05:46.589Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.323 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:05:50.525Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.944 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:05:52.734Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.206 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:06:22.621Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.529 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:06:30.111Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.797 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:08:33.029Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.391 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:08:37.687Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.135 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:08:43.748Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.416 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:09:11.523Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.799 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:10:32.700Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 7.855 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:12:31.201Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.736 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:14:39.228Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 7.762 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:14:55.143Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.899 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:16:29.372Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.901 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:17:30.186Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:18:14.179Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:18:35.704Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:18:35.707Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:18:35.718Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:18:35.767Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:18:35.809Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:18:35.815Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:18:35.816Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:18:35.817Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:18:35.818Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:18:46.032Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:18:58.713Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:18:58.717Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:18:58.726Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:18:58.782Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:18:58.831Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:18:58.835Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:18:58.836Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:18:58.836Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:18:58.838Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 62.628 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:19:32.813Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 12.539 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:19:38.495Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 33.178 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:19:38.533Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 26.947 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:19:41.050Z"}
+{"breakId":"687f5a010cf5e43b86844f8b","doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Break time removed for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T10:19:45.555Z"}
+{"level":"info","message":"\u001b[0mDELETE /api/doctors/doctor/schedule/break/687f5a010cf5e43b86844f8b \u001b[32m200\u001b[0m 1088.301 ms - 60\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:19:45.558Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 10.938 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:19:55.210Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 32.300 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:20:02.857Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 67.829 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:20:02.935Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 29.404 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:20:05.316Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.576 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:26.704Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.198 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:30.414Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 77.603 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:33.928Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 12.569 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:35.400Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 37.927 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:35.444Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.618 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:40.916Z"}
+{"breakId":"687f61850cf5e43b86845239","doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Break time removed for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T10:22:43.402Z"}
+{"level":"info","message":"\u001b[0mDELETE /api/doctors/doctor/schedule/break/687f61850cf5e43b86845239 \u001b[32m200\u001b[0m 30.239 ms - 60\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:43.406Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 21.032 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:43.448Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","endTime":"14:00","level":"info","message":"Break time added for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","startTime":"13:00","timestamp":"2025-07-22T10:22:49.346Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/doctor/schedule/break \u001b[32m200\u001b[0m 27.707 ms - 58\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:49.347Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 13.886 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:49.374Z"}
+{"breakId":"687f6679a592ee8ae02004a3","doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Break time removed for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T10:22:56.037Z"}
+{"level":"info","message":"\u001b[0mDELETE /api/doctors/doctor/schedule/break/687f6679a592ee8ae02004a3 \u001b[32m200\u001b[0m 22.652 ms - 60\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:56.038Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 22.669 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:56.072Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","endTime":"14:00","level":"info","message":"Break time added for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","startTime":"13:00","timestamp":"2025-07-22T10:22:59.599Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/doctor/schedule/break \u001b[32m200\u001b[0m 24.493 ms - 58\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:59.600Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 16.591 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:22:59.623Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","endTime":"14:00","level":"info","message":"Break time added for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","startTime":"13:00","timestamp":"2025-07-22T10:23:03.057Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/doctor/schedule/break \u001b[32m200\u001b[0m 31.028 ms - 58\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:23:03.062Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 15.877 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:23:03.099Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:23:25.635Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:23:39.453Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:23:39.455Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:23:39.465Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:23:39.515Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:23:39.557Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:23:39.563Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:23:39.563Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:23:39.564Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:23:39.565Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 41.981 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:09.853Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 16.786 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:11.388Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 15.654 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:13.863Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 45.382 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:20.079Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 20.565 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:21.669Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 18.421 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:21.695Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.086 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:24.736Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","endTime":"14:00","level":"info","message":"Break time added for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","startTime":"13:00","timestamp":"2025-07-22T10:24:30.971Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/doctor/schedule/break \u001b[32m200\u001b[0m 57.499 ms - 58\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:30.974Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 12.127 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:31.011Z"}
+{"breakId":"687f66de373c188ab1673167","doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Break time removed for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T10:24:35.382Z"}
+{"level":"info","message":"\u001b[0mDELETE /api/doctors/doctor/schedule/break/687f66de373c188ab1673167 \u001b[32m200\u001b[0m 40.636 ms - 60\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:35.385Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 14.864 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:35.417Z"}
+{"breakId":"687f6687a592ee8ae0200510","doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Break time removed for doctor: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T10:24:38.828Z"}
+{"level":"info","message":"\u001b[0mDELETE /api/doctors/doctor/schedule/break/687f6687a592ee8ae0200510 \u001b[32m200\u001b[0m 30.116 ms - 60\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:38.830Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 19.764 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:24:38.862Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.020 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:27:01.752Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 13.450 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:27:05.612Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.675 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:27:12.698Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.329 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:27:27.020Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.682 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:27:59.526Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 7.822 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:28:21.913Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.311 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:29:05.211Z"}
+{"level":"info","message":"⏰ Checking for upcoming appointments","service":"appointment-crm","timestamp":"2025-07-22T10:30:00.026Z"}
+{"level":"info","message":"✅ Upcoming appointments check completed","service":"appointment-crm","timestamp":"2025-07-22T10:30:00.077Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 15.691 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:31:06.718Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.595 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:34:35.665Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:36:50.453Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:37:10.945Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:37:10.947Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:37:10.961Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:37:11.055Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:37:11.183Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:37:11.234Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:37:11.240Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:37:11.242Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:37:11.242Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:37:18.032Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:37:54.207Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:37:54.210Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:37:54.222Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:37:54.266Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:37:54.315Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:37:54.321Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:37:54.322Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:37:54.322Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:37:54.323Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 67.553 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:37:58.790Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 47.953 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:38:01.998Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 37.832 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:38:02.042Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 29.997 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:38:04.650Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 29.349 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:38:12.883Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 20.342 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:38:54.709Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 16.287 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:07.481Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 18.757 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:09.417Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 76.378 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:09.508Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 19.462 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:12.203Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.949 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:43.347Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 16.998 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:47.993Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 15.902 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:49.656Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 16.615 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:49.684Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 18.433 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:50.088Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 25.643 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:50.121Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.308 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:39:52.052Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.207 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:01.659Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 15.919 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:02.193Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 14.682 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:04.174Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 31.835 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:04.215Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 20.558 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:08.150Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.996 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:26.885Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 13.540 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:32.542Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 15.906 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:32.915Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 14.282 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:35.182Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 35.203 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:35.228Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 31.694 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:38.112Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.206 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:53.286Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.475 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:40:59.660Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.052 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:00.410Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.389 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:02.430Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 33.451 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:03.163Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 68.584 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:03.975Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 23.281 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:12.629Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 37.013 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:12.670Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 44.749 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:16.431Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.651 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:30.596Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 15.587 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:31.220Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 46.241 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:36.103Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 43.591 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:40.401Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.313 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:48.721Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 7.250 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:51.085Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 13.524 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:51.547Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.087 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:41:52.455Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:42:14.269Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:42:37.927Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:42:37.931Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:42:37.942Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:42:37.991Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:42:38.039Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:42:38.046Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:42:38.048Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:42:38.049Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:42:38.050Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","email":"harman@gmail.com","level":"info","message":"Doctor logged in: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T10:42:58.991Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/login \u001b[32m200\u001b[0m 125.372 ms - 427\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:42:59.014Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 50.943 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:42:59.091Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 90.797 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:43:00.784Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:43:21.422Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:43:39.888Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:43:39.900Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:43:39.940Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:43:40.067Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:43:40.156Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:43:40.171Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:43:40.172Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:43:40.173Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:43:40.174Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 65.711 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:43:41.726Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 22.912 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:43:43.730Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 28.701 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:43:43.788Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 22.301 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:43:48.388Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 23.093 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:44:59.113Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:46:00.138Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:46:12.914Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:46:12.918Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:46:12.930Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:46:12.982Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:46:13.023Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:46:13.031Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:46:13.032Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:46:13.032Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:46:13.032Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 61.031 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:46:16.870Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 18.720 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:46:18.680Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 96.996 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:46:18.794Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 23.561 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:46:23.782Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 25.968 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:47:24.635Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 29.578 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:47:25.619Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.804 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:47:42.343Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 17.644 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:47:54.365Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:48:15.855Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:48:27.392Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:48:27.395Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:48:27.405Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:48:27.453Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:48:27.491Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:48:27.497Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:48:27.498Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:48:27.499Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:48:27.499Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 50.128 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:48:29.430Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 41.892 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:48:31.547Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 61.951 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:48:31.614Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 25.922 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:48:34.262Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 90.118 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:49:06.762Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 23.758 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:49:09.701Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 26.953 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:49:09.760Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 19.519 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:49:11.321Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:49:23.709Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:49:41.593Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:49:41.596Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:49:41.608Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:49:41.666Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:49:41.718Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:49:41.724Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:49:41.725Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:49:41.726Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:49:41.726Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","email":"harman@gmail.com","level":"info","message":"Doctor logged in: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T10:49:54.405Z"}
+{"level":"info","message":"\u001b[0mPOST /api/doctors/login \u001b[32m200\u001b[0m 26.005 ms - 427\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:49:54.409Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 24.772 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:49:54.465Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 22.226 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:49:56.001Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.663 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:51:53.907Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 55.831 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:51:58.138Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 18.158 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:51:58.677Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 20.812 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:52:01.609Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 30.056 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:52:01.646Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 18.132 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:52:04.397Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 16.555 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:52:14.395Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 60.110 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:52:14.460Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.173 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:52:15.815Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 15.319 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:52:23.445Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.410 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:52:42.308Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 43.132 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:09.008Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.582 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:14.334Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 22.089 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:14.650Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 18.350 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:24.816Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.686 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:25.575Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.547 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:26.347Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 10.604 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:37.419Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 41.869 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:37.466Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.890 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:40.130Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 9.855 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:50.824Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 13.631 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T10:53:50.842Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T10:55:27.444Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:55:43.516Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T10:55:43.518Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T10:55:43.529Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T10:55:43.566Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T10:55:43.608Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T10:55:43.613Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T10:55:43.613Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T10:55:43.613Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T10:55:43.614Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 66.118 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:08:16.810Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 33.155 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:09:26.296Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 45.055 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:09:34.607Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.813 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:10:52.046Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 16.154 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:10:55.374Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.233 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:10:56.509Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.813 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:11:06.742Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.424 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:11:09.435Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 13.298 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:11:13.439Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 13.394 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:11:16.466Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.692 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:11:20.481Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 6.745 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:11:28.030Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.082 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:11:31.757Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 7.882 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:12:23.273Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 18.872 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:13:13.157Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.547 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:14:19.287Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.259 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:15:38.573Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 13.221 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:16:02.518Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 21.566 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:16:04.305Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 18.357 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:16:04.333Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.757 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:16:06.822Z"}
+{"error":{"message":"Doctor not found","name":"Error","stack":"Error: Doctor not found\n    at D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\src\\controllers\\doctorController.ts:519:15\n    at Generator.next (<anonymous>)\n    at fulfilled (D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\src\\controllers\\doctorController.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":404},"level":"error","message":"Development Error:","request":{"body":{"isAvailable":false,"maxAppointmentsPerDay":20,"unavailableDates":[]},"headers":{"accept":"application/json, text/plain, */*","accept-encoding":"gzip, deflate, br, zstd","accept-language":"en-US,en;q=0.9","authorization":"[REDACTED]","connection":"keep-alive","content-length":"70","content-type":"application/json","host":"localhost:3000","origin":"http://localhost:5173","referer":"http://localhost:5173/","sec-ch-ua":"\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"","sec-ch-ua-mobile":"?0","sec-ch-ua-platform":"\"Windows\"","sec-fetch-dest":"empty","sec-fetch-mode":"cors","sec-fetch-site":"same-site","user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"},"ip":"127.0.0.1","method":"PATCH","params":{},"query":{},"url":"/api/doctors/doctor/availability","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"},"service":"appointment-crm","timestamp":"2025-07-22T11:16:11.069Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[33m404\u001b[0m 88.120 ms - 563\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:16:11.074Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 17.106 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:16:14.564Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 17.714 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:16:14.587Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.797 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:16:16.950Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 17.699 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:16:32.774Z"}
+{"error":{"message":"Doctor not found","name":"Error","stack":"Error: Doctor not found\n    at D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\src\\controllers\\doctorController.ts:519:15\n    at Generator.next (<anonymous>)\n    at fulfilled (D:\\Adsol Work\\Dental CRM\\dental-crm-backend\\src\\controllers\\doctorController.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":404},"level":"error","message":"Development Error:","request":{"body":{"isAvailable":false,"maxAppointmentsPerDay":20,"unavailableDates":[]},"headers":{"accept":"application/json, text/plain, */*","accept-encoding":"gzip, deflate, br, zstd","accept-language":"en-US,en;q=0.9","authorization":"[REDACTED]","connection":"keep-alive","content-length":"70","content-type":"application/json","host":"localhost:3000","origin":"http://localhost:5173","referer":"http://localhost:5173/","sec-ch-ua":"\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"","sec-ch-ua-mobile":"?0","sec-ch-ua-platform":"\"Windows\"","sec-fetch-dest":"empty","sec-fetch-mode":"cors","sec-fetch-site":"same-site","user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"},"ip":"127.0.0.1","method":"PATCH","params":{},"query":{},"url":"/api/doctors/doctor/availability","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"},"service":"appointment-crm","timestamp":"2025-07-22T11:16:33.417Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[33m404\u001b[0m 17.364 ms - 563\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:16:33.420Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T11:17:07.522Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T11:17:23.649Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T11:17:23.651Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T11:17:23.670Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T11:17:23.713Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T11:17:23.752Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T11:17:23.759Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T11:17:23.759Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T11:17:23.760Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T11:17:23.761Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 34.346 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:17:37.714Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:17:38.455Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 55.153 ms - 157\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:17:38.460Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 26.609 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:17:42.263Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 18.328 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:17:42.286Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 16.084 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:17:44.743Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:17:49.964Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 15.376 ms - 156\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:17:49.966Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 15.524 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:17:53.375Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 15.067 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:17:53.402Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 326.265 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:17:58.341Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.693 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:22:29.291Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 22.474 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:22:32.628Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.567 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:22:43.802Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:22:47.359Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 16.474 ms - 157\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:22:47.364Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 27.648 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:22:50.680Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 43.498 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:22:50.733Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 16.897 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:22:52.369Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 13.533 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:23:04.524Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 17.055 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:23:15.509Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.660 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:26:36.675Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.229 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:27:50.637Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.308 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:27:51.280Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.555 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:28:01.411Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.802 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:28:09.724Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.600 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:28:43.763Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.499 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:28:48.479Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.891 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:28:50.402Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.965 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:28:54.615Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 27.951 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:28:56.967Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 14.297 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:28:58.493Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 21.619 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:28:58.528Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 17.083 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:29:03.487Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:29:04.508Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 32.531 ms - 156\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:29:04.511Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 23.227 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:29:07.350Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 41.818 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:29:07.426Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 8.751 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:29:09.767Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.259 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:30:16.832Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.343 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:30:36.074Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.468 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:28.666Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 23.012 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:31.119Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 14.096 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:32.963Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 21.653 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:32.990Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.700 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:41.487Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:31:42.254Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 17.287 ms - 157\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:42.255Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 20.601 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:42.304Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:31:51.270Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 19.504 ms - 156\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:51.273Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 14.164 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:51.301Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:31:55.348Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 26.336 ms - 157\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:55.351Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 17.134 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:55.382Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:31:58.069Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 27.152 ms - 156\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:58.070Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 37.777 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:31:58.120Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:32:27.513Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 18.452 ms - 157\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:32:27.515Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 14.033 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:32:27.538Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 6.162 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:32:42.224Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T11:37:22.341Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T11:37:36.668Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T11:37:36.670Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T11:37:36.681Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T11:37:36.719Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T11:37:36.756Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T11:37:36.761Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T11:37:36.761Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T11:37:36.762Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T11:37:36.762Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 53.577 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:39:36.409Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 17.642 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:39:57.992Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.633 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:03.622Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.945 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:10.919Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 31.947 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:12.099Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 31.184 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:14.672Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:40:16.009Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 32.141 ms - 156\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:16.012Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 13.000 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:16.043Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 7.734 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:33.044Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.247 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:38.161Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.457 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:56.837Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[32m200\u001b[0m 35.656 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:58.034Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 83.095 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:40:58.133Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 27.171 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:41:00.650Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:41:04.519Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 41.075 ms - 157\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:41:04.523Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 15.676 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:41:04.557Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.209 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:41:20.925Z"}
+{"doctorId":"DOC-1753168013358-4pqd8nc8a","level":"info","message":"Doctor availability updated: DOC-1753168013358-4pqd8nc8a","service":"appointment-crm","timestamp":"2025-07-22T11:41:21.296Z"}
+{"level":"info","message":"\u001b[0mPATCH /api/doctors/doctor/availability \u001b[32m200\u001b[0m 47.372 ms - 156\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:41:21.298Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[32m200\u001b[0m 16.960 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:41:21.327Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 11.356 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:41:32.157Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 16.093 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:43:28.474Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.655 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:43:39.013Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 25.941 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:43:46.056Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T11:44:14.114Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T11:44:25.370Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T11:44:25.373Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T11:44:25.385Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T11:44:25.423Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T11:44:25.457Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T11:44:25.462Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T11:44:25.462Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T11:44:25.463Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T11:44:25.464Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T11:44:45.366Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-22T11:44:56.912Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-22T11:44:56.914Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-22T11:44:56.922Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-22T11:44:56.959Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-22T11:44:56.996Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-22T11:44:57.001Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-22T11:44:57.002Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-22T11:44:57.002Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-22T11:44:57.003Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 43.851 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:45:23.325Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.563 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:50:27.613Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.003 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:53:41.938Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.012 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:53:43.376Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 21.983 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:53:59.341Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 18.269 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:54:02.533Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.782 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:54:03.531Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.741 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:54:44.957Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.186 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:54:45.607Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 17.633 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:55:04.985Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 12.887 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:55:05.760Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 9.880 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:55:24.313Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.048 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:56:19.873Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 10.034 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:57:06.612Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 8.734 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T11:58:59.022Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/schedule \u001b[36m304\u001b[0m 14.794 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T12:00:08.841Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T12:01:04.948Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T12:01:04.950Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T12:01:05.121Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T12:01:05.123Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T12:01:05.276Z"}
+{"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-22T12:01:05.277Z"}

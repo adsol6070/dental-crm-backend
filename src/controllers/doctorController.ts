@@ -448,7 +448,9 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctor = await Doctor.findById(req.user?.id).select("schedule");
+      const doctor = await Doctor.findById(req.doctor?.id).select(
+        "schedule availability"
+      );
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -456,7 +458,9 @@ class DoctorController {
 
       res.json({
         success: true,
-        data: { schedule: doctor.schedule },
+        data: {
+          schedule: { ...doctor.schedule, availability: doctor.availability },
+        },
       });
     } catch (error) {
       next(error);
@@ -470,10 +474,10 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const scheduleData = req.validatedData as UpdateScheduleBody;
+      const scheduleData = req.body as UpdateScheduleBody;
 
       const doctor = await Doctor.findByIdAndUpdate(
-        req.user?.id,
+        req.doctor?.id,
         { schedule: scheduleData },
         { new: true, runValidators: true }
       );
@@ -503,11 +507,19 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const updateData = req.validatedData;
+      const updateData = req.body;
+
+      const updatePayload = Object.entries(updateData).reduce(
+        (acc, [key, value]) => {
+          acc[`availability.${key}`] = value;
+          return acc;
+        },
+        {} as Record<string, any>
+      );
 
       const doctor = await Doctor.findByIdAndUpdate(
-        req.user?.id,
-        { availability: updateData },
+        req.doctor?.id,
+        { $set: updatePayload },
         { new: true, runValidators: true }
       );
 
@@ -536,18 +548,19 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { startTime, endTime, description } = req.validatedData;
+      const { day, startTime, endTime, title } = req.body;
 
-      const doctor = await Doctor.findById(req.user?.id);
+      const doctor = await Doctor.findById(req.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
       }
 
       doctor.schedule.breakTimes.push({
+        day,
         startTime,
         endTime,
-        description,
+        title,
       });
 
       await doctor.save();
@@ -574,9 +587,9 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { breakId } = req.validatedParams;
+      const { breakId } = req.params;
 
-      const doctor = await Doctor.findById(req.user?.id);
+      const doctor = await Doctor.findById(req.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -1256,19 +1269,19 @@ class DoctorController {
       statistics.completionRate =
         statistics.totalAppointments > 0
           ? (
-            (statistics.completedAppointments /
-              statistics.totalAppointments) *
-            100
-          ).toFixed(1)
+              (statistics.completedAppointments /
+                statistics.totalAppointments) *
+              100
+            ).toFixed(1)
           : "0";
 
       statistics.cancellationRate =
         statistics.totalAppointments > 0
           ? (
-            (statistics.cancelledAppointments /
-              statistics.totalAppointments) *
-            100
-          ).toFixed(1)
+              (statistics.cancelledAppointments /
+                statistics.totalAppointments) *
+              100
+            ).toFixed(1)
           : "0";
 
       // Get unique patients count
@@ -2397,8 +2410,9 @@ class DoctorController {
 
       res.json({
         success: true,
-        message: `Doctor ${isActive ? "activated" : "deactivated"
-          } successfully`,
+        message: `Doctor ${
+          isActive ? "activated" : "deactivated"
+        } successfully`,
         data: { doctor },
       });
     } catch (error) {
@@ -2438,8 +2452,9 @@ class DoctorController {
       // Send notification email
       await NotificationService.sendEmail({
         to: doctor.personalInfo.email,
-        subject: `Account ${verificationStatus === "verified" ? "Verified" : "Rejected"
-          }`,
+        subject: `Account ${
+          verificationStatus === "verified" ? "Verified" : "Rejected"
+        }`,
         template: "doctor-verification-status",
         data: {
           doctorName: doctor.fullName,
