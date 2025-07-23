@@ -51,10 +51,20 @@ export interface ISchedule {
   breakTimes: IBreakTime[];
 }
 
+export interface IUnavailableDate {
+  id?: string;
+  date: string; // YYYY-MM-DD format
+  reason: string;
+  type: "full-day" | "half-day" | "morning" | "afternoon";
+  notes?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 // Interface for availability settings
 export interface IAvailability {
   isAvailable: boolean;
-  unavailableDates: Date[];
+  unavailableDates: IUnavailableDate[];
   maxAppointmentsPerDay: number;
 }
 
@@ -122,7 +132,10 @@ export interface IDoctorModel extends Model<IDoctorDocument> {
   findByLicenseNumber(licenseNumber: string): Promise<IDoctorDocument | null>;
   findByEmail(email: string): Promise<IDoctorDocument | null>;
   findPendingVerification(): Promise<IDoctorDocument[]>;
-  findAndAuthenticateDoctor(email: string, password: string): Promise<IDoctorDocument | null>;
+  findAndAuthenticateDoctor(
+    email: string,
+    password: string
+  ): Promise<IDoctorDocument | null>;
 }
 
 // Mongoose schema definition with proper TypeScript integration
@@ -318,8 +331,63 @@ const doctorSchema = new Schema<IDoctorDocument, IDoctorModel>(
         default: true,
       },
       unavailableDates: {
-        type: [Date],
+        type: [
+          {
+            id: {
+              type: String,
+              default: (): string => new Date().getTime().toString(),
+            },
+            date: {
+              type: String,
+              required: [true, "Date is required"],
+              validate: {
+                validator: (date: string): boolean => {
+                  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+                  return dateRegex.test(date) && !isNaN(Date.parse(date));
+                },
+                message: "Date must be in YYYY-MM-DD format",
+              },
+            },
+            reason: {
+              type: String,
+              required: [true, "Reason is required"],
+              trim: true,
+              maxlength: [100, "Reason cannot exceed 100 characters"],
+            },
+            type: {
+              type: String,
+              enum: {
+                values: ["full-day", "half-day", "morning", "afternoon"],
+                message:
+                  "Type must be one of: full-day, half-day, morning, afternoon",
+              },
+              required: [true, "Type is required"],
+              default: "full-day",
+            },
+            notes: {
+              type: String,
+              trim: true,
+              maxlength: [500, "Notes cannot exceed 500 characters"],
+            },
+            createdAt: {
+              type: Date,
+              default: Date.now,
+            },
+            updatedAt: {
+              type: Date,
+              default: Date.now,
+            },
+          },
+        ],
         default: [],
+        validate: {
+          validator: function (unavailableDates: IUnavailableDate[]): boolean {
+            // Check for duplicate dates
+            const dates = unavailableDates.map((ud) => ud.date);
+            return dates.length === new Set(dates).size;
+          },
+          message: "Duplicate unavailable dates are not allowed",
+        },
       },
       maxAppointmentsPerDay: {
         type: Number,
@@ -480,14 +548,24 @@ doctorSchema.virtual("fullName").get(function (this: IDoctorDocument): string {
 // Pre-save middleware with proper typing
 doctorSchema.pre<IDoctorDocument>("save", async function (next): Promise<void> {
   // Hash password if modified
-  if (this.isModified("authentication.password") && this.authentication.password) {
-    this.authentication.password = await bcrypt.hash(this.authentication.password, 12);
+  if (
+    this.isModified("authentication.password") &&
+    this.authentication.password
+  ) {
+    this.authentication.password = await bcrypt.hash(
+      this.authentication.password,
+      12
+    );
     this.authentication.lastPasswordChange = new Date();
   }
 
   // Validate that statistics are consistent
-  if (this.statistics.completedAppointments > this.statistics.totalAppointments) {
-    return next(new Error("Completed appointments cannot exceed total appointments"));
+  if (
+    this.statistics.completedAppointments > this.statistics.totalAppointments
+  ) {
+    return next(
+      new Error("Completed appointments cannot exceed total appointments")
+    );
   }
 
   // Ensure email is lowercase
@@ -496,12 +574,84 @@ doctorSchema.pre<IDoctorDocument>("save", async function (next): Promise<void> {
   }
 
   // Set approval date when admin verifies
-  if (this.isModified("isVerifiedByAdmin") && this.isVerifiedByAdmin && !this.approvalDate) {
+  if (
+    this.isModified("isVerifiedByAdmin") &&
+    this.isVerifiedByAdmin &&
+    !this.approvalDate
+  ) {
     this.approvalDate = new Date();
+  }
+
+  if (this.isModified("availability.unavailableDates")) {
+    this.availability.unavailableDates.forEach(date => {
+      if (!date.updatedAt || this.isModified(`availability.unavailableDates.${date.id}`)) {
+        date.updatedAt = new Date();
+      }
+    });
   }
 
   next();
 });
+
+doctorSchema.methods.addUnavailableDate = function (
+  this: IDoctorDocument,
+  dateData: Omit<IUnavailableDate, 'id' | 'createdAt' | 'updatedAt'>
+): IUnavailableDate {
+  const unavailableDate: IUnavailableDate = {
+    id: new Date().getTime().toString(),
+    date: dateData.date,
+    reason: dateData.reason,
+    type: dateData.type,
+    notes: dateData.notes,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+  
+  this.availability.unavailableDates.push(unavailableDate);
+  return unavailableDate;
+};
+
+doctorSchema.methods.removeUnavailableDate = function (
+  this: IDoctorDocument,
+  dateId: string
+): boolean {
+  const index = this.availability.unavailableDates.findIndex(
+    (date) => date.id === dateId
+  );
+  
+  if (index === -1) {
+    return false;
+  }
+  
+  this.availability.unavailableDates.splice(index, 1);
+  return true;
+};
+
+doctorSchema.methods.updateUnavailableDate = function (
+  this: IDoctorDocument,
+  dateId: string,
+  updateData: Partial<Omit<IUnavailableDate, 'id' | 'createdAt'>>
+): IUnavailableDate | null {
+  const unavailableDate = this.availability.unavailableDates.find(
+    (date) => date.id === dateId
+  );
+  
+  if (!unavailableDate) {
+    return null;
+  }
+  
+  Object.assign(unavailableDate, updateData, { updatedAt: new Date() });
+  return unavailableDate;
+};
+
+doctorSchema.methods.isDateUnavailable = function (
+  this: IDoctorDocument,
+  date: string
+): IUnavailableDate | null {
+  return this.availability.unavailableDates.find(
+    (unavailableDate) => unavailableDate.date === date
+  ) || null;
+};
 
 // ✅ Added authentication instance methods
 doctorSchema.methods.comparePassword = async function (
@@ -512,22 +662,30 @@ doctorSchema.methods.comparePassword = async function (
   return bcrypt.compare(candidatePassword, this.authentication.password);
 };
 
-doctorSchema.methods.generatePasswordResetToken = function (this: IDoctorDocument): string {
-  const crypto = require('crypto');
-  const resetToken = crypto.randomBytes(32).toString('hex');
+doctorSchema.methods.generatePasswordResetToken = function (
+  this: IDoctorDocument
+): string {
+  const crypto = require("crypto");
+  const resetToken = crypto.randomBytes(32).toString("hex");
   this.authentication.passwordResetToken = resetToken;
-  this.authentication.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+  this.authentication.passwordResetExpires = new Date(
+    Date.now() + 10 * 60 * 1000
+  ); // 10 minutes
   return resetToken;
 };
 
-doctorSchema.methods.generateEmailVerificationToken = function (this: IDoctorDocument): string {
-  const crypto = require('crypto');
-  const verificationToken = crypto.randomBytes(32).toString('hex');
+doctorSchema.methods.generateEmailVerificationToken = function (
+  this: IDoctorDocument
+): string {
+  const crypto = require("crypto");
+  const verificationToken = crypto.randomBytes(32).toString("hex");
   this.authentication.verificationToken = verificationToken;
   return verificationToken;
 };
 
-doctorSchema.methods.isAccountFullyVerified = function (this: IDoctorDocument): boolean {
+doctorSchema.methods.isAccountFullyVerified = function (
+  this: IDoctorDocument
+): boolean {
   return (
     !!this.authentication.isVerified &&
     !!this.isVerifiedByAdmin &&
@@ -536,19 +694,19 @@ doctorSchema.methods.isAccountFullyVerified = function (this: IDoctorDocument): 
 };
 
 // Existing instance methods
-doctorSchema.methods.isAvailableOnDate = function (
-  this: IDoctorDocument,
-  date: Date
-): boolean {
-  if (!this.availability.isAvailable || !this.isActive) {
-    return false;
-  }
+// doctorSchema.methods.isAvailableOnDate = function (
+//   this: IDoctorDocument,
+//   date: Date
+// ): boolean {
+//   if (!this.availability.isAvailable || !this.isActive) {
+//     return false;
+//   }
 
-  // Check if date is in unavailable dates
-  return !this.availability.unavailableDates.some(
-    (unavailableDate) => unavailableDate.toDateString() === date.toDateString()
-  );
-};
+//   // Check if date is in unavailable dates
+//   return !this.availability.unavailableDates.some(
+//     (unavailableDate) => unavailableDate.toDateString() === date.toDateString()
+//   );
+// };
 
 doctorSchema.methods.getWorkingHoursForDay = function (
   this: IDoctorDocument,
@@ -622,10 +780,7 @@ doctorSchema.statics.findPendingVerification = function (
   this: IDoctorModel
 ): Promise<IDoctorDocument[]> {
   return this.find({
-    $or: [
-      { "authentication.isVerified": false },
-      { isVerifiedByAdmin: false },
-    ],
+    $or: [{ "authentication.isVerified": false }, { isVerifiedByAdmin: false }],
   })
     .sort({ registrationDate: -1 })
     .exec();

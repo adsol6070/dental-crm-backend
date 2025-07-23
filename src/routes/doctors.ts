@@ -118,14 +118,36 @@ router.delete(
 
 // Unavailable dates management
 router.get("/doctor/unavailable-dates", DoctorController.getUnavailableDates);
+
+router.get("/doctor/unavailable-dates/summary", DoctorController.getUnavailableDatesSummary);
 router.post(
   "/doctor/unavailable-dates",
   validateRequest(doctorValidation.addUnavailableDate),
   DoctorController.addUnavailableDate
 );
+
+
+router.post(
+  "/doctor/unavailable-dates/range",
+  validateRequest(doctorValidation.addUnavailableDateRange),
+  DoctorController.addUnavailableDateRange
+);
+
+router.put(
+  "/doctor/unavailable-dates/:dateId",
+  validateRequest(doctorValidation.updateUnavailableDate),
+  DoctorController.updateUnavailableDate
+);
+
 router.delete(
-  "/doctor/unavailable-dates/:date",
+  "/doctor/unavailable-dates/:dateId",
   DoctorController.removeUnavailableDate
+);
+
+router.post(
+  "/doctor/unavailable-dates/bulk-remove",
+  validateRequest(doctorValidation.bulkRemoveUnavailableDates),
+  DoctorController.bulkRemoveUnavailableDates
 );
 
 // Fee management
@@ -139,7 +161,7 @@ router.put(
 // Password management
 router.post(
   "/doctor/change-password",
-  validateRequest(doctorValidation.changePassword),
+  // validateRequest(doctorValidation.changePassword),
   DoctorController.changePassword
 );
 

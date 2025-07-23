@@ -317,6 +317,55 @@ export const doctorValidation = {
   // Update availability validation
   updateAvailability: availabilitySchema,
 
+  // Update fees validation
+  updateFees: Joi.object({
+  consultationFee: Joi.number()
+    .min(1)
+    .max(50000)
+    .required()
+    .messages({
+      "number.base": "Consultation fee must be a number",
+      "number.min": "Consultation fee must be at least ₹1",
+      "number.max": "Consultation fee cannot exceed ₹50,000",
+      "any.required": "Consultation fee is required",
+    }),
+  followUpFee: Joi.number()
+    .min(0)
+    .max(50000)
+    .optional()
+    .messages({
+      "number.base": "Follow-up fee must be a number",
+      "number.min": "Follow-up fee cannot be negative",
+      "number.max": "Follow-up fee cannot exceed ₹50,000",
+    }),
+  emergencyFee: Joi.number()
+    .min(0)
+    .max(100000)
+    .optional()
+    .messages({
+      "number.base": "Emergency fee must be a number",
+      "number.min": "Emergency fee cannot be negative", 
+      "number.max": "Emergency fee cannot exceed ₹1,00,000",
+    }),
+})
+.custom((value, helpers) => {
+  // Custom validation: followUpFee should not be higher than consultationFee
+  if (value.followUpFee && value.followUpFee > value.consultationFee) {
+    return helpers.error("custom.followUpTooHigh");
+  }
+  
+  // Custom validation: emergencyFee should be higher than consultationFee
+  if (value.emergencyFee && value.emergencyFee < value.consultationFee) {
+    return helpers.error("custom.emergencyTooLow");
+  }
+  
+  return value;
+}, "Fee structure validation")
+.messages({
+  "custom.followUpTooHigh": "Follow-up fee should not be higher than consultation fee",
+  "custom.emergencyTooLow": "Emergency fee should be higher than consultation fee",
+}),
+
   // Add break time validation
   addBreak: Joi.object({
     startTime: timeSchema,
@@ -338,50 +387,126 @@ export const doctorValidation = {
     }),
 
   // Add unavailable date validation
-  addUnavailableDate: Joi.object({
-    date: Joi.date().min("now").required().messages({
-      "date.min": "Cannot add past dates as unavailable",
-      "any.required": "Date is required",
-    }),
-    reason: Joi.string().trim().max(500).optional().messages({
-      "string.max": "Reason cannot exceed 500 characters",
-    }),
-  }),
-
-  // Update fees validation
-  updateFees: feesSchema,
-
-  // Change password validation
-  changePassword: Joi.object({
-    currentPassword: Joi.string().required().messages({
-      "any.required": "Current password is required",
-    }),
-    newPassword: Joi.string()
-      .min(8)
-      .max(128)
-      .pattern(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/
-      )
+   addUnavailableDate: Joi.object({
+    date: Joi.string()
+      .pattern(/^\d{4}-\d{2}-\d{2}$/)
       .required()
       .messages({
-        "string.min": "Password must be at least 8 characters",
-        "string.max": "Password cannot exceed 128 characters",
-        "string.pattern.base":
-          "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
-        "any.required": "New password is required",
+        'string.pattern.base': 'Date must be in YYYY-MM-DD format',
+        'any.required': 'Date is required',
       }),
-  })
-    .custom((value, helpers) => {
-      if (value.currentPassword === value.newPassword) {
-        return helpers.error("custom.samePassword");
-      }
-      return value;
-    }, "Password validation")
-    .messages({
-      "custom.samePassword":
-        "New password must be different from current password",
-    }),
+    reason: Joi.string()
+      .trim()
+      .min(3)
+      .max(100)
+      .required()
+      .messages({
+        'string.min': 'Reason must be at least 3 characters long',
+        'string.max': 'Reason cannot exceed 100 characters',
+        'any.required': 'Reason is required',
+      }),
+    type: Joi.string()
+      .valid('full-day', 'half-day', 'morning', 'afternoon')
+      .default('full-day')
+      .messages({
+        'any.only': 'Type must be one of: full-day, half-day, morning, afternoon',
+      }),
+    notes: Joi.string()
+      .trim()
+      .max(500)
+      .allow('')
+      .optional()
+      .messages({
+        'string.max': 'Notes cannot exceed 500 characters',
+      }),
+  }),
 
+  addUnavailableDateRange: Joi.object({
+    startDate: Joi.string()
+      .pattern(/^\d{4}-\d{2}-\d{2}$/)
+      .required()
+      .messages({
+        'string.pattern.base': 'Start date must be in YYYY-MM-DD format',
+        'any.required': 'Start date is required',
+      }),
+    endDate: Joi.string()
+      .pattern(/^\d{4}-\d{2}-\d{2}$/)
+      .required()
+      .messages({
+        'string.pattern.base': 'End date must be in YYYY-MM-DD format',
+        'any.required': 'End date is required',
+      }),
+    reason: Joi.string()
+      .trim()
+      .min(3)
+      .max(100)
+      .required()
+      .messages({
+        'string.min': 'Reason must be at least 3 characters long',
+        'string.max': 'Reason cannot exceed 100 characters',
+        'any.required': 'Reason is required',
+      }),
+    type: Joi.string()
+      .valid('full-day', 'half-day', 'morning', 'afternoon')
+      .default('full-day')
+      .messages({
+        'any.only': 'Type must be one of: full-day, half-day, morning, afternoon',
+      }),
+    notes: Joi.string()
+      .trim()
+      .max(500)
+      .allow('')
+      .optional()
+      .messages({
+        'string.max': 'Notes cannot exceed 500 characters',
+      }),
+  }).custom((value, helpers) => {
+    const startDate = new Date(value.startDate);
+    const endDate = new Date(value.endDate);
+    
+    if (startDate > endDate) {
+      return helpers.message({ custom: 'Start date must be before or equal to end date' });
+    }
+    
+    return value;
+  }),
+
+  updateUnavailableDate: Joi.object({
+    reason: Joi.string()
+      .trim()
+      .min(3)
+      .max(100)
+      .optional()
+      .messages({
+        'string.min': 'Reason must be at least 3 characters long',
+        'string.max': 'Reason cannot exceed 100 characters',
+      }),
+    type: Joi.string()
+      .valid('full-day', 'half-day', 'morning', 'afternoon')
+      .optional()
+      .messages({
+        'any.only': 'Type must be one of: full-day, half-day, morning, afternoon',
+      }),
+    notes: Joi.string()
+      .trim()
+      .max(500)
+      .allow('')
+      .optional()
+      .messages({
+        'string.max': 'Notes cannot exceed 500 characters',
+      }),
+  }),
+
+  bulkRemoveUnavailableDates: Joi.object({
+    dateIds: Joi.array()
+      .items(Joi.string().required())
+      .min(1)
+      .required()
+      .messages({
+        'array.min': 'At least one date ID is required',
+        'any.required': 'Date IDs array is required',
+      }),
+  }),
   // Update appointment status validation
   updateAppointmentStatus: Joi.object({
     status: Joi.string()

@@ -6,6 +6,7 @@ import Patient from "../models/Patient";
 import NotificationService from "../services/notificationService";
 import logger from "../utils/logger";
 import { AppError } from "../types/errors";
+import { console } from "inspector";
 
 // Types for request bodies
 interface RegisterDoctorBody {
@@ -120,6 +121,27 @@ interface ApiResponse<T = any> {
 interface JwtPayload {
   doctorId: string;
   type: string;
+}
+
+interface AddUnavailableDateBody {
+  date: string;
+  reason: string;
+  type: "full-day" | "half-day" | "morning" | "afternoon";
+  notes?: string;
+}
+
+interface AddDateRangeBody {
+  startDate: string;
+  endDate: string;
+  reason: string;
+  type: "full-day" | "half-day" | "morning" | "afternoon";
+  notes?: string;
+}
+
+interface UpdateUnavailableDateBody {
+  reason?: string;
+  type?: "full-day" | "half-day" | "morning" | "afternoon";
+  notes?: string;
 }
 
 class DoctorController {
@@ -610,11 +632,11 @@ class DoctorController {
   // Get unavailable dates
   static async getUnavailableDates(
     req: Request,
-    res: Response<ApiResponse<{ unavailableDates: Date[] }>>,
+    res: Response<ApiResponse<{ unavailableDates: any[] }>>,
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctor = await Doctor.findById(req.user?.id).select(
+      const doctor = await Doctor.findById(req.doctor?.id).select(
         "availability.unavailableDates"
       );
 
@@ -622,9 +644,22 @@ class DoctorController {
         throw new AppError("Doctor not found", 404);
       }
 
+      // Transform data to match frontend expectations
+      const unavailableDates = doctor.availability.unavailableDates.map(
+        (date: any) => ({
+          id: date.id || date._id?.toString(),
+          date: date.date,
+          reason: date.reason,
+          type: date.type,
+          notes: date.notes,
+          createdAt: date.createdAt,
+          updatedAt: date.updatedAt,
+        })
+      );
+
       res.json({
         success: true,
-        data: { unavailableDates: doctor.availability.unavailableDates },
+        data: { unavailableDates },
       });
     } catch (error) {
       next(error);
@@ -634,48 +669,200 @@ class DoctorController {
   // Add unavailable date
   static async addUnavailableDate(
     req: Request,
-    res: Response<ApiResponse>,
+    res: Response<ApiResponse<{ unavailableDate: any }>>,
     next: NextFunction
   ): Promise<void> {
-    try {
-      const { date, reason } = req.validatedData;
 
-      const doctor = await Doctor.findById(req.user?.id);
+    try {
+      const {
+        date,
+        reason,
+        type = "full-day",
+        notes,
+      } = req.body as AddUnavailableDateBody;
+
+      const doctor = await Doctor.findById(req.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
       }
 
-      doctor.availability.unavailableDates.push(new Date(date));
+      // Check if date already exists
+      const existingDate = doctor.availability.unavailableDates.find(
+        (unavailableDate: any) => unavailableDate.date === date
+      );
+
+      if (existingDate) {
+        throw new AppError("Date is already marked as unavailable", 409);
+      }
+
+      // Add the unavailable date
+      const newUnavailableDate = {
+        id: new Date().getTime().toString(),
+        date,
+        reason,
+        type,
+        notes,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      doctor.availability.unavailableDates.push(newUnavailableDate);
       await doctor.save();
 
-      // Cancel appointments on this date
+      // Cancel existing appointments on this date
+      const startOfDay = new Date(date + "T00:00:00.000Z");
+      const endOfDay = new Date(date + "T23:59:59.999Z");
+
       await Appointment.updateMany(
         {
           doctor: req.user?.id,
           appointmentDateTime: {
-            $gte: new Date(date),
-            $lt: new Date(new Date(date).getTime() + 24 * 60 * 60 * 1000),
+            $gte: startOfDay,
+            $lte: endOfDay,
           },
           status: { $in: ["scheduled", "confirmed"] },
         },
-        { status: "cancelled" }
+        {
+          status: "cancelled",
+          statusUpdateReason: `Doctor unavailable: ${reason}`,
+          statusUpdatedAt: new Date(),
+          statusUpdatedBy: req.user?.id,
+        }
       );
 
       logger.info(`Unavailable date added for doctor: ${doctor.doctorId}`, {
         doctorId: doctor.doctorId,
         date,
+        reason,
+        type,
       });
 
-      res.json({
+      res.status(201).json({
         success: true,
         message: "Unavailable date added successfully",
+        data: { unavailableDate: newUnavailableDate },
       });
     } catch (error) {
       next(error);
     }
   }
+  static async addUnavailableDateRange(
+    req: Request,
+    res: Response<ApiResponse<{ addedDates: any[]; count: number }>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const {
+        startDate,
+        endDate,
+        reason,
+        type = "full-day",
+        notes,
+      } = req.body as AddDateRangeBody;
 
+      const doctor = await Doctor.findById(req.doctor?.id);
+
+      if (!doctor) {
+        throw new AppError("Doctor not found", 404);
+      }
+
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+
+      if (start > end) {
+        throw new AppError(
+          "Start date must be before or equal to end date",
+          400
+        );
+      }
+
+      // Generate all dates in the range
+      const dates = [];
+      const current = new Date(start);
+
+      while (current <= end) {
+        const dateStr = current.toISOString().split("T")[0];
+
+        // Check if date already exists
+        const existingDate = doctor.availability.unavailableDates.find(
+          (unavailableDate: any) => unavailableDate.date === dateStr
+        );
+
+        if (!existingDate) {
+          const newUnavailableDate = {
+            id: `${new Date().getTime()}-${Math.random()
+              .toString(36)
+              .substr(2, 9)}`,
+            date: dateStr,
+            reason,
+            type,
+            notes,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          };
+
+          doctor.availability.unavailableDates.push(newUnavailableDate);
+          dates.push(newUnavailableDate);
+        }
+
+        current.setDate(current.getDate() + 1);
+      }
+
+      if (dates.length === 0) {
+        throw new AppError(
+          "All dates in the range are already marked as unavailable",
+          409
+        );
+      }
+
+      await doctor.save();
+
+      // Cancel existing appointments in the date range
+      const startOfRange = new Date(startDate + "T00:00:00.000Z");
+      const endOfRange = new Date(endDate + "T23:59:59.999Z");
+
+      await Appointment.updateMany(
+        {
+          doctor: req.user?.id,
+          appointmentDateTime: {
+            $gte: startOfRange,
+            $lte: endOfRange,
+          },
+          status: { $in: ["scheduled", "confirmed"] },
+        },
+        {
+          status: "cancelled",
+          statusUpdateReason: `Doctor unavailable: ${reason}`,
+          statusUpdatedAt: new Date(),
+          statusUpdatedBy: req.user?.id,
+        }
+      );
+
+      logger.info(
+        `Date range added as unavailable for doctor: ${doctor.doctorId}`,
+        {
+          doctorId: doctor.doctorId,
+          startDate,
+          endDate,
+          reason,
+          type,
+          addedCount: dates.length,
+        }
+      );
+
+      res.status(201).json({
+        success: true,
+        message: `${dates.length} date(s) added as unavailable`,
+        data: {
+          addedDates: dates,
+          count: dates.length,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
   // Remove unavailable date
   static async removeUnavailableDate(
     req: Request,
@@ -683,31 +870,193 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { date } = req.validatedParams;
+      const { dateId } = req.params;
 
-      const doctor = await Doctor.findById(req.user?.id);
+      const doctor = await Doctor.findById(req.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
       }
 
-      const dateToRemove = new Date(date);
-      doctor.availability.unavailableDates =
-        doctor.availability.unavailableDates.filter(
-          (unavailableDate: Date) =>
-            unavailableDate.toDateString() !== dateToRemove.toDateString()
-        );
+      const index = doctor.availability.unavailableDates.findIndex(
+        (unavailableDate: any) =>
+          unavailableDate.id === dateId ||
+          unavailableDate._id?.toString() === dateId
+      );
 
+      if (index === -1) {
+        throw new AppError("Unavailable date not found", 404);
+      }
+
+      const removedDate = doctor.availability.unavailableDates[index];
+      doctor.availability.unavailableDates.splice(index, 1);
       await doctor.save();
 
       logger.info(`Unavailable date removed for doctor: ${doctor.doctorId}`, {
         doctorId: doctor.doctorId,
-        date,
+        dateId,
+        date: removedDate.date,
+        reason: removedDate.reason,
       });
 
       res.json({
         success: true,
         message: "Unavailable date removed successfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  // Update unavailable date
+  static async updateUnavailableDate(
+    req: Request,
+    res: Response<ApiResponse<{ unavailableDate: any }>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { dateId } = req.params;
+      const updateData = req.body as UpdateUnavailableDateBody;
+
+      const doctor = await Doctor.findById(req.doctor?.id);
+
+      if (!doctor) {
+        throw new AppError("Doctor not found", 404);
+      }
+
+      const unavailableDate = doctor.availability.unavailableDates.find(
+        (date: any) => date.id === dateId || date._id?.toString() === dateId
+      );
+
+      if (!unavailableDate) {
+        throw new AppError("Unavailable date not found", 404);
+      }
+
+      // Update the fields
+      Object.assign(unavailableDate, updateData, { updatedAt: new Date() });
+      await doctor.save();
+
+      logger.info(`Unavailable date updated for doctor: ${doctor.doctorId}`, {
+        doctorId: doctor.doctorId,
+        dateId,
+        updateData,
+      });
+
+      res.json({
+        success: true,
+        message: "Unavailable date updated successfully",
+        data: { unavailableDate },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // Bulk remove unavailable dates
+  static async bulkRemoveUnavailableDates(
+    req: Request,
+    res: Response<ApiResponse<{ removedCount: number }>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { dateIds } = req.body as { dateIds: string[] };
+
+      if (!Array.isArray(dateIds) || dateIds.length === 0) {
+        throw new AppError(
+          "dateIds array is required and cannot be empty",
+          400
+        );
+      }
+
+      const doctor = await Doctor.findById(req.doctor?.id);
+
+      if (!doctor) {
+        throw new AppError("Doctor not found", 404);
+      }
+
+      let removedCount = 0;
+
+      // Remove dates in reverse order to avoid index issues
+      for (
+        let i = doctor.availability.unavailableDates.length - 1;
+        i >= 0;
+        i--
+      ) {
+        const unavailableDate = doctor.availability.unavailableDates[i];
+        if (dateIds.includes(unavailableDate.id!)) {
+          doctor.availability.unavailableDates.splice(i, 1);
+          removedCount++;
+        }
+      }
+
+      if (removedCount === 0) {
+        throw new AppError("No matching unavailable dates found", 404);
+      }
+
+      await doctor.save();
+
+      logger.info(
+        `Bulk removed unavailable dates for doctor: ${doctor.doctorId}`,
+        {
+          doctorId: doctor.doctorId,
+          removedCount,
+          dateIds,
+        }
+      );
+
+      res.json({
+        success: true,
+        message: `${removedCount} unavailable date(s) removed successfully`,
+        data: { removedCount },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // Get unavailable dates summary/statistics
+  static async getUnavailableDatesSummary(
+    req: Request,
+    res: Response<ApiResponse<{ summary: any }>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const doctor = await Doctor.findById(req.doctor?.id).select(
+        "availability.unavailableDates"
+      );
+
+      if (!doctor) {
+        throw new AppError("Doctor not found", 404);
+      }
+
+      const unavailableDates = doctor.availability.unavailableDates;
+      const today = new Date().toISOString().split("T")[0];
+
+      const summary = {
+        total: unavailableDates.length,
+        upcoming: unavailableDates.filter((date: any) => date.date >= today)
+          .length,
+        past: unavailableDates.filter((date: any) => date.date < today).length,
+        thisMonth: unavailableDates.filter((date: any) => {
+          const dateObj = new Date(date.date);
+          const currentDate = new Date();
+          return (
+            dateObj.getMonth() === currentDate.getMonth() &&
+            dateObj.getFullYear() === currentDate.getFullYear()
+          );
+        }).length,
+        byType: unavailableDates.reduce((acc: any, date: any) => {
+          acc[date.type] = (acc[date.type] || 0) + 1;
+          return acc;
+        }, {}),
+        byReason: unavailableDates.reduce((acc: any, date: any) => {
+          acc[date.reason] = (acc[date.reason] || 0) + 1;
+          return acc;
+        }, {}),
+      };
+
+      res.json({
+        success: true,
+        data: { summary },
       });
     } catch (error) {
       next(error);
@@ -721,7 +1070,7 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctor = await Doctor.findById(req.user?.id).select("fees");
+      const doctor = await Doctor.findById(req.doctor?.id).select("fees");
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -746,7 +1095,7 @@ class DoctorController {
       const feesData = req.validatedData as UpdateFeesBody;
 
       const doctor = await Doctor.findByIdAndUpdate(
-        req.user?.id,
+        req.doctor?.id,
         { fees: feesData },
         { new: true, runValidators: true }
       );
@@ -1256,19 +1605,19 @@ class DoctorController {
       statistics.completionRate =
         statistics.totalAppointments > 0
           ? (
-            (statistics.completedAppointments /
-              statistics.totalAppointments) *
-            100
-          ).toFixed(1)
+              (statistics.completedAppointments /
+                statistics.totalAppointments) *
+              100
+            ).toFixed(1)
           : "0";
 
       statistics.cancellationRate =
         statistics.totalAppointments > 0
           ? (
-            (statistics.cancelledAppointments /
-              statistics.totalAppointments) *
-            100
-          ).toFixed(1)
+              (statistics.cancelledAppointments /
+                statistics.totalAppointments) *
+              100
+            ).toFixed(1)
           : "0";
 
       // Get unique patients count
@@ -2397,8 +2746,9 @@ class DoctorController {
 
       res.json({
         success: true,
-        message: `Doctor ${isActive ? "activated" : "deactivated"
-          } successfully`,
+        message: `Doctor ${
+          isActive ? "activated" : "deactivated"
+        } successfully`,
         data: { doctor },
       });
     } catch (error) {
@@ -2438,8 +2788,9 @@ class DoctorController {
       // Send notification email
       await NotificationService.sendEmail({
         to: doctor.personalInfo.email,
-        subject: `Account ${verificationStatus === "verified" ? "Verified" : "Rejected"
-          }`,
+        subject: `Account ${
+          verificationStatus === "verified" ? "Verified" : "Rejected"
+        }`,
         template: "doctor-verification-status",
         data: {
           doctorName: doctor.fullName,
