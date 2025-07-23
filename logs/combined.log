@@ -7997,3 +7997,20 @@
 {"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 25.766 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T12:03:29.657Z"}
 {"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 31.959 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T12:03:29.696Z"}
 {"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 13.500 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-22T12:03:35.035Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-23T04:32:13.377Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-23T04:32:13.388Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-23T04:32:13.414Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-23T04:32:13.628Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-23T04:32:13.930Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-23T04:32:13.971Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-23T04:32:13.981Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-23T04:32:13.989Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-23T04:32:14.013Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 55.884 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-23T04:32:52.264Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 24.107 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-23T04:32:52.293Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/unavailable-dates \u001b[36m304\u001b[0m 26.711 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-23T04:32:58.719Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/unavailable-dates/summary \u001b[36m304\u001b[0m 52.770 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-23T04:32:58.783Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 27.689 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-23T04:33:07.005Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/profile \u001b[36m304\u001b[0m 21.333 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-23T04:33:07.031Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/unavailable-dates \u001b[36m304\u001b[0m 22.545 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-23T04:33:08.856Z"}
+{"level":"info","message":"\u001b[0mGET /api/doctors/doctor/unavailable-dates/summary \u001b[36m304\u001b[0m 22.027 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-23T04:33:08.860Z"}
