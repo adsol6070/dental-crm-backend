@@ -21,9 +21,9 @@ router.post(
 // // Protected routes
 router.use(authMiddleware); // Apply auth middleware to all routes below
 
-// router.get("/", AppointmentController.getAllAppointments);
+router.get("/", AppointmentController.getAllAppointments);
 // router.get("/search", AppointmentController.searchAppointments);
-// router.get("/:id", AppointmentController.getAppointmentById);
+router.get("/:id", AppointmentController.getAppointmentById);
 // router.put(
 //   "/:id",
 //   validateRequest(appointmentValidation.update),

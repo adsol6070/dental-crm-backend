@@ -15,6 +15,7 @@ class AppointmentController {
     next: NextFunction
   ) {
     try {
+      console.log("appointment requested body", req.body);
       const {
         patient: patientId,
         doctor: doctorId,
@@ -24,7 +25,7 @@ class AppointmentController {
         symptoms,
         notes,
         bookingSource,
-        specialRequirements
+        specialRequirements,
       } = req.body;
 
       // Fetch Patient
@@ -45,7 +46,6 @@ class AppointmentController {
         new Date(appointmentDateTime),
         duration // taken from req.body (validated)
       );
-
       if (!isSlotAvailable) {
         throw new AppError("Selected time slot is not available", 409);
       }
@@ -68,7 +68,8 @@ class AppointmentController {
         },
       });
 
-      await appointment.save();
+      const appResponse = await appointment.save();
+      console.log("appointment booked", appResponse);
 
       // Update statistics
       await Patient.findByIdAndUpdate(patientId, {
@@ -101,7 +102,6 @@ class AppointmentController {
       next(error);
     }
   }
-
 
   // Get doctor availability
   //   static async getDoctorAvailability(
@@ -172,103 +172,104 @@ class AppointmentController {
   //     }
   //   }
 
-  //   // Get all appointments with filters
-  //   static async getAllAppointments(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction
-  //   ) {
-  //     try {
-  //       const {
-  //         page = 1,
-  //         limit = 20,
-  //         status,
-  //         doctorId,
-  //         patientId,
-  //         bookingSource,
-  //         startDate,
-  //         endDate,
-  //         sortBy = "appointmentDateTime",
-  //         sortOrder = "asc",
-  //       } = req.query;
+  // Get all appointments with filters
+  static async getAllAppointments(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const query = req.validatedQuery || {};
+      const {
+        page = 1,
+        limit = 20,
+        status,
+        doctorId,
+        patientId,
+        bookingSource,
+        startDate,
+        endDate,
+        sortBy = "appointmentDateTime",
+        sortOrder = "asc",
+      } = query;
 
-  //       const filter = {};
+      const filter: any = {};
 
-  //       if (status) filter.status = status;
-  //       if (doctorId) filter.doctor = doctorId;
-  //       if (patientId) filter.patient = patientId;
-  //       if (bookingSource) filter.bookingSource = bookingSource;
+      if (status) filter.status = status;
+      if (doctorId) filter.doctor = doctorId;
+      if (patientId) filter.patient = patientId;
+      if (bookingSource) filter.bookingSource = bookingSource;
 
-  //       if (startDate || endDate) {
-  //         filter.appointmentDateTime = {};
-  //         if (startDate) filter.appointmentDateTime.$gte = new Date(startDate);
-  //         if (endDate) filter.appointmentDateTime.$lte = new Date(endDate);
-  //       }
+      if (startDate || endDate) {
+        filter.appointmentDateTime = {};
+        if (startDate) filter.appointmentDateTime.$gte = new Date(startDate);
+        if (endDate) filter.appointmentDateTime.$lte = new Date(endDate);
+      }
 
-  //       const sort = {};
-  //       sort[sortBy] = sortOrder === "desc" ? -1 : 1;
+      const sort: any = {};
+      sort[sortBy] = sortOrder === "desc" ? -1 : 1;
 
-  //       const appointments = await Appointment.find(filter)
-  //         .populate("patient", "personalInfo contactInfo patientId")
-  //         .populate("doctor", "personalInfo professionalInfo doctorId")
-  //         .sort(sort)
-  //         .limit(limit * 1)
-  //         .skip((page - 1) * limit)
-  //         .lean();
+      const appointments = await Appointment.find(filter)
+        .populate("patient", "personalInfo contactInfo patientId")
+        .populate("doctor", "personalInfo professionalInfo doctorId")
+        .sort(sort)
+        .limit(Number(limit))
+        .skip((Number(page) - 1) * Number(limit))
+        .lean();
 
-  //       const total = await Appointment.countDocuments(filter);
+      const total = await Appointment.countDocuments(filter);
 
-  //       res.json({
-  //         success: true,
-  //         data: {
-  //           appointments,
-  //           pagination: {
-  //             page: parseInt(page),
-  //             limit: parseInt(limit),
-  //             total,
-  //             pages: Math.ceil(total / limit),
-  //           },
-  //         },
-  //       });
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
+      res.json({
+        success: true,
+        data: {
+          appointments,
+          pagination: {
+            page: Number(page),
+            limit: Number(limit),
+            total,
+            pages: Math.ceil(total / Number(limit)),
+          },
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   //   // Additional methods would continue here...
   //   // (getAppointmentById, updateAppointment, cancelAppointment, etc.)
 
   //   // Get appointment by ID
-  //   static async getAppointmentById(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction
-  //   ) {
-  //     try {
-  //       const { id } = req.params;
+    static async getAppointmentById(
+      req: Request,
+      res: Response,
+      next: NextFunction
+    ) {
+      try {
+        const { id } = req.params;
 
-  //       const appointment = await Appointment.findById(id)
-  //         .populate(
-  //           "patient",
-  //           "personalInfo contactInfo patientId medicalHistory"
-  //         )
-  //         .populate(
-  //           "doctor",
-  //           "personalInfo professionalInfo doctorId fees schedule"
-  //         );
+        const appointment = await Appointment.findById(id)
+          .populate(
+            "patient",
+            "personalInfo contactInfo patientId medicalHistory"
+          )
+          .populate(
+            "doctor",
+            "personalInfo professionalInfo doctorId fees schedule"
+          );
 
-  //       if (!appointment) {
-  //         throw new AppError("Appointment not found", 404);
-  //       }
+        if (!appointment) {
+          throw new AppError("Appointment not found", 404);
+        }
 
-  //       res.json({
-  //         success: true,
-  //         data: { appointment },
-  //       });
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
+        res.json({
+          success: true,
+          data: { appointment },
+        });
+      } catch (error) {
+        next(error);
+      }
+    }
 
   //   // Update appointment
   //   static async updateAppointment(

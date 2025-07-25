@@ -39,9 +39,10 @@ export interface IWorkingDay {
 
 // Interface for break times
 export interface IBreakTime {
+  day: DayOfWeek;
   startTime: string;
   endTime: string;
-  description?: string;
+  title?: string;
 }
 
 // Interface for doctor schedule
@@ -283,6 +284,14 @@ const doctorSchema = new Schema<IDoctorDocument, IDoctorModel>(
       breakTimes: {
         type: [
           {
+            day: {
+              type: String,
+              enum: {
+                values: Object.values(DayOfWeek),
+                message: "Invalid day for break time",
+              },
+              required: [true, "Break day is required"],
+            },
             startTime: {
               type: String,
               required: [true, "Break start time is required"],
@@ -305,7 +314,7 @@ const doctorSchema = new Schema<IDoctorDocument, IDoctorModel>(
                 message: "Break end time must be in HH:MM format",
               },
             },
-            description: {
+            title: {
               type: String,
               trim: true,
             },
