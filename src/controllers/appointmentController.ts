@@ -8,6 +8,21 @@ import { AppError } from "../types/errors";
 import { NextFunction, Request, Response } from "express";
 
 class AppointmentController {
+  private static getFeeByAppointmentType(doctor: any, type: string): number {
+    switch (type) {
+      case "consultation":
+        return doctor.fees?.consultationFee || 0;
+      case "follow-up":
+        return doctor.fees?.followUpFee || 0;
+      case "online":
+        return doctor.fees?.onlineFee || 0;
+      case "emergency":
+        return doctor.fees?.emergencyFee || 0;
+      default:
+        return doctor.fees?.consultationFee || 0; // default fallback
+    }
+  }
+
   // Book a new appointment
   static async bookAppointment(
     req: Request,
@@ -25,6 +40,8 @@ class AppointmentController {
         symptoms,
         notes,
         bookingSource,
+        paymentMethod,
+        paymentStatus,
         specialRequirements,
       } = req.body;
 
@@ -61,7 +78,9 @@ class AppointmentController {
         notes,
         bookingSource,
         specialRequirements,
-        paymentAmount: doctor.fees?.consultationFee || 0,
+        paymentStatus,
+        paymentMethod,
+        paymentAmount: this.getFeeByAppointmentType(doctor, appointmentType),
         metadata: {
           ipAddress: req.ip,
           userAgent: req.get("User-Agent"),
@@ -240,36 +259,36 @@ class AppointmentController {
   //   // (getAppointmentById, updateAppointment, cancelAppointment, etc.)
 
   //   // Get appointment by ID
-    static async getAppointmentById(
-      req: Request,
-      res: Response,
-      next: NextFunction
-    ) {
-      try {
-        const { id } = req.params;
+  static async getAppointmentById(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { id } = req.params;
 
-        const appointment = await Appointment.findById(id)
-          .populate(
-            "patient",
-            "personalInfo contactInfo patientId medicalHistory"
-          )
-          .populate(
-            "doctor",
-            "personalInfo professionalInfo doctorId fees schedule"
-          );
+      const appointment = await Appointment.findById(id)
+        .populate(
+          "patient",
+          "personalInfo contactInfo patientId medicalHistory"
+        )
+        .populate(
+          "doctor",
+          "personalInfo professionalInfo doctorId fees schedule"
+        );
 
-        if (!appointment) {
-          throw new AppError("Appointment not found", 404);
-        }
-
-        res.json({
-          success: true,
-          data: { appointment },
-        });
-      } catch (error) {
-        next(error);
+      if (!appointment) {
+        throw new AppError("Appointment not found", 404);
       }
+
+      res.json({
+        success: true,
+        data: { appointment },
+      });
+    } catch (error) {
+      next(error);
     }
+  }
 
   //   // Update appointment
   //   static async updateAppointment(
