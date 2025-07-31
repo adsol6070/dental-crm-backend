@@ -192,11 +192,8 @@ const userSchema = new Schema<UserDocument, UserModel>(
 );
 
 // Indexes
-userSchema.index({ email: 1 });
 userSchema.index({ role: 1, status: 1 });
 userSchema.index({ isActive: 1 });
-userSchema.index({ mustChangePassword: 1 });
-userSchema.index({ twoFactorEnabled: 1 });
 userSchema.index({ createdBy: 1 });
 userSchema.index({ createdAt: 1 });
 

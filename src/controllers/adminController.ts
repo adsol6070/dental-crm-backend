@@ -101,7 +101,7 @@ class UserController {
             const { firstName, lastName, email, phone, sendCredentials = true } = req.body;
 
             // Only super admin can create admin users
-            if (req.user?.role !== "super_admin") {
+            if (res.locals.user?.role !== "super_admin") {
                 throw new AppError("Only super admin can create admin users", 403);
             }
 
@@ -130,7 +130,7 @@ class UserController {
                 isActive: true,
                 mustChangePassword: true,
                 tempPassword: true,
-                createdBy: new Types.ObjectId(req.user?.id)
+                createdBy: new Types.ObjectId(res.locals.user?.id)
             };
             const admin = await User.createUser(userData);
 
@@ -178,7 +178,7 @@ class UserController {
             const { firstName, lastName, email, phone, role = "staff", sendCredentials = true } = req.body;
 
             // Only super admin and admin can create staff users
-            if (!["super_admin", "admin"].includes(req.user?.role || "")) {
+            if (!["super_admin", "admin"].includes(res.locals.user?.role || "")) {
                 throw new AppError("Only super admin or admin can create staff users", 403);
             }
 
@@ -214,7 +214,7 @@ class UserController {
                 isActive: true,
                 mustChangePassword: true,
                 tempPassword: true,
-                createdBy: new Types.ObjectId(req.user?.id)
+                createdBy: new Types.ObjectId(res.locals.user?.id)
             };
 
             const staff = await User.createUser(userData);
@@ -260,7 +260,7 @@ class UserController {
     static async getAllUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             // Only super admin and admin can view all users
-            if (!["super_admin", "admin"].includes(req.user?.role || "")) {
+            if (!["super_admin", "admin"].includes(res.locals.user?.role || "")) {
                 throw new AppError("Access denied", 403);
             }
 
@@ -318,7 +318,7 @@ class UserController {
             const { status, isActive } = req.body;
 
             // Only super admin and admin can update user status
-            if (!["super_admin", "admin"].includes(req.user?.role || "")) {
+            if (!["super_admin", "admin"].includes(res.locals.user?.role || "")) {
                 throw new AppError("Access denied", 403);
             }
 
@@ -328,12 +328,12 @@ class UserController {
                 throw new AppError("User not found", 404);
             }
 
-            if (targetUser.role === "super_admin" && req.user?.role !== "super_admin") {
+            if (targetUser.role === "super_admin" && res.locals.user?.role !== "super_admin") {
                 throw new AppError("Cannot update super admin user", 403);
             }
 
             // Prevent super admin from deactivating themselves
-            if (targetUser.role === "super_admin" && targetUser._id.toString() === req.user?.id) {
+            if (targetUser.role === "super_admin" && targetUser._id.toString() === res.locals.user?.id) {
                 throw new AppError("Cannot deactivate yourself", 400);
             }
 
@@ -362,7 +362,7 @@ class UserController {
             const { userId } = req.params;
 
             // Only super admin can delete users
-            if (req.user?.role !== "super_admin") {
+            if (res.locals.user?.role !== "super_admin") {
                 throw new AppError("Only super admin can delete users", 403);
             }
 
@@ -372,7 +372,7 @@ class UserController {
             }
 
             // Prevent super admin from deleting themselves
-            if (targetUser._id.toString() === req.user?.id) {
+            if (targetUser._id.toString() === res.locals.user?.id) {
                 throw new AppError("Cannot delete yourself", 400);
             }
 
@@ -575,7 +575,7 @@ class UserController {
     // Enable 2FA
     static async enable2FA(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const userId = req.user?.id;
+            const userId = res.locals.user?.id;
             const user = await User.findById(userId);
 
             if (!user) {
@@ -618,7 +618,7 @@ class UserController {
     static async verify2FA(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const { token } = req.body;
-            const userId = req.user?.id;
+            const userId = res.locals.user?.id;
 
             if (!token) {
                 throw new AppError("2FA token is required", 400);
@@ -662,7 +662,7 @@ class UserController {
     static async disable2FA(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const { password, twoFactorCode } = req.body;
-            const userId = req.user?.id;
+            const userId = res.locals.user?.id;
 
             if (!password || !twoFactorCode) {
                 throw new AppError("Password and 2FA code are required", 400);
@@ -712,7 +712,7 @@ class UserController {
     // Get current user profile
     static async getProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const userId = req.user?.id;
+            const userId = res.locals.user?.id;
 
             const user = await User.findById(userId).select('-password');
             if (!user) {
@@ -736,7 +736,7 @@ class UserController {
     static async updateProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const { firstName, lastName, phone } = req.body;
-            const userId = req.user?.id;
+            const userId = res.locals.user?.id;
 
             const user = await User.findByIdAndUpdate(
                 userId,
@@ -764,7 +764,7 @@ class UserController {
     static async changePassword(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const { currentPassword, newPassword } = req.body;
-            const userId = req.user?.id;
+            const userId = res.locals.user?.id;
 
             if (!currentPassword || !newPassword) {
                 throw new AppError("Current password and new password are required", 400);

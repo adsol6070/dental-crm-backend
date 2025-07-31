@@ -288,7 +288,7 @@ class PatientController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const patient = await Patient.findById(req.patient?.id);
+      const patient = await Patient.findById(res.locals.patient?.id);
 
       if (!patient) {
         throw new AppError("Patient not found", 404);
@@ -313,7 +313,7 @@ class PatientController {
       const updateData = req.validatedData;
 
       const patient = await Patient.findByIdAndUpdate(
-        req.patient?.id,
+        res.locals.patient?.id,
         updateData,
         { new: true, runValidators: true }
       );
@@ -347,7 +347,7 @@ class PatientController {
       const updateData = req.validatedData;
 
       const patient = await Patient.findByIdAndUpdate(
-        req.patient?.id,
+        res.locals.patient?.id,
         { preferences: updateData },
         { new: true, runValidators: true }
       );
@@ -381,7 +381,7 @@ class PatientController {
       const updateData = req.validatedData;
 
       const patient = await Patient.findByIdAndUpdate(
-        req.patient?.id,
+        res.locals.patient?.id,
         { medicalInfo: updateData },
         { new: true, runValidators: true }
       );
@@ -418,7 +418,7 @@ class PatientController {
       if (updateData.phone) {
         const existingPatient = await Patient.findOne({
           "contactInfo.phone": updateData.phone,
-          _id: { $ne: req.patient?.id },
+          _id: { $ne: res.locals.patient?.id },
         });
 
         if (existingPatient) {
@@ -430,7 +430,7 @@ class PatientController {
       }
 
       const patient = await Patient.findByIdAndUpdate(
-        req.patient?.id,
+        res.locals.patient?.id,
         { contactInfo: updateData },
         { new: true, runValidators: true }
       );
@@ -464,7 +464,7 @@ class PatientController {
       const { currentPassword, newPassword } =
         req.validatedData as ChangePasswordBody;
 
-      const patient = await Patient.findById(req.patient?.id).select(
+      const patient = await Patient.findById(res.locals.patient?.id).select(
         "+authentication.password"
       );
 
@@ -514,7 +514,7 @@ class PatientController {
         sortOrder = "desc",
       } = query;
 
-      const filter: any = { patient: req.patient?.id };
+      const filter: any = { patient: res.locals.patient?.id };
 
       if (status) filter.status = status;
       if (startDate || endDate) {
@@ -560,7 +560,7 @@ class PatientController {
       const now = new Date();
 
       const appointments = await Appointment.find({
-        patient: req.patient?.id,
+        patient: res.locals.patient?.id,
         appointmentDateTime: { $gte: now },
         status: { $in: ["scheduled", "confirmed"] },
       })
@@ -588,7 +588,7 @@ class PatientController {
       const { page = 1, limit = 10, year } = req.validatedQuery || {};
 
       const filter: any = {
-        patient: req.patient?.id,
+        patient: res.locals.patient?.id,
         status: { $in: ["completed", "cancelled", "no-show"] },
       };
 
@@ -633,7 +633,7 @@ class PatientController {
 
       const appointment = await Appointment.findOne({
         _id: appointmentId,
-        patient: req.patient?.id,
+        patient: res.locals.patient?.id,
       }).populate("doctor", "personalInfo professionalInfo doctorId fees");
 
       if (!appointment) {
@@ -656,7 +656,7 @@ class PatientController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const patientId = req.patient?.id;
+      const patientId = res.locals.patient?.id;
 
       // Get upcoming appointments
       const upcomingAppointments = await Appointment.find({
@@ -730,7 +730,7 @@ class PatientController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const patientId = req.patient?.id;
+      const patientId = res.locals.patient?.id;
 
       const stats = await Appointment.aggregate([
         { $match: { patient: patientId } },
@@ -1057,7 +1057,7 @@ class PatientController {
       }
 
       const patient = await Patient.findByIdAndUpdate(
-        req.patient?.id,
+        res.locals.patient?.id,
         { profilePicture: req.file.path },
         { new: true }
       );
@@ -1104,7 +1104,7 @@ class PatientController {
       }));
 
       const patient = await Patient.findByIdAndUpdate(
-        req.patient?.id,
+        res.locals.patient?.id,
         { $push: { medicalDocuments: { $each: documentPaths } } },
         { new: true }
       );
@@ -1137,10 +1137,10 @@ class PatientController {
     res: Response<ApiResponse<{ medicalRecords: any[] }>>,
     next: NextFunction
   ): Promise<void> {
-    console.log("Request Patient Id:", req.patient?.id);
+    console.log("Request Patient Id:", res.locals.patient?.id);
     try {
       const appointments = await Appointment.find({
-        patient: req.patient?.id,
+        patient: res.locals.patient?.id,
         status: "completed",
         "consultation.diagnosis": { $exists: true, $ne: "" },
       })
@@ -1166,7 +1166,7 @@ class PatientController {
   ): Promise<void> {
     try {
       const appointments = await Appointment.find({
-        patient: req.patient?.id,
+        patient: res.locals.patient?.id,
         status: "completed",
         "consultation.prescription": { $exists: true, $ne: "" },
       })
@@ -1212,7 +1212,7 @@ class PatientController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const patient = await Patient.findById(req.patient?.id).select(
+      const patient = await Patient.findById(res.locals.patient?.id).select(
         "preferences.communicationMethod preferences.reminderSettings"
       );
 
@@ -1239,7 +1239,7 @@ class PatientController {
       const updateData = req.validatedData;
 
       const patient = await Patient.findByIdAndUpdate(
-        req.patient?.id,
+        res.locals.patient?.id,
         { preferences: updateData },
         { new: true, runValidators: true }
       ).select("preferences");
@@ -1276,7 +1276,7 @@ class PatientController {
       // This would typically come from a notifications collection
       // For now, using appointment-based notifications
       const appointments = await Appointment.find({
-        patient: req.patient?.id,
+        patient: res.locals.patient?.id,
         remindersSent: { $gt: 0 },
       })
         .sort({ lastReminderSent: -1 })
@@ -1308,7 +1308,7 @@ class PatientController {
   ): Promise<void> {
     try {
       const patient = await Patient.findByIdAndUpdate(
-        req.patient?.id,
+        res.locals.patient?.id,
         {
           isActive: false,
           deactivatedAt: new Date(),
@@ -1323,7 +1323,7 @@ class PatientController {
       // Cancel all future appointments
       await Appointment.updateMany(
         {
-          patient: req.patient?.id,
+          patient: res.locals.patient?.id,
           appointmentDateTime: { $gte: new Date() },
           status: { $in: ["scheduled", "confirmed"] },
         },
@@ -1350,7 +1350,7 @@ class PatientController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const patient = await Patient.findById(req.patient?.id);
+      const patient = await Patient.findById(res.locals.patient?.id);
 
       if (!patient) {
         throw new AppError("Patient not found", 404);
@@ -1398,9 +1398,9 @@ class PatientController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const patient = await Patient.findById(req.patient?.id);
+      const patient = await Patient.findById(res.locals.patient?.id);
       const appointments = await Appointment.find({
-        patient: req.patient?.id,
+        patient: res.locals.patient?.id,
       }).populate("doctor", "personalInfo professionalInfo");
 
       if (!patient) {
@@ -1634,7 +1634,7 @@ class PatientController {
 
       logger.info(`Patient updated by admin: ${patient.patientId}`, {
         patientId: patient.patientId,
-        adminUser: req.user?.id,
+        adminUser: res.locals.user?.id,
         updatedFields: Object.keys(updateData),
       });
 
@@ -1666,7 +1666,7 @@ class PatientController {
           isActive,
           statusUpdateReason: reason,
           statusUpdatedAt: new Date(),
-          statusUpdatedBy: req.user?.id,
+          statusUpdatedBy: res.locals.user?.id,
         } as any,
         { new: true }
       ).select("-authentication.password");
@@ -1691,7 +1691,7 @@ class PatientController {
         patientId: patient.patientId,
         newStatus: isActive ? "active" : "inactive",
         reason,
-        adminUser: req.user?.id,
+        adminUser: res.locals.user?.id,
       });
 
       res.json({
@@ -1741,12 +1741,12 @@ class PatientController {
       // Soft delete by marking as deleted
       (patient as any).isDeleted = true;
       (patient as any).deletedAt = new Date();
-      (patient as any).deletedBy = req.user?.id;
+      (patient as any).deletedBy = res.locals.user?.id;
       await patient.save();
 
       logger.info(`Patient deleted by admin: ${patient.patientId}`, {
         patientId: patient.patientId,
-        adminUser: req.user?.id,
+        adminUser: res.locals.user?.id,
       });
 
       res.json({

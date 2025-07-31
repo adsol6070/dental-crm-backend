@@ -527,8 +527,6 @@ const doctorSchema = new Schema<IDoctorDocument, IDoctorModel>(
 );
 
 // Indexes for better query performance
-doctorSchema.index({ "personalInfo.email": 1 });
-doctorSchema.index({ "professionalInfo.licenseNumber": 1 });
 doctorSchema.index({ "professionalInfo.specialization": 1 });
 doctorSchema.index({ "availability.isAvailable": 1 });
 doctorSchema.index({ isActive: 1 });
