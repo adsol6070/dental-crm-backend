@@ -16,7 +16,7 @@ const startServer = async (): Promise<void> => {
     setupScheduledJobs();
 
     // Start the server
-    const server = app.listen(config.port, "127.0.0.1", () => {
+    const server = app.listen(config.port, "0.0.0.0", () => {
       logger.info(`🚀 Server running on port ${config.port}`);
       logger.info(`📝 Environment: ${config.nodeEnv}`);
       logger.info(`🔗 Health check: http://localhost:${config.port}/health`);
