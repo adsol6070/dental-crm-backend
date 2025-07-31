@@ -629,7 +629,7 @@ class PatientController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { appointmentId } = req.validatedParams;
+      const { appointmentId } = req.params;
 
       const appointment = await Appointment.findOne({
         _id: appointmentId,
