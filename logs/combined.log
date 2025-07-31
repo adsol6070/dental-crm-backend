@@ -13573,3 +13573,132 @@
 {"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T04:46:13.830Z"}
 {"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T04:46:14.039Z"}
 {"level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T04:46:14.040Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-31T07:36:36.948Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-31T07:36:36.949Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-31T07:36:36.952Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-31T07:36:36.974Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-31T07:36:37.019Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-31T07:36:37.022Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-31T07:36:37.022Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-31T07:36:37.022Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-31T07:36:37.023Z"}
+{"error":{"message":"User not found","name":"Error","stack":"Error: User not found\n    at /Users/adsoldigital/Downloads/Client Data/Dental CRM/dental-crm-backend/src/middleware/auth.ts:35:19\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/adsoldigital/Downloads/Client Data/Dental CRM/dental-crm-backend/src/middleware/auth.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":401},"level":"error","message":"Development Error:","request":{"body":{},"headers":{"accept":"*/*","accept-encoding":"gzip, deflate, br, zstd","accept-language":"en-US,en;q=0.9","authorization":"[REDACTED]","connection":"keep-alive","content-type":"application/json","host":"localhost:3000","origin":"http://localhost:5173","referer":"http://localhost:5173/","sec-ch-ua":"\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"","sec-ch-ua-mobile":"?0","sec-ch-ua-platform":"\"macOS\"","sec-fetch-dest":"empty","sec-fetch-mode":"cors","sec-fetch-site":"same-site","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"},"ip":"127.0.0.1","method":"GET","params":{},"query":{},"url":"/api/users/profile","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"},"service":"appointment-crm","timestamp":"2025-07-31T07:39:21.069Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[33m401\u001b[0m 30.952 ms - 560\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T07:39:21.071Z"}
+{"level":"info","message":"SIGTERM received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T08:05:39.689Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:05:43.000Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:05:43.004Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-31T08:05:43.006Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-31T08:05:43.022Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-31T08:05:43.062Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-31T08:05:43.064Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-31T08:05:43.064Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-31T08:05:43.065Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-31T08:05:43.065Z"}
+{"level":"info","message":"SIGTERM received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T08:06:00.611Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:06:03.575Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:06:03.576Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-31T08:06:03.578Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-31T08:06:03.590Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-31T08:06:03.607Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-31T08:06:03.609Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-31T08:06:03.609Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-31T08:06:03.609Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-31T08:06:03.609Z"}
+{"level":"info","message":"\u001b[0mPOST /api/users/login \u001b[32m200\u001b[0m 290.606 ms - 713\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:11:23.043Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[32m200\u001b[0m 3.502 ms - 512\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:11:23.054Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 5.842 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:12:57.786Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 3.881 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:12:57.791Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[32m200\u001b[0m 42.954 ms - 94\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:00.888Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 12.292 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:02.574Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 10.263 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:04.476Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 10.317 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:05.279Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 8.366 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:05.901Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 9.944 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:06.640Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 7.979 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:22.074Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 6.734 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:33.128Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 10.303 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:43.239Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 6.289 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:45.105Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 7.147 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:47.706Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 8.791 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:13:57.258Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 6.185 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:14:16.771Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 16.236 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:24:18.552Z"}
+{"level":"info","message":"SIGTERM received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T08:29:45.424Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:29:48.674Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:29:48.675Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-31T08:29:48.679Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-31T08:29:48.691Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-31T08:29:48.708Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-31T08:29:48.710Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-31T08:29:48.710Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-31T08:29:48.710Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-31T08:29:48.710Z"}
+{"level":"info","message":"⏰ Checking for upcoming appointments","service":"appointment-crm","timestamp":"2025-07-31T08:30:00.013Z"}
+{"level":"info","message":"✅ Upcoming appointments check completed","service":"appointment-crm","timestamp":"2025-07-31T08:30:00.039Z"}
+{"level":"info","message":"SIGTERM received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T08:30:07.137Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:30:10.145Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:30:10.146Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-31T08:30:10.148Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-31T08:30:10.160Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-31T08:30:10.177Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-31T08:30:10.179Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-31T08:30:10.179Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-31T08:30:10.179Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-31T08:30:10.179Z"}
+{"level":"info","message":"SIGTERM received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T08:31:36.203Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:31:39.368Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:31:39.369Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-31T08:31:39.372Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-31T08:31:39.387Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-31T08:31:39.404Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-31T08:31:39.406Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-31T08:31:39.406Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-31T08:31:39.406Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-31T08:31:39.406Z"}
+{"level":"info","message":"SIGTERM received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T08:32:01.440Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:32:04.482Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:32:04.483Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-31T08:32:04.486Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-31T08:32:04.497Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-31T08:32:04.514Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-31T08:32:04.516Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-31T08:32:04.516Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-31T08:32:04.516Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-31T08:32:04.516Z"}
+{"level":"info","message":"SIGTERM received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T08:34:19.980Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:41:26.898Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:41:26.899Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-31T08:41:26.907Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-31T08:41:26.926Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-31T08:41:26.948Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-31T08:41:26.951Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-31T08:41:26.951Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-31T08:41:26.951Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-31T08:41:26.952Z"}
+{"level":"info","message":"SIGTERM received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T08:42:39.667Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:42:42.687Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:42:42.687Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-31T08:42:42.690Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-31T08:42:42.702Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-31T08:42:42.718Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-31T08:42:42.720Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-31T08:42:42.720Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-31T08:42:42.720Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-31T08:42:42.721Z"}
+{"level":"info","message":"SIGTERM received. Starting graceful shutdown...","service":"appointment-crm","timestamp":"2025-07-31T08:47:35.540Z"}
+{"level":"info","message":"✅ Body parsing middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:47:38.577Z"}
+{"level":"info","message":"✅ Logging middleware configured","service":"appointment-crm","timestamp":"2025-07-31T08:47:38.578Z"}
+{"level":"info","message":"✅ Global error handlers configured","service":"appointment-crm","timestamp":"2025-07-31T08:47:38.581Z"}
+{"level":"info","message":"✅ Connected to MongoDB successfully","service":"appointment-crm","timestamp":"2025-07-31T08:47:38.592Z"}
+{"level":"info","message":"📅 Scheduled jobs initialized successfully","service":"appointment-crm","timestamp":"2025-07-31T08:47:38.610Z"}
+{"level":"info","message":"🚀 Server running on port 3000","service":"appointment-crm","timestamp":"2025-07-31T08:47:38.612Z"}
+{"level":"info","message":"📝 Environment: development","service":"appointment-crm","timestamp":"2025-07-31T08:47:38.612Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:3000/health","service":"appointment-crm","timestamp":"2025-07-31T08:47:38.612Z"}
+{"level":"info","message":"🔗 API Documentation: http://localhost:3000/","service":"appointment-crm","timestamp":"2025-07-31T08:47:38.612Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 19.469 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:48:36.824Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 12.847 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:48:38.537Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 8.391 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:48:39.707Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 9.210 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:48:39.717Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 8.342 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:48:57.092Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 6.753 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:48:59.133Z"}
+{"level":"info","message":"\u001b[0mGET /api/users/profile \u001b[36m304\u001b[0m 4.690 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:48:59.139Z"}
+{"level":"info","message":"\u001b[0mGET /api/patients/admin/all \u001b[36m304\u001b[0m 6.415 ms - -\u001b[0m","service":"appointment-crm","timestamp":"2025-07-31T08:49:02.404Z"}

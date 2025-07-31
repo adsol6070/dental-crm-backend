@@ -11,7 +11,7 @@ import authMiddleware from "../middleware/auth";
 const registrationLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 5,
-  message: "Too many registration attempts, please try again later.",
+  message: "Too many registration attempts, `please try again later.",
 });
 
 const loginLimiter = rateLimit({
