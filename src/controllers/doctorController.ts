@@ -6,7 +6,6 @@ import Patient from "../models/Patient";
 import NotificationService from "../services/notificationService";
 import logger from "../utils/logger";
 import { AppError } from "../types/errors";
-import { console } from "inspector";
 
 // Types for request bodies
 interface RegisterDoctorBody {
@@ -2769,63 +2768,75 @@ class DoctorController {
   }
 
   // Verify doctor
-  static async verifyDoctor(
-    req: Request,
-    res: Response<ApiResponse<{ doctor: IDoctorDocument }>>,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const { doctorId } = req.params;
-      const { verificationStatus, reason } = req.body;
+ static async verifyDoctor(
+  req: Request,
+  res: Response<ApiResponse<{ doctor: IDoctorDocument }>>,
+  next: NextFunction
+): Promise<void> {
+  try {
+    const { doctorId } = req.params;
+    const { verificationStatus, reason } = req.body; 
+    console.log("Status:", verificationStatus, "Reason:", reason);
 
-      const doctor = await Doctor.findOneAndUpdate(
-        {
-          $or: [{ _id: doctorId }, { doctorId: doctorId }],
-        },
-        {
-          // Note: These fields don't exist in the model, but keeping for consistency
-          verificationStatus,
-          verificationReason: reason,
-          verifiedAt:
-            verificationStatus === "verified" ? new Date() : undefined,
-          verifiedBy: res.locals.user?.id,
-        } as any,
-        { new: true }
-      );
-
-      if (!doctor) {
-        throw new AppError("Doctor not found", 404);
-      }
-
-      // Send notification email
-      await NotificationService.sendEmail({
-        to: doctor.personalInfo.email,
-        subject: `Account ${verificationStatus === "verified" ? "Verified" : "Rejected"
-          }`,
-        template: "doctor-verification-status",
-        data: {
-          doctorName: doctor.fullName,
-          status: verificationStatus,
-          reason: reason || "",
-        },
-      });
-
-      logger.info(`Doctor verification status updated: ${doctor.doctorId}`, {
-        doctorId: doctor.doctorId,
-        verificationStatus,
-        reason,
-        adminUser: res.locals.user?.id,
-      });
-
-      res.json({
-        success: true,
-        message: `Doctor ${verificationStatus} successfully`,
-        data: { doctor },
-      });
-    } catch (error) {
-      next(error);
+    if (!["verified", "rejected"].includes(verificationStatus)) {
+      throw new AppError("Invalid status. Must be 'verified' or 'rejected'", 400);
     }
+
+    const isVerifiedByAdmin = verificationStatus === "verified";
+    const updateData: {
+      isVerifiedByAdmin: boolean;
+      verificationNotes: any;
+      approvalDate?: Date;
+    } = {
+      isVerifiedByAdmin: true,
+      verificationNotes: reason,
+    };
+
+    // Set approval date only if approved
+    if (isVerifiedByAdmin) {
+      updateData.approvalDate = new Date();
+    }
+
+    const doctor = await Doctor.findOneAndUpdate(
+      {
+        $or: [{ _id: doctorId }, { doctorId }],
+      },
+      updateData,
+      { new: true }
+    );
+
+    if (!doctor) {
+      throw new AppError("Doctor not found", 404);
+    }
+
+    // Send email notification
+    await NotificationService.sendEmail({
+      to: doctor.personalInfo.email,
+      subject: `Doctor Account ${verificationStatus === "verified" ? "verified" : "Rejected"}`,
+      template: "doctor-verification-status",
+      data: {
+        doctorName: doctor.fullName,
+        status: verificationStatus,
+        reason: reason || "",
+      },
+    });
+
+    logger.info(`Doctor ${verificationStatus}: ${doctor.doctorId}`, {
+      doctorId: doctor.doctorId,
+      isVerifiedByAdmin,
+      reason,
+      adminUser: res.locals.user?.id,
+    });
+
+    res.json({
+      success: true,
+      message: `Doctor ${verificationStatus} successfully`,
+      data: { doctor },
+    });
+  } catch (error) {
+    next(error);
   }
+}
 
   // Delete doctor by admin
   static async deleteDoctorByAdmin(
