@@ -6,6 +6,7 @@ import AppointmentService from "../services/appointmentService";
 import logger from "../utils/logger";
 import { AppError } from "../types/errors";
 import { NextFunction, Request, Response } from "express";
+import { console } from "inspector";
 
 class AppointmentController {
   private static getFeeByAppointmentType(doctor: any, type: string): number {
@@ -40,6 +41,8 @@ class AppointmentController {
         symptoms,
         notes,
         bookingSource,
+        status,
+        priority,
         paymentMethod,
         paymentStatus,
         specialRequirements,
@@ -66,7 +69,6 @@ class AppointmentController {
       if (!isSlotAvailable) {
         throw new AppError("Selected time slot is not available", 409);
       }
-
       // Create Appointment
       const appointment = new Appointment({
         patient: patientId,
@@ -80,7 +82,9 @@ class AppointmentController {
         specialRequirements,
         paymentStatus,
         paymentMethod,
-        paymentAmount: this.getFeeByAppointmentType(doctor, appointmentType),
+        priority,
+        status,
+        paymentAmount: AppointmentController.getFeeByAppointmentType(doctor, appointmentType),
         metadata: {
           ipAddress: req.ip,
           userAgent: req.get("User-Agent"),

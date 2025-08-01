@@ -28,6 +28,7 @@ const patientAuthMiddleware = async (req: Request, res: Response, next: NextFunc
         }
 
         const decoded = jwt.verify(token, secret) as DecodedToken;
+        console.log("Decoded token:", decoded);
 
         if (decoded.type !== 'patient') {
             throw new AppError('Invalid token type. Patient access required.', 401);
