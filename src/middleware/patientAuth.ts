@@ -3,20 +3,6 @@ import { AppError } from "../types/errors";
 import jwt from "jsonwebtoken"
 import Patient from "../models/Patient";
 
-declare global {
-    namespace Express {
-        interface Request {
-            patient?: {
-                id: string;
-                patientId: string;
-                email: string;
-                isVerified: boolean;
-            };
-        }
-    }
-}
-
-
 interface DecodedToken {
     patientId: string;
     type: string;
@@ -37,15 +23,13 @@ const patientAuthMiddleware = async (req: Request, res: Response, next: NextFunc
         }
 
         const secret = process.env.JWT_SECRET;
-
         if (!secret) {
             throw new Error("JWT_SECRET is not defined in environment variables.");
         }
-        // Verify token
+
         const decoded = jwt.verify(token, secret) as DecodedToken;
         console.log("Decoded token:", decoded);
 
-        // Check if token is for patient
         if (decoded.type !== 'patient') {
             throw new AppError('Invalid token type. Patient access required.', 401);
         }
@@ -66,7 +50,7 @@ const patientAuthMiddleware = async (req: Request, res: Response, next: NextFunc
         }
 
         // Grant access to protected route
-        req.patient = {
+        res.locals.patient = {
             id: patient._id.toString(),
             patientId: patient.patientId,
             email: patient.contactInfo.email,

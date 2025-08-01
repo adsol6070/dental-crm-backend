@@ -4,21 +4,6 @@ import { AppError } from "../types/errors";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 
-// Extend Request interface to include admin user
-declare global {
-    namespace Express {
-        interface Request {
-            user?: {
-                id: string;
-                email: string;
-                role: string;
-                permissions: string[];
-                isActive: boolean;
-            };
-        }
-    }
-}
-
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const authHeader = req.headers.authorization;
@@ -39,12 +24,12 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
             throw new AppError("Account is inactive or suspended", 401);
         }
 
-        req.user = {
+        res.locals.user = {
             id: user._id.toString(),
             email: user.email,
             role: user.role,
             permissions: user.permissions,
-            isActive: user.isActive
+            isActive: user.isActive,
         };
 
         next();
@@ -58,14 +43,16 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
 };
 
 export const requireSuperAdmin = (req: Request, res: Response, next: NextFunction): void => {
-    if (!req.user || req.user.role !== "super_admin") {
+    const user = res.locals.user;
+    if (!user || user.role !== "super_admin") {
         throw new AppError("Super admin access required", 403);
     }
     next();
 };
 
 export const requireAdmin = (req: Request, res: Response, next: NextFunction): void => {
-    if (!req.user || !["super_admin", "admin"].includes(req.user.role)) {
+    const user = res.locals.user;
+    if (!user || !["super_admin", "admin"].includes(user.role)) {
         throw new AppError("Admin access required", 403);
     }
     next();

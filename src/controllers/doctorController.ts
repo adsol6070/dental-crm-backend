@@ -319,7 +319,7 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctor = await Doctor.findById(req.doctor?.id);
+      const doctor = await Doctor.findById(res.locals.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -343,7 +343,7 @@ class DoctorController {
     try {
       const updateData = req.validatedData;
 
-      const doctor = await Doctor.findByIdAndUpdate(req.doctor?.id, updateData, {
+      const doctor = await Doctor.findByIdAndUpdate(res.locals.doctor?.id, updateData, {
         new: true,
         runValidators: true,
       });
@@ -381,7 +381,7 @@ class DoctorController {
         const existingDoctor = await Doctor.findOne({
           "professionalInfo.licenseNumber":
             updateData.licenseNumber.toUpperCase(),
-          _id: { $ne: req.doctor?.id },
+          _id: { $ne: res.locals.doctor?.id },
         });
 
         if (existingDoctor) {
@@ -390,7 +390,7 @@ class DoctorController {
       }
 
       const doctor = await Doctor.findByIdAndUpdate(
-        req.doctor?.id,
+        res.locals.doctor?.id,
         { professionalInfo: updateData },
         { new: true, runValidators: true }
       );
@@ -427,7 +427,7 @@ class DoctorController {
       if (updateData.phone) {
         const existingDoctor = await Doctor.findOne({
           "personalInfo.phone": updateData.phone,
-          _id: { $ne: req.doctor?.id },
+          _id: { $ne: res.locals.doctor?.id },
         });
 
         if (existingDoctor) {
@@ -439,7 +439,7 @@ class DoctorController {
       }
 
       const doctor = await Doctor.findByIdAndUpdate(
-        req.doctor?.id,
+        res.locals.doctor?.id,
         { personalInfo: updateData },
         { new: true, runValidators: true }
       );
@@ -470,7 +470,7 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctor = await Doctor.findById(req.doctor?.id).select(
+      const doctor = await Doctor.findById(res.locals.doctor?.id).select(
         "schedule availability"
       );
 
@@ -499,7 +499,7 @@ class DoctorController {
       const scheduleData = req.body as UpdateScheduleBody;
 
       const doctor = await Doctor.findByIdAndUpdate(
-        req.doctor?.id,
+        res.locals.doctor?.id,
         { schedule: scheduleData },
         { new: true, runValidators: true }
       );
@@ -540,7 +540,7 @@ class DoctorController {
       );
 
       const doctor = await Doctor.findByIdAndUpdate(
-        req.doctor?.id,
+        res.locals.doctor?.id,
         { $set: updatePayload },
         { new: true, runValidators: true }
       );
@@ -572,7 +572,7 @@ class DoctorController {
     try {
       const { day, startTime, endTime, title } = req.body;
 
-      const doctor = await Doctor.findById(req.doctor?.id);
+      const doctor = await Doctor.findById(res.locals.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -611,7 +611,7 @@ class DoctorController {
     try {
       const { breakId } = req.params;
 
-      const doctor = await Doctor.findById(req.doctor?.id);
+      const doctor = await Doctor.findById(res.locals.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -649,7 +649,7 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctor = await Doctor.findById(req.doctor?.id).select(
+      const doctor = await Doctor.findById(res.locals.doctor?.id).select(
         "availability.unavailableDates"
       );
 
@@ -694,7 +694,7 @@ class DoctorController {
         notes,
       } = req.body as AddUnavailableDateBody;
 
-      const doctor = await Doctor.findById(req.doctor?.id);
+      const doctor = await Doctor.findById(res.locals.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -729,7 +729,7 @@ class DoctorController {
 
       await Appointment.updateMany(
         {
-          doctor: req.user?.id,
+          doctor: res.locals.user?.id,
           appointmentDateTime: {
             $gte: startOfDay,
             $lte: endOfDay,
@@ -740,7 +740,7 @@ class DoctorController {
           status: "cancelled",
           statusUpdateReason: `Doctor unavailable: ${reason}`,
           statusUpdatedAt: new Date(),
-          statusUpdatedBy: req.user?.id,
+          statusUpdatedBy: res.locals.user?.id,
         }
       );
 
@@ -774,7 +774,7 @@ class DoctorController {
         notes,
       } = req.body as AddDateRangeBody;
 
-      const doctor = await Doctor.findById(req.doctor?.id);
+      const doctor = await Doctor.findById(res.locals.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -837,7 +837,7 @@ class DoctorController {
 
       await Appointment.updateMany(
         {
-          doctor: req.user?.id,
+          doctor: res.locals.user?.id,
           appointmentDateTime: {
             $gte: startOfRange,
             $lte: endOfRange,
@@ -848,7 +848,7 @@ class DoctorController {
           status: "cancelled",
           statusUpdateReason: `Doctor unavailable: ${reason}`,
           statusUpdatedAt: new Date(),
-          statusUpdatedBy: req.user?.id,
+          statusUpdatedBy: res.locals.user?.id,
         }
       );
 
@@ -885,7 +885,7 @@ class DoctorController {
     try {
       const { dateId } = req.params;
 
-      const doctor = await Doctor.findById(req.doctor?.id);
+      const doctor = await Doctor.findById(res.locals.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -930,7 +930,7 @@ class DoctorController {
       const { dateId } = req.params;
       const updateData = req.body as UpdateUnavailableDateBody;
 
-      const doctor = await Doctor.findById(req.doctor?.id);
+      const doctor = await Doctor.findById(res.locals.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -980,7 +980,7 @@ class DoctorController {
         );
       }
 
-      const doctor = await Doctor.findById(req.doctor?.id);
+      const doctor = await Doctor.findById(res.locals.doctor?.id);
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -1033,7 +1033,7 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctor = await Doctor.findById(req.doctor?.id).select(
+      const doctor = await Doctor.findById(res.locals.doctor?.id).select(
         "availability.unavailableDates"
       );
 
@@ -1083,7 +1083,7 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctor = await Doctor.findById(req.doctor?.id).select("fees");
+      const doctor = await Doctor.findById(res.locals.doctor?.id).select("fees");
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -1108,7 +1108,7 @@ class DoctorController {
       const feesData = req.validatedData as UpdateFeesBody;
 
       const doctor = await Doctor.findByIdAndUpdate(
-        req.doctor?.id,
+        res.locals.doctor?.id,
         { fees: feesData },
         { new: true, runValidators: true }
       );
@@ -1145,8 +1145,8 @@ class DoctorController {
       // Note: Password functionality would need to be implemented in the Doctor model
       // For now, we'll just return success
 
-      logger.info(`Password changed for doctor: ${req.user?.id}`, {
-        doctorId: req.user?.id,
+      logger.info(`Password changed for doctor: ${res.locals.user?.id}`, {
+        doctorId: res.locals.user?.id,
       });
 
       res.json({
@@ -1170,7 +1170,7 @@ class DoctorController {
       }
 
       const doctor = await Doctor.findByIdAndUpdate(
-        req.user?.id,
+        res.locals.user?.id,
         { profilePicture: req.file.path },
         { new: true }
       );
@@ -1214,7 +1214,7 @@ class DoctorController {
       }));
 
       const doctor = await Doctor.findByIdAndUpdate(
-        req.user?.id,
+        res.locals.user?.id,
         { $push: { documents: { $each: documentPaths } } },
         { new: true }
       );
@@ -1256,7 +1256,7 @@ class DoctorController {
         sortOrder = "desc",
       } = query;
 
-      const filter: any = { doctor: req.doctor?.id };
+      const filter: any = { doctor: res.locals.doctor?.id };
 
       if (status) filter.status = status;
       if (startDate || endDate) {
@@ -1304,7 +1304,7 @@ class DoctorController {
       const endOfDay = new Date(today.setHours(23, 59, 59, 999));
 
       const appointments = await Appointment.find({
-        doctor: req.doctor?.id,
+        doctor: res.locals.doctor?.id,
         appointmentDateTime: { $gte: startOfDay, $lte: endOfDay },
         status: { $in: ["scheduled", "confirmed", "in-progress"] },
       })
@@ -1331,7 +1331,7 @@ class DoctorController {
       const now = new Date();
 
       const appointments = await Appointment.find({
-        doctor: req.doctor?.id,
+        doctor: res.locals.doctor?.id,
         appointmentDateTime: { $gte: now },
         status: { $in: ["scheduled", "confirmed"] },
       })
@@ -1360,7 +1360,7 @@ class DoctorController {
 
       const appointment = await Appointment.findOne({
         _id: appointmentId,
-        doctor: req.doctor?.id,
+        doctor: res.locals.doctor?.id,
       }).populate("patient", "personalInfo contactInfo patientId medicalInfo");
 
       if (!appointment) {
@@ -1389,7 +1389,7 @@ class DoctorController {
       // First get the current appointment to capture the old status
       const currentAppointment = await Appointment.findOne({
         _id: appointmentId,
-        doctor: req.doctor?.id,
+        doctor: res.locals.doctor?.id,
       });
 
       if (!currentAppointment) {
@@ -1400,12 +1400,12 @@ class DoctorController {
 
       // Update the appointment
       const appointment = await Appointment.findOneAndUpdate(
-        { _id: appointmentId, doctor: req.doctor?.id },
+        { _id: appointmentId, doctor: res.locals.doctor?.id },
         {
           status,
           statusUpdateReason: reason,
           statusUpdatedAt: new Date(),
-          statusUpdatedBy: req.doctor?.id,
+          statusUpdatedBy: res.locals.doctor?.id,
         },
         { new: true }
       ).populate("patient", "personalInfo contactInfo");
@@ -1423,7 +1423,7 @@ class DoctorController {
         );
       }
 
-      logger.info(`Appointment status updated by doctor: ${req.doctor?.id}`, {
+      logger.info(`Appointment status updated by doctor: ${res.locals.doctor?.id}`, {
         appointmentId: appointment._id,
         oldStatus,
         newStatus: status,
@@ -1450,7 +1450,7 @@ class DoctorController {
       const consultationData = req.validatedData;
 
       const appointment = await Appointment.findOneAndUpdate(
-        { _id: appointmentId, doctor: req.doctor?.id },
+        { _id: appointmentId, doctor: res.locals.doctor?.id },
         {
           consultation: consultationData,
           status: "completed",
@@ -1462,9 +1462,9 @@ class DoctorController {
         throw new AppError("Appointment not found", 404);
       }
 
-      logger.info(`Consultation notes added by doctor: ${req.doctor?.id}`, {
+      logger.info(`Consultation notes added by doctor: ${res.locals.doctor?.id}`, {
         appointmentId: appointment._id,
-        doctorId: req.doctor?.id,
+        doctorId: res.locals.doctor?.id,
       });
 
       res.json({
@@ -1484,7 +1484,7 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctorId = req.doctor?.id;
+      const doctorId = res.locals.doctor?.id;
 
       // Get today's appointments
       const today = new Date();
@@ -1571,7 +1571,7 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctorId = req.doctor?.id;
+      const doctorId = res.locals.doctor?.id;
 
       const stats = await Appointment.aggregate([
         { $match: { doctor: doctorId } },
@@ -1618,19 +1618,19 @@ class DoctorController {
       statistics.completionRate =
         statistics.totalAppointments > 0
           ? (
-              (statistics.completedAppointments /
-                statistics.totalAppointments) *
-              100
-            ).toFixed(1)
+            (statistics.completedAppointments /
+              statistics.totalAppointments) *
+            100
+          ).toFixed(1)
           : "0";
 
       statistics.cancellationRate =
         statistics.totalAppointments > 0
           ? (
-              (statistics.cancelledAppointments /
-                statistics.totalAppointments) *
-              100
-            ).toFixed(1)
+            (statistics.cancelledAppointments /
+              statistics.totalAppointments) *
+            100
+          ).toFixed(1)
           : "0";
 
       // Get unique patients count
@@ -1661,7 +1661,7 @@ class DoctorController {
       const endDate = new Date(Number(year), Number(month), 0, 23, 59, 59);
 
       const appointments = await Appointment.find({
-        doctor: req.user?.id,
+        doctor: res.locals.user?.id,
         appointmentDateTime: { $gte: startDate, $lte: endDate },
       })
         .populate("patient", "personalInfo contactInfo")
@@ -1700,7 +1700,7 @@ class DoctorController {
 
       // Get unique patients who have appointments with this doctor
       const appointmentPatients = await Appointment.distinct("patient", {
-        doctor: req.doctor?.id,
+        doctor: res.locals.doctor?.id,
       });
 
       const filter: any = { _id: { $in: appointmentPatients } };
@@ -1750,7 +1750,7 @@ class DoctorController {
 
       const history = await Appointment.find({
         patient: patientId,
-        doctor: req.doctor?.id,
+        doctor: res.locals.doctor?.id,
         status: "completed",
       })
         .sort({ appointmentDateTime: -1 })
@@ -1780,7 +1780,7 @@ class DoctorController {
 
       // Get patients who have appointments with this doctor
       const appointmentPatients = await Appointment.distinct("patient", {
-        doctor: req.doctor?.id,
+        doctor: res.locals.doctor?.id,
       });
 
       const patients = await Patient.find({
@@ -1817,7 +1817,7 @@ class DoctorController {
       const { page = 1, limit = 10 } = query;
 
       const reviews = await Appointment.find({
-        doctor: req.user?.id,
+        doctor: res.locals.user?.id,
         "review.rating": { $exists: true },
       })
         .populate("patient", "personalInfo")
@@ -1828,7 +1828,7 @@ class DoctorController {
         .lean();
 
       const total = await Appointment.countDocuments({
-        doctor: req.user?.id,
+        doctor: res.locals.user?.id,
         "review.rating": { $exists: true },
       });
 
@@ -1857,7 +1857,7 @@ class DoctorController {
       const summary = await Appointment.aggregate([
         {
           $match: {
-            doctor: req.user?.id,
+            doctor: res.locals.user?.id,
             "review.rating": { $exists: true },
           },
         },
@@ -1913,7 +1913,7 @@ class DoctorController {
       // This would typically come from a notifications collection
       // For now, using appointment-based notifications as placeholder
       const notifications = await Appointment.find({
-        doctor: req.user?.id,
+        doctor: res.locals.user?.id,
         status: { $in: ["scheduled", "confirmed"] },
         appointmentDateTime: { $gte: new Date() },
       })
@@ -1987,7 +1987,7 @@ class DoctorController {
   ): Promise<void> {
     try {
       const doctor = await Doctor.findByIdAndUpdate(
-        req.user?.id,
+        res.locals.user?.id,
         {
           isActive: false,
         },
@@ -2001,7 +2001,7 @@ class DoctorController {
       // Cancel all future appointments
       await Appointment.updateMany(
         {
-          doctor: req.user?.id,
+          doctor: res.locals.user?.id,
           appointmentDateTime: { $gte: new Date() },
           status: { $in: ["scheduled", "confirmed"] },
         },
@@ -2028,9 +2028,9 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctor = await Doctor.findById(req.user?.id);
+      const doctor = await Doctor.findById(res.locals.user?.id);
       const appointments = await Appointment.find({
-        doctor: req.user?.id,
+        doctor: res.locals.user?.id,
       }).populate("patient", "personalInfo contactInfo");
 
       if (!doctor) {
@@ -2696,7 +2696,7 @@ class DoctorController {
 
       logger.info(`Doctor updated by admin: ${doctor.doctorId}`, {
         doctorId: doctor.doctorId,
-        adminUser: req.user?.id,
+        adminUser: res.locals.user?.id,
         updatedFields: Object.keys(updateData),
       });
 
@@ -2729,7 +2729,7 @@ class DoctorController {
           // Note: These fields don't exist in the model, but keeping for consistency
           statusUpdateReason: reason,
           statusUpdatedAt: new Date(),
-          statusUpdatedBy: req.user?.id,
+          statusUpdatedBy: res.locals.user?.id,
         } as any,
         { new: true }
       );
@@ -2754,14 +2754,13 @@ class DoctorController {
         doctorId: doctor.doctorId,
         newStatus: isActive ? "active" : "inactive",
         reason,
-        adminUser: req.user?.id,
+        adminUser: res.locals.user?.id,
       });
 
       res.json({
         success: true,
-        message: `Doctor ${
-          isActive ? "activated" : "deactivated"
-        } successfully`,
+        message: `Doctor ${isActive ? "activated" : "deactivated"
+          } successfully`,
         data: { doctor },
       });
     } catch (error) {
@@ -2789,7 +2788,7 @@ class DoctorController {
           verificationReason: reason,
           verifiedAt:
             verificationStatus === "verified" ? new Date() : undefined,
-          verifiedBy: req.user?.id,
+          verifiedBy: res.locals.user?.id,
         } as any,
         { new: true }
       );
@@ -2801,9 +2800,8 @@ class DoctorController {
       // Send notification email
       await NotificationService.sendEmail({
         to: doctor.personalInfo.email,
-        subject: `Account ${
-          verificationStatus === "verified" ? "Verified" : "Rejected"
-        }`,
+        subject: `Account ${verificationStatus === "verified" ? "Verified" : "Rejected"
+          }`,
         template: "doctor-verification-status",
         data: {
           doctorName: doctor.fullName,
@@ -2816,7 +2814,7 @@ class DoctorController {
         doctorId: doctor.doctorId,
         verificationStatus,
         reason,
-        adminUser: req.user?.id,
+        adminUser: res.locals.user?.id,
       });
 
       res.json({
@@ -2866,7 +2864,7 @@ class DoctorController {
 
       logger.info(`Doctor deleted by admin: ${doctor.doctorId}`, {
         doctorId: doctor.doctorId,
-        adminUser: req.user?.id,
+        adminUser: res.locals.user?.id,
       });
 
       res.json({
