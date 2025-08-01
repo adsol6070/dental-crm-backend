@@ -1927,7 +1927,7 @@ class DoctorController {
         title: "Upcoming Appointment",
         message: `Appointment with ${(apt.patient as any)?.fullName}`,
         appointmentId: apt._id,
-        appointmentDateTime: apt.appointmentDateTime,
+        appointmentStartTime: apt.appointmentStartTime,
         isRead: false,
         createdAt: new Date(),
       }));
@@ -2047,7 +2047,7 @@ class DoctorController {
         appointments: appointments.map((apt) => ({
           appointmentId: apt.appointmentId,
           patientName: (apt.patient as any)?.fullName,
-          appointmentDateTime: apt.appointmentDateTime,
+          appointmentStartTime: apt.appointmentStartTime,
           status: apt.status,
           appointmentType: apt.appointmentType,
           symptoms: apt.symptoms,

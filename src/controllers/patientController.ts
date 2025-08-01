@@ -53,12 +53,12 @@ interface RegisterPatientBody {
     password: string;
   };
   registrationSource:
-  | "website"
-  | "mobile-app"
-  | "whatsapp"
-  | "phone-call"
-  | "in-person"
-  | "referral";
+    | "website"
+    | "mobile-app"
+    | "whatsapp"
+    | "phone-call"
+    | "in-person"
+    | "referral";
 }
 
 interface LoginBody {
@@ -777,19 +777,19 @@ class PatientController {
       statistics.completionRate =
         statistics.totalAppointments > 0
           ? (
-            (statistics.completedAppointments /
-              statistics.totalAppointments) *
-            100
-          ).toFixed(1)
+              (statistics.completedAppointments /
+                statistics.totalAppointments) *
+              100
+            ).toFixed(1)
           : "0";
 
       statistics.cancellationRate =
         statistics.totalAppointments > 0
           ? (
-            (statistics.cancelledAppointments /
-              statistics.totalAppointments) *
-            100
-          ).toFixed(1)
+              (statistics.cancelledAppointments /
+                statistics.totalAppointments) *
+              100
+            ).toFixed(1)
           : "0";
 
       res.json({
@@ -1416,7 +1416,7 @@ class PatientController {
         appointments: appointments.map((apt) => ({
           appointmentId: apt.appointmentId,
           doctorName: (apt.doctor as any)?.fullName,
-          appointmentDateTime: apt.appointmentDateTime,
+          appointmentDateTime: apt.appointmentStartTime,
           status: apt.status,
           appointmentType: apt.appointmentType,
           symptoms: apt.symptoms,
@@ -1696,8 +1696,9 @@ class PatientController {
 
       res.json({
         success: true,
-        message: `Patient ${isActive ? "activated" : "deactivated"
-          } successfully`,
+        message: `Patient ${
+          isActive ? "activated" : "deactivated"
+        } successfully`,
         data: { patient },
       });
     } catch (error) {
@@ -1717,8 +1718,6 @@ class PatientController {
       const patient = await Patient.findOne({
         $or: [{ _id: patientId }, { patientId: patientId }],
       });
-
-
 
       if (!patient) {
         throw new AppError("Patient not found", 404);
@@ -2092,9 +2091,9 @@ class PatientController {
           engagementRate:
             result.totalPatients > 0
               ? (
-                (result.patientsWithAppointments / result.totalPatients) *
-                100
-              ).toFixed(1)
+                  (result.patientsWithAppointments / result.totalPatients) *
+                  100
+                ).toFixed(1)
               : "0",
           averageAppointmentsPerPatient:
             Math.round(result.averageAppointmentsPerPatient * 100) / 100,

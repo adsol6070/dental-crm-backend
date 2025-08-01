@@ -14,7 +14,7 @@ interface TimeSlot {
 interface DayAvailability {
   date: string;
   available: boolean;
-  slots: TimeSlot[];
+  // slots: TimeSlot[];
 }
 
 interface WorkingDay {
@@ -104,13 +104,13 @@ class AppointmentService {
         availability.push({
           date: current.format("YYYY-MM-DD"),
           available: dayAvailability.length > 0,
-          slots: dayAvailability,
+          // slots: dayAvailability,
         });
       } else {
         availability.push({
           date: current.format("YYYY-MM-DD"),
           available: false,
-          slots: [],
+          // slots: [],
         });
       }
 
@@ -161,11 +161,11 @@ class AppointmentService {
     // Get existing appointments for the day
     const existingAppointments: Pick<
       AppointmentDocument,
-      "appointmentDateTime" | "duration"
+      "appointmentStartTime" | "duration"
     >[] = await Appointment.find({
       doctor: doctorId,
       status: { $in: ["scheduled", "confirmed", "in-progress"] },
-      appointmentDateTime: {
+      appointmentStartTime: {
         $gte: startTime.toDate(),
         $lt: endTime.toDate(),
       },
@@ -186,7 +186,7 @@ class AppointmentService {
 
       // Check if slot conflicts with existing appointments
       const hasConflict: boolean = existingAppointments.some((apt) => {
-        const aptStart = moment(apt.appointmentDateTime);
+        const aptStart = moment(apt.appointmentStartTime);
         const aptEnd = aptStart.clone().add(apt.duration, "minutes");
 
         return slotStart.isBefore(aptEnd) && slotEnd.isAfter(aptStart);
