@@ -84,7 +84,10 @@ class AppointmentController {
         paymentMethod,
         priority,
         status,
-        paymentAmount: AppointmentController.getFeeByAppointmentType(doctor, appointmentType),
+        paymentAmount: AppointmentController.getFeeByAppointmentType(
+          doctor,
+          appointmentType
+        ),
         metadata: {
           ipAddress: req.ip,
           userAgent: req.get("User-Agent"),
@@ -295,167 +298,176 @@ class AppointmentController {
   }
 
   //   // Update appointment
-  //   static async updateAppointment(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction
-  //   ) {
-  //     try {
-  //       const { id } = req.params;
-  //       const {
-  //         appointmentDateTime,
-  //         symptoms,
-  //         notes,
-  //         specialRequirements,
-  //         appointmentType,
-  //       } = req.body;
+    static async updateAppointment(
+      req: Request,
+      res: Response,
+      next: NextFunction
+    ) {
+      try {
+        const { id } = req.params;
+        const {
+          appointmentDateTime,
+          symptoms,
+          notes,
+          specialRequirements,
+          appointmentType,
+        } = req.body;
 
-  //       const appointment = await Appointment.findById(id);
-  //       if (!appointment) {
-  //         throw new AppError("Appointment not found", 404);
-  //       }
+        const appointment = await Appointment.findById(id);
+        if (!appointment) {
+          throw new AppError("Appointment not found", 404);
+        }
 
-  //       // Check if appointment can be updated (not completed or cancelled)
-  //       if (["completed", "cancelled"].includes(appointment.status)) {
-  //         throw new AppError(
-  //           `Cannot update ${appointment.status} appointment`,
-  //           400
-  //         );
-  //       }
+        // Check if appointment can be updated (not completed or cancelled)
+        if (["completed", "cancelled"].includes(appointment.status)) {
+          throw new AppError(
+            `Cannot update ${appointment.status} appointment`,
+            400
+          );
+        }
 
-  //       // If updating appointment time, check availability
-  //       if (
-  //         appointmentDateTime &&
-  //         appointmentDateTime !== appointment.appointmentDateTime.toISOString()
-  //       ) {
-  //         const doctor = await Doctor.findById(appointment.doctor);
-  //         const isSlotAvailable = await AppointmentService.checkSlotAvailability(
-  //           appointment.doctor,
-  //           new Date(appointmentDateTime),
-  //           doctor.schedule.slotDuration,
-  //           id // Exclude current appointment from availability check
-  //         );
+        // If updating appointment time, check availability
+        if (
+          appointmentDateTime &&
+          appointmentDateTime !== appointment.appointmentDateTime.toISOString()
+        ) {
+          const doctor = await Doctor.findById(appointment.doctor);
+          if (!doctor) {
+            throw new AppError("Doctor not found", 404);
+          }
+          const isSlotAvailable = await AppointmentService.checkSlotAvailability(
+            appointment.doctor,
+            new Date(appointmentDateTime),
+            doctor.schedule.slotDuration
+          );
 
-  //         if (!isSlotAvailable) {
-  //           throw new AppError("New time slot is not available", 409);
-  //         }
-  //       }
+          if (!isSlotAvailable) {
+            throw new AppError("New time slot is not available", 409);
+          }
+        }
 
-  //       const updateData = {
-  //         ...(appointmentDateTime && {
-  //           appointmentDateTime: new Date(appointmentDateTime),
-  //         }),
-  //         ...(symptoms && { symptoms }),
-  //         ...(notes && { notes }),
-  //         ...(specialRequirements && { specialRequirements }),
-  //         ...(appointmentType && { appointmentType }),
-  //         updatedAt: new Date(),
-  //       };
+        const updateData = {
+          ...(appointmentDateTime && {
+            appointmentDateTime: new Date(appointmentDateTime),
+          }),
+          ...(symptoms && { symptoms }),
+          ...(notes && { notes }),
+          ...(specialRequirements && { specialRequirements }),
+          ...(appointmentType && { appointmentType }),
+          updatedAt: new Date(),
+        };
 
-  //       const updatedAppointment = await Appointment.findByIdAndUpdate(
-  //         id,
-  //         updateData,
-  //         { new: true, runValidators: true }
-  //       ).populate(["patient", "doctor"]);
+        const updatedAppointment = await Appointment.findByIdAndUpdate(
+          id,
+          updateData,
+          { new: true, runValidators: true }
+        ).populate(["patient", "doctor"]);
 
-  //       // Send update notification
-  //       await NotificationService.sendAppointmentUpdate(updatedAppointment._id);
+        // Send update notification
+        // await NotificationService.sendAppointmentUpdate(updatedAppointment._id);
 
-  //       logger.info(`Appointment updated: ${updatedAppointment.appointmentId}`, {
-  //         appointmentId: updatedAppointment.appointmentId,
-  //         changes: Object.keys(updateData),
-  //       });
+        if (!updatedAppointment) {
+          throw new AppError("Failed to update appointment", 500);
+        }
 
-  //       res.json({
-  //         success: true,
-  //         message: "Appointment updated successfully",
-  //         data: { appointment: updatedAppointment },
-  //       });
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
+        logger.info(`Appointment updated: ${updatedAppointment.appointmentId}`, {
+          appointmentId: updatedAppointment.appointmentId,
+          changes: Object.keys(updateData),
+        });
+
+        res.json({
+          success: true,
+          message: "Appointment updated successfully",
+          data: { appointment: updatedAppointment },
+        });
+      } catch (error) {
+        next(error);
+      }
+    }
 
   //   // Cancel appointment
-  //   static async cancelAppointment(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction
-  //   ) {
-  //     try {
-  //       const { id } = req.params;
-  //       const { cancellationReason, refundRequested = false } = req.body;
+  static async cancelAppointment(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { id } = req.params;
+      const { cancellationReason, refundRequested = false } = req.body;
 
-  //       const appointment = await Appointment.findById(id);
-  //       if (!appointment) {
-  //         throw new AppError("Appointment not found", 404);
-  //       }
+      const appointment = await Appointment.findById(id);
+      if (!appointment) {
+        throw new AppError("Appointment not found", 404);
+      }
 
-  //       if (appointment.status === "cancelled") {
-  //         throw new AppError("Appointment is already cancelled", 400);
-  //       }
+      if (appointment.status === "cancelled") {
+        throw new AppError("Appointment is already cancelled", 400);
+      }
 
-  //       if (appointment.status === "completed") {
-  //         throw new AppError("Cannot cancel completed appointment", 400);
-  //       }
+      if (appointment.status === "completed") {
+        throw new AppError("Cannot cancel completed appointment", 400);
+      }
 
-  //       // Check cancellation policy (24 hours before appointment)
-  //       const twentyFourHoursFromNow = new Date();
-  //       twentyFourHoursFromNow.setHours(twentyFourHoursFromNow.getHours() + 24);
+      // Check cancellation policy (24 hours before appointment)
+      const twentyFourHoursFromNow = new Date();
+      twentyFourHoursFromNow.setHours(twentyFourHoursFromNow.getHours() + 24);
 
-  //       const canCancelWithoutPenalty =
-  //         appointment.appointmentDateTime > twentyFourHoursFromNow;
+      const canCancelWithoutPenalty =
+        appointment.appointmentDateTime > twentyFourHoursFromNow;
 
-  //       const updatedAppointment = await Appointment.findByIdAndUpdate(
-  //         id,
-  //         {
-  //           status: "cancelled",
-  //           cancellation: {
-  //             cancelledAt: new Date(),
-  //             reason: cancellationReason,
-  //             refundRequested,
-  //             refundEligible: canCancelWithoutPenalty,
-  //           },
-  //           updatedAt: new Date(),
-  //         },
-  //         { new: true, runValidators: true }
-  //       ).populate(["patient", "doctor"]);
+      const updatedAppointment = await Appointment.findByIdAndUpdate(
+        id,
+        {
+          status: "cancelled",
+          cancellation: {
+            cancelledAt: new Date(),
+            reason: cancellationReason,
+            refundRequested,
+            refundEligible: canCancelWithoutPenalty,
+          },
+          updatedAt: new Date(),
+        },
+        { new: true, runValidators: true }
+      ).populate(["patient", "doctor"]);
 
-  //       // Update statistics
-  //       await Patient.findByIdAndUpdate(appointment.patient, {
-  //         $inc: { "statistics.cancelledAppointments": 1 },
-  //       });
+      // Update statistics
+      await Patient.findByIdAndUpdate(appointment.patient, {
+        $inc: { "statistics.cancelledAppointments": 1 },
+      });
 
-  //       await Doctor.findByIdAndUpdate(appointment.doctor, {
-  //         $inc: { "statistics.cancelledAppointments": 1 },
-  //       });
+      await Doctor.findByIdAndUpdate(appointment.doctor, {
+        $inc: { "statistics.cancelledAppointments": 1 },
+      });
 
-  //       // Send cancellation notification
-  //       await NotificationService.sendAppointmentCancellation(
-  //         updatedAppointment._id
-  //       );
+      // Send cancellation notification
+      if (!updatedAppointment) {
+        throw new AppError("Failed to cancel appointment", 500);
+      }
+      await NotificationService.sendCancellationNotification(
+        updatedAppointment._id
+      );
 
-  //       logger.info(
-  //         `Appointment cancelled: ${updatedAppointment.appointmentId}`,
-  //         {
-  //           appointmentId: updatedAppointment.appointmentId,
-  //           reason: cancellationReason,
-  //           refundEligible: canCancelWithoutPenalty,
-  //         }
-  //       );
+      logger.info(
+        `Appointment cancelled: ${updatedAppointment.appointmentId}`,
+        {
+          appointmentId: updatedAppointment.appointmentId,
+          reason: cancellationReason,
+          refundEligible: canCancelWithoutPenalty,
+        }
+      );
 
-  //       res.json({
-  //         success: true,
-  //         message: "Appointment cancelled successfully",
-  //         data: {
-  //           appointment: updatedAppointment,
-  //           refundEligible: canCancelWithoutPenalty,
-  //         },
-  //       });
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
+      res.json({
+        success: true,
+        message: "Appointment cancelled successfully",
+        data: {
+          appointment: updatedAppointment,
+          refundEligible: canCancelWithoutPenalty,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   //   // Search appointments
   //   static async searchAppointments(
@@ -535,153 +547,163 @@ class AppointmentController {
   //     }
   //   }
 
-  //   // Update appointment status
-  //   static async updateAppointmentStatus(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction
-  //   ) {
-  //     try {
-  //       const { id } = req.params;
-  //       const { status, notes } = req.body;
+    // Update appointment status
+    static async updateAppointmentStatus(
+      req: Request,
+      res: Response,
+      next: NextFunction
+    ) {
+      try {
+        const { id } = req.params;
+        const { status, notes } = req.body;
 
-  //       const validStatuses = [
-  //         "scheduled",
-  //         "confirmed",
-  //         "in-progress",
-  //         "completed",
-  //         "cancelled",
-  //         "no-show",
-  //       ];
-  //       if (!validStatuses.includes(status)) {
-  //         throw new AppError("Invalid status", 400);
-  //       }
+        const validStatuses = [
+          "scheduled",
+          "confirmed",
+          "in-progress",
+          "completed",
+          "cancelled",
+          "no-show",
+        ];
+        if (!validStatuses.includes(status)) {
+          throw new AppError("Invalid status", 400);
+        }
 
-  //       const appointment = await Appointment.findById(id);
-  //       if (!appointment) {
-  //         throw new AppError("Appointment not found", 404);
-  //       }
+        const appointment = await Appointment.findById(id);
+        if (!appointment) {
+          throw new AppError("Appointment not found", 404);
+        }
 
-  //       const updatedAppointment = await Appointment.findByIdAndUpdate(
-  //         id,
-  //         {
-  //           status,
-  //           ...(notes && { statusNotes: notes }),
-  //           updatedAt: new Date(),
-  //         },
-  //         { new: true, runValidators: true }
-  //       ).populate(["patient", "doctor"]);
+        const updatedAppointment = await Appointment.findByIdAndUpdate(
+          id,
+          {
+            status,
+            ...(notes && { statusNotes: notes }),
+            updatedAt: new Date(),
+          },
+          { new: true, runValidators: true }
+        ).populate(["patient", "doctor"]);
 
-  //       // Update statistics based on status
-  //       if (status === "completed") {
-  //         await Patient.findByIdAndUpdate(appointment.patient, {
-  //           $inc: { "statistics.completedAppointments": 1 },
-  //         });
-  //         await Doctor.findByIdAndUpdate(appointment.doctor, {
-  //           $inc: { "statistics.completedAppointments": 1 },
-  //         });
-  //       }
+        // Update statistics based on status
+        if (status === "completed") {
+          await Patient.findByIdAndUpdate(appointment.patient, {
+            $inc: { "statistics.completedAppointments": 1 },
+          });
+          await Doctor.findByIdAndUpdate(appointment.doctor, {
+            $inc: { "statistics.completedAppointments": 1 },
+          });
+        }
 
-  //       // Send status update notification
-  //       await NotificationService.sendAppointmentStatusUpdate(
-  //         updatedAppointment._id,
-  //         status
-  //       );
+        // Send status change notification
+        if (!updatedAppointment) {
+          throw new AppError("Failed to update appointment status", 500);
+        }
+        await NotificationService.sendStatusChangeNotification(
+          updatedAppointment._id,
+          appointment.status,
+          status
+        );
 
-  //       logger.info(
-  //         `Appointment status updated: ${updatedAppointment.appointmentId}`,
-  //         {
-  //           appointmentId: updatedAppointment.appointmentId,
-  //           oldStatus: appointment.status,
-  //           newStatus: status,
-  //         }
-  //       );
+        logger.info(
+          `Appointment status updated: ${updatedAppointment.appointmentId}`,
+          {
+            appointmentId: updatedAppointment.appointmentId,
+            oldStatus: appointment.status,
+            newStatus: status,
+          }
+        );
 
-  //       res.json({
-  //         success: true,
-  //         message: "Appointment status updated successfully",
-  //         data: { appointment: updatedAppointment },
-  //       });
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
+        res.json({
+          success: true,
+          message: "Appointment status updated successfully",
+          data: { appointment: updatedAppointment },
+        });
+      } catch (error) {
+        next(error);
+      }
+    }
 
-  //   // Reschedule appointment
-  //   static async rescheduleAppointment(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction
-  //   ) {
-  //     try {
-  //       const { id } = req.params;
-  //       const { newDateTime, reason } = req.body;
+  // Reschedule appointment
+  static async rescheduleAppointment(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { id } = req.params;
+      const { newDateTime, reason } = req.body;
 
-  //       const appointment = await Appointment.findById(id);
-  //       if (!appointment) {
-  //         throw new AppError("Appointment not found", 404);
-  //       }
+      const appointment = await Appointment.findById(id);
+      if (!appointment) {
+        throw new AppError("Appointment not found", 404);
+      }
+      if (["completed", "cancelled"].includes(appointment.status)) {
+        throw new AppError(
+          `Cannot reschedule ${appointment.status} appointment`,
+          400
+        );
+      }
 
-  //       if (["completed", "cancelled"].includes(appointment.status)) {
-  //         throw new AppError(
-  //           `Cannot reschedule ${appointment.status} appointment`,
-  //           400
-  //         );
-  //       }
+      const doctor = await Doctor.findById(appointment.doctor);
+      if (!doctor) {
+        throw new AppError("Doctor not found", 404);
+      }
+      const isSlotAvailable = await AppointmentService.checkSlotAvailability(
+        appointment.doctor,
+        new Date(newDateTime),
+        doctor.schedule.slotDuration
+      );
 
-  //       const doctor = await Doctor.findById(appointment.doctor);
-  //       const isSlotAvailable = await AppointmentService.checkSlotAvailability(
-  //         appointment.doctor,
-  //         new Date(newDateTime),
-  //         doctor.schedule.slotDuration,
-  //         id
-  //       );
+      if (!isSlotAvailable) {
+        throw new AppError("New time slot is not available", 409);
+      }
 
-  //       if (!isSlotAvailable) {
-  //         throw new AppError("New time slot is not available", 409);
-  //       }
+      const oldDateTime = appointment.appointmentDateTime;
+      const updatedAppointment = await Appointment.findByIdAndUpdate(
+        id,
+        {
+          appointmentDateTime: new Date(newDateTime),
+          status: "scheduled",
+          reschedule: {
+            originalDateTime: oldDateTime,
+            newDateTime: new Date(newDateTime),
+            reason,
+            rescheduledAt: new Date(),
+          },
+          updatedAt: new Date(),
+        },
+        { new: true, runValidators: true }
+      ).populate(["patient", "doctor"]);
 
-  //       const oldDateTime = appointment.appointmentDateTime;
-  //       const updatedAppointment = await Appointment.findByIdAndUpdate(
-  //         id,
-  //         {
-  //           appointmentDateTime: new Date(newDateTime),
-  //           status: "scheduled",
-  //           reschedule: {
-  //             originalDateTime: oldDateTime,
-  //             newDateTime: new Date(newDateTime),
-  //             reason,
-  //             rescheduledAt: new Date(),
-  //           },
-  //           updatedAt: new Date(),
-  //         },
-  //         { new: true, runValidators: true }
-  //       ).populate(["patient", "doctor"]);
+      // Send reschedule notification
+      if (!updatedAppointment) {
+        throw new AppError("Failed to reschedule appointment", 500);
+      }
+      await NotificationService.sendRescheduleNotification(
+        updatedAppointment._id,
+        oldDateTime,
+        newDateTime
+      );
 
-  //       // Send reschedule notification
-  //       await NotificationService.sendAppointmentReschedule(
-  //         updatedAppointment._id
-  //       );
+      logger.info(
+        `Appointment rescheduled: ${updatedAppointment.appointmentId}`,
+        {
+          appointmentId: updatedAppointment.appointmentId,
+          oldDateTime: oldDateTime.toISOString(),
+          newDateTime: newDateTime,
+          reason,
+        }
+      );
 
-  //       logger.info(
-  //         `Appointment rescheduled: ${updatedAppointment.appointmentId}`,
-  //         {
-  //           appointmentId: updatedAppointment.appointmentId,
-  //           oldDateTime: oldDateTime.toISOString(),
-  //           newDateTime: newDateTime,
-  //           reason,
-  //         }
-  //       );
-
-  //       res.json({
-  //         success: true,
-  //         message: "Appointment rescheduled successfully",
-  //         data: { appointment: updatedAppointment },
-  //       });
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
+      res.json({
+        success: true,
+        message: "Appointment rescheduled successfully",
+        data: { appointment: updatedAppointment },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   //   // Confirm appointment
   //   static async confirmAppointment(

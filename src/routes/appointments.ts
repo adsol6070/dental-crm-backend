@@ -29,11 +29,11 @@ router.get("/:id", AppointmentController.getAppointmentById);
 //   validateRequest(appointmentValidation.update),
 //   AppointmentController.updateAppointment
 // );
-// router.patch("/:id/status", AppointmentController.updateAppointmentStatus);
-// router.delete("/:id", AppointmentController.cancelAppointment);
+router.patch("/:id/status", AppointmentController.updateAppointmentStatus);
+router.delete("/:id", AppointmentController.cancelAppointment);
 
 // Appointment management
-// router.post("/:id/reschedule", AppointmentController.rescheduleAppointment);
+router.post("/:id/reschedule", AppointmentController.rescheduleAppointment);
 // router.post("/:id/confirm", AppointmentController.confirmAppointment);
 // router.post("/:id/complete", AppointmentController.completeAppointment);
 
