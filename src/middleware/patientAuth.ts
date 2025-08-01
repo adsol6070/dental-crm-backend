@@ -43,6 +43,7 @@ const patientAuthMiddleware = async (req: Request, res: Response, next: NextFunc
         }
         // Verify token
         const decoded = jwt.verify(token, secret) as DecodedToken;
+        console.log("Decoded token:", decoded);
 
         // Check if token is for patient
         if (decoded.type !== 'patient') {
