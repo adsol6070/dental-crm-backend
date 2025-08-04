@@ -12,11 +12,11 @@ router.post(
   validateRequest(appointmentValidation.create),
   AppointmentController.bookAppointment
 );
-// router.get(
-//   "/availability/:doctorId",
-//   AppointmentController.getDoctorAvailability
-// );
-// router.get("/slots/:doctorId/:date", AppointmentController.getAvailableSlots);
+router.get(
+  "/availability/:doctorId",
+  AppointmentController.getDoctorAvailability
+);
+router.get("/slots/:doctorId/:date", AppointmentController.getAvailableSlots);
 
 // // Protected routes
 router.use(authMiddleware); // Apply auth middleware to all routes below

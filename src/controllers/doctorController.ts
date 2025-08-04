@@ -1492,19 +1492,19 @@ class DoctorController {
 
       const todayAppointments = await Appointment.find({
         doctor: doctorId,
-        appointmentDateTime: { $gte: startOfDay, $lte: endOfDay },
+        appointmentStartTime: { $gte: startOfDay, $lte: endOfDay },
       })
         .populate("patient", "personalInfo contactInfo")
-        .sort({ appointmentDateTime: 1 });
+        .sort({ appointmentStartTime: 1 });
 
       // Get upcoming appointments
       const upcomingAppointments = await Appointment.find({
         doctor: doctorId,
-        appointmentDateTime: { $gte: new Date() },
+        appointmentStartTime: { $gte: new Date() },
         status: { $in: ["scheduled", "confirmed"] },
       })
         .populate("patient", "personalInfo contactInfo")
-        .sort({ appointmentDateTime: 1 })
+        .sort({ appointmentStartTime: 1 })
         .limit(5);
 
       // Get recent patients
@@ -1513,7 +1513,7 @@ class DoctorController {
         status: "completed",
       })
         .populate("patient", "personalInfo contactInfo")
-        .sort({ appointmentDateTime: -1 })
+        .sort({ appointmentStartTime: -1 })
         .limit(5);
 
       // Get doctor statistics
@@ -1529,7 +1529,7 @@ class DoctorController {
         {
           $match: {
             doctor: doctor._id,
-            appointmentDateTime: {
+            appointmentStartTime: {
               $gte: new Date(`${currentYear}-01-01`),
               $lte: new Date(`${currentYear}-12-31`),
             },
@@ -1564,88 +1564,86 @@ class DoctorController {
   }
 
   // Get doctor statistics
-  static async getDoctorStatistics(
-    req: Request,
-    res: Response<ApiResponse<{ statistics: any }>>,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const doctorId = res.locals.doctor?.id;
+ static async getDoctorStatistics(
+  req: Request,
+  res: Response<ApiResponse<{ statistics: any }>>,
+  next: NextFunction
+): Promise<void> {
+  try {
+    const doctorId = res.locals.doctor?.id;
 
-      const stats = await Appointment.aggregate([
-        { $match: { doctor: doctorId } },
-        {
-          $group: {
-            _id: null,
-            totalAppointments: { $sum: 1 },
-            completedAppointments: {
-              $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] },
-            },
-            cancelledAppointments: {
-              $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] },
-            },
-            noShowAppointments: {
-              $sum: { $cond: [{ $eq: ["$status", "no-show"] }, 1, 0] },
-            },
-            upcomingAppointments: {
-              $sum: {
-                $cond: [
-                  {
-                    $and: [
-                      { $gte: ["$appointmentDateTime", new Date()] },
-                      { $in: ["$status", ["scheduled", "confirmed"]] },
-                    ],
-                  },
-                  1,
-                  0,
-                ],
-              },
+    const stats = await Appointment.aggregate([
+      { $match: { doctor: doctorId } },
+      {
+        $group: {
+          _id: null,
+          totalAppointments: { $sum: 1 },
+          completedAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] },
+          },
+          cancelledAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] },
+          },
+          noShowAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "no-show"] }, 1, 0] },
+          },
+          upcomingAppointments: {
+            $sum: {
+              $cond: [
+                {
+                  $and: [
+                    { $gte: ["$appointmentDateTime", new Date()] },
+                    { $in: ["$status", ["scheduled", "confirmed"]] },
+                  ],
+                },
+                1,
+                0,
+              ],
             },
           },
         },
-      ]);
+      },
+    ]);
 
-      const statistics = stats[0] || {
-        totalAppointments: 0,
-        completedAppointments: 0,
-        cancelledAppointments: 0,
-        noShowAppointments: 0,
-        upcomingAppointments: 0,
-      };
+    const statistics = stats[0] || {
+      totalAppointments: 0,
+      completedAppointments: 0,
+      cancelledAppointments: 0,
+      noShowAppointments: 0,
+      upcomingAppointments: 0,
+    };
 
-      // Calculate rates
-      statistics.completionRate =
-        statistics.totalAppointments > 0
-          ? (
-            (statistics.completedAppointments /
-              statistics.totalAppointments) *
+    // Calculate Rates
+    statistics.completionRate =
+      statistics.totalAppointments > 0
+        ? (
+            (statistics.completedAppointments / statistics.totalAppointments) *
             100
           ).toFixed(1)
-          : "0";
+        : "0";
 
-      statistics.cancellationRate =
-        statistics.totalAppointments > 0
-          ? (
-            (statistics.cancelledAppointments /
-              statistics.totalAppointments) *
+    statistics.cancellationRate =
+      statistics.totalAppointments > 0
+        ? (
+            (statistics.cancelledAppointments / statistics.totalAppointments) *
             100
           ).toFixed(1)
-          : "0";
+        : "0";
 
-      // Get unique patients count
-      const uniquePatients = await Appointment.distinct("patient", {
-        doctor: doctorId,
-      });
-      statistics.totalPatients = uniquePatients.length;
+    // Get Unique Patients Count
+    const uniquePatients = await Appointment.distinct("patient", {
+      doctor: doctorId,
+    });
+    statistics.totalPatients = uniquePatients.length;
 
-      res.json({
-        success: true,
-        data: { statistics },
-      });
-    } catch (error) {
-      next(error);
-    }
+    res.json({
+      success: true,
+      data: { statistics },
+    });
+  } catch (error) {
+    next(error);
   }
+}
 
   // Get monthly calendar
   static async getMonthlyCalendar(
@@ -1926,7 +1924,7 @@ class DoctorController {
         title: "Upcoming Appointment",
         message: `Appointment with ${(apt.patient as any)?.fullName}`,
         appointmentId: apt._id,
-        appointmentDateTime: apt.appointmentDateTime,
+        appointmentStartTime: apt.appointmentStartTime,
         isRead: false,
         createdAt: new Date(),
       }));
@@ -2046,7 +2044,7 @@ class DoctorController {
         appointments: appointments.map((apt) => ({
           appointmentId: apt.appointmentId,
           patientName: (apt.patient as any)?.fullName,
-          appointmentDateTime: apt.appointmentDateTime,
+          appointmentStartTime: apt.appointmentStartTime,
           status: apt.status,
           appointmentType: apt.appointmentType,
           symptoms: apt.symptoms,

@@ -53,12 +53,12 @@ interface RegisterPatientBody {
     password: string;
   };
   registrationSource:
-  | "website"
-  | "mobile-app"
-  | "whatsapp"
-  | "phone-call"
-  | "in-person"
-  | "referral";
+    | "website"
+    | "mobile-app"
+    | "whatsapp"
+    | "phone-call"
+    | "in-person"
+    | "referral";
 }
 
 interface LoginBody {
@@ -661,11 +661,11 @@ class PatientController {
       // Get upcoming appointments
       const upcomingAppointments = await Appointment.find({
         patient: patientId,
-        appointmentDateTime: { $gte: new Date() },
+        appointmentStartTime: { $gte: new Date() },
         status: { $in: ["scheduled", "confirmed"] },
       })
         .populate("doctor", "personalInfo professionalInfo")
-        .sort({ appointmentDateTime: 1 })
+        .sort({ appointmentStartTime: 1 })
         .limit(3);
 
       // Get recent appointments
@@ -674,7 +674,7 @@ class PatientController {
         status: "completed",
       })
         .populate("doctor", "personalInfo professionalInfo")
-        .sort({ appointmentDateTime: -1 })
+        .sort({ appointmentStartTime: -1 })
         .limit(3);
 
       // Get patient statistics
@@ -690,7 +690,7 @@ class PatientController {
         {
           $match: {
             patient: patient._id,
-            appointmentDateTime: {
+            appointmentStartTime: {
               $gte: new Date(`${currentYear}-01-01`),
               $lte: new Date(`${currentYear}-12-31`),
             },
@@ -698,7 +698,7 @@ class PatientController {
         },
         {
           $group: {
-            _id: { $month: "$appointmentDateTime" },
+            _id: { $month: "$appointmentStartTime" },
             count: { $sum: 1 },
           },
         },
@@ -777,19 +777,19 @@ class PatientController {
       statistics.completionRate =
         statistics.totalAppointments > 0
           ? (
-            (statistics.completedAppointments /
-              statistics.totalAppointments) *
-            100
-          ).toFixed(1)
+              (statistics.completedAppointments /
+                statistics.totalAppointments) *
+              100
+            ).toFixed(1)
           : "0";
 
       statistics.cancellationRate =
         statistics.totalAppointments > 0
           ? (
-            (statistics.cancelledAppointments /
-              statistics.totalAppointments) *
-            100
-          ).toFixed(1)
+              (statistics.cancelledAppointments /
+                statistics.totalAppointments) *
+              100
+            ).toFixed(1)
           : "0";
 
       res.json({
@@ -1416,7 +1416,7 @@ class PatientController {
         appointments: appointments.map((apt) => ({
           appointmentId: apt.appointmentId,
           doctorName: (apt.doctor as any)?.fullName,
-          appointmentDateTime: apt.appointmentDateTime,
+          appointmentDateTime: apt.appointmentStartTime,
           status: apt.status,
           appointmentType: apt.appointmentType,
           symptoms: apt.symptoms,
@@ -1612,7 +1612,7 @@ class PatientController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { patientId } = req.validatedParams;
+      const { patientId } = req.params;
       const updateData = req.validatedData;
 
       // Remove sensitive fields that shouldn't be updated via admin
@@ -1696,8 +1696,9 @@ class PatientController {
 
       res.json({
         success: true,
-        message: `Patient ${isActive ? "activated" : "deactivated"
-          } successfully`,
+        message: `Patient ${
+          isActive ? "activated" : "deactivated"
+        } successfully`,
         data: { patient },
       });
     } catch (error) {
@@ -1717,8 +1718,6 @@ class PatientController {
       const patient = await Patient.findOne({
         $or: [{ _id: patientId }, { patientId: patientId }],
       });
-
-
 
       if (!patient) {
         throw new AppError("Patient not found", 404);
@@ -1742,6 +1741,8 @@ class PatientController {
       (patient as any).isDeleted = true;
       (patient as any).deletedAt = new Date();
       (patient as any).deletedBy = res.locals.user?.id;
+      (patient as any).isActive = false;
+
       await patient.save();
 
       logger.info(`Patient deleted by admin: ${patient.patientId}`, {
@@ -2092,9 +2093,9 @@ class PatientController {
           engagementRate:
             result.totalPatients > 0
               ? (
-                (result.patientsWithAppointments / result.totalPatients) *
-                100
-              ).toFixed(1)
+                  (result.patientsWithAppointments / result.totalPatients) *
+                  100
+                ).toFixed(1)
               : "0",
           averageAppointmentsPerPatient:
             Math.round(result.averageAppointmentsPerPatient * 100) / 100,

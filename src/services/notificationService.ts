@@ -132,7 +132,7 @@ class NotificationService {
             patientName: patient.fullName,
             doctorName: doctor.fullName,
             appointmentDate: this.formatDateTime(
-              appointment.appointmentDateTime
+              appointment.appointmentStartTime
             ),
             appointmentId: appointment.appointmentId,
             appointmentType: appointment.appointmentType,
@@ -152,7 +152,7 @@ class NotificationService {
         const smsMessage: string = this.generateSMSMessage("confirmation", {
           patientName: patient.personalInfo.firstName,
           doctorName: doctor.fullName,
-          appointmentDate: this.formatDateTime(appointment.appointmentDateTime),
+          appointmentDate: this.formatDateTime(appointment.appointmentStartTime),
           appointmentId: appointment.appointmentId,
         });
 
@@ -222,7 +222,7 @@ class NotificationService {
       // Check if it's time to send reminder
       const reminderTime: number =
         patient.preferences.reminderSettings.reminderTime || 24; // hours
-      const appointmentTime: Date = new Date(appointment.appointmentDateTime);
+      const appointmentTime: Date = new Date(appointment.appointmentStartTime);
       const currentTime: Date = new Date();
       const timeDiff: number =
         (appointmentTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60); // hours
@@ -242,7 +242,7 @@ class NotificationService {
             patientName: patient.fullName,
             doctorName: doctor.fullName,
             appointmentDate: this.formatDateTime(
-              appointment.appointmentDateTime
+              appointment.appointmentStartTime
             ),
             appointmentId: appointment.appointmentId,
             appointmentType: appointment.appointmentType,
@@ -261,7 +261,7 @@ class NotificationService {
         const smsMessage: string = this.generateSMSMessage("reminder", {
           patientName: patient.personalInfo.firstName,
           doctorName: doctor.fullName,
-          appointmentDate: this.formatDateTime(appointment.appointmentDateTime),
+          appointmentDate: this.formatDateTime(appointment.appointmentStartTime),
           appointmentId: appointment.appointmentId,
         });
 
@@ -380,7 +380,7 @@ class NotificationService {
             patientName: patient.fullName,
             doctorName: doctor.fullName,
             appointmentDate: this.formatDateTime(
-              appointment.appointmentDateTime
+              appointment.appointmentStartTime
             ),
             appointmentId: appointment.appointmentId,
             cancellationReason,
@@ -397,7 +397,7 @@ class NotificationService {
       ) {
         const message: string = `🚫 CANCELLED: Your appointment ${appointment.appointmentId
           } with ${doctor.fullName} on ${this.formatDateTime(
-            appointment.appointmentDateTime
+            appointment.appointmentStartTime
           )} has been cancelled. ${cancellationReason ? "Reason: " + cancellationReason : ""
           } Please book a new appointment if needed.`;
 
@@ -513,7 +513,7 @@ class NotificationService {
         data: {
           doctorName: doctor.fullName,
           patientName: patient.fullName,
-          appointmentDate: this.formatDateTime(appointment.appointmentDateTime),
+          appointmentDate: this.formatDateTime(appointment.appointmentStartTime),
           appointmentId: appointment.appointmentId,
           appointmentType: appointment.appointmentType,
           patientPhone: patient.contactInfo.phone,
@@ -1238,7 +1238,7 @@ Hi ${patient.personalInfo.firstName}! 👋
 Your appointment has been successfully booked:
 
 👨‍⚕️ *Doctor:* ${doctor.fullName}
-📅 *Date & Time:* ${this.formatDateTime(appointment.appointmentDateTime)}
+📅 *Date & Time:* ${this.formatDateTime(appointment.appointmentStartTime)}
 🆔 *Appointment ID:* ${appointment.appointmentId}
 ⏱️ *Duration:* ${appointment.duration} minutes
 🏥 *Type:* ${appointment.appointmentType}
@@ -1260,7 +1260,7 @@ Hi ${patient.personalInfo.firstName}!
 Just a friendly reminder about your appointment:
 
 👨‍⚕️ *Doctor:* ${doctor.fullName}
-📅 *Tomorrow:* ${this.formatDateTime(appointment.appointmentDateTime)}
+📅 *Tomorrow:* ${this.formatDateTime(appointment.appointmentStartTime)}
 🆔 *ID:* ${appointment.appointmentId}
 
 Please confirm your attendance by replying *YES* 
@@ -1275,7 +1275,7 @@ Hi ${patient.personalInfo.firstName},
 Unfortunately, your appointment has been cancelled:
 
 👨‍⚕️ *Doctor:* ${doctor.fullName}
-📅 *Date:* ${this.formatDateTime(appointment.appointmentDateTime)}
+📅 *Date:* ${this.formatDateTime(appointment.appointmentStartTime)}
 🆔 *ID:* ${appointment.appointmentId}
 
 We apologize for any inconvenience. Please book a new appointment when convenient.
@@ -1290,7 +1290,7 @@ Hi ${patient.personalInfo.firstName}!
 Your appointment has been successfully rescheduled:
 
 👨‍⚕️ *Doctor:* ${doctor.fullName}
-📅 *New Date & Time:* ${this.formatDateTime(appointment.appointmentDateTime)}
+📅 *New Date & Time:* ${this.formatDateTime(appointment.appointmentStartTime)}
 🆔 *ID:* ${appointment.appointmentId}
 
 Your new appointment time is confirmed. Thank you! ✅`,
@@ -1471,7 +1471,7 @@ Your new appointment time is confirmed. Thank you! ✅`,
               appointmentId: appointment.appointmentId,
               doctorName: appointment.doctor.fullName,
               appointmentDate: this.formatDateTime(
-                appointment.appointmentDateTime
+                appointment.appointmentStartTime
               ),
               oldStatus,
               newStatus,

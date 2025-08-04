@@ -84,10 +84,15 @@ const create = Joi.object({
   patient: objectId().required(),
   doctor: objectId().required(),
   ...baseFields,
-  appointmentDateTime: baseFields.appointmentDateTime.required(),
   duration: baseFields.duration.required(),
   appointmentType: baseFields.appointmentType.required(),
   bookingSource: baseFields.bookingSource.required(),
+  appointmentDate: Joi.date().iso().required().label("Appointment Date"),
+  appointmentStartTime: Joi.date()
+    .iso()
+    .required()
+    .label("Appointment Start Time"),
+  appointmentEndTime: Joi.date().iso().required().label("Appointment End Time"),
 });
 
 // ✅ Update Appointment Schema

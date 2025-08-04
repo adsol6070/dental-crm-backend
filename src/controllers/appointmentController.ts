@@ -7,6 +7,8 @@ import logger from "../utils/logger";
 import { AppError } from "../types/errors";
 import { NextFunction, Request, Response } from "express";
 import { console } from "inspector";
+import { mongo } from "mongoose";
+import moment from "moment";
 
 class AppointmentController {
   private static getFeeByAppointmentType(doctor: any, type: string): number {
@@ -35,7 +37,9 @@ class AppointmentController {
       const {
         patient: patientId,
         doctor: doctorId,
-        appointmentDateTime,
+        appointmentDate,
+        appointmentStartTime,
+        appointmentEndTime,
         duration,
         appointmentType,
         symptoms,
@@ -60,20 +64,13 @@ class AppointmentController {
         throw new AppError("Doctor not found or unavailable", 404);
       }
 
-      // Check Slot Availability
-      const isSlotAvailable = await AppointmentService.checkSlotAvailability(
-        doctorId,
-        new Date(appointmentDateTime),
-        duration // taken from req.body (validated)
-      );
-      if (!isSlotAvailable) {
-        throw new AppError("Selected time slot is not available", 409);
-      }
       // Create Appointment
       const appointment = new Appointment({
         patient: patientId,
         doctor: doctorId,
-        appointmentDateTime: new Date(appointmentDateTime),
+        appointmentDate,
+        appointmentStartTime,
+        appointmentEndTime,
         duration,
         appointmentType,
         symptoms: symptoms || [],
@@ -130,73 +127,95 @@ class AppointmentController {
   }
 
   // Get doctor availability
-  //   static async getDoctorAvailability(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction
-  //   ) {
-  //     try {
-  //       const { doctorId } = req.params;
-  //       const { startDate, endDate } = req.query;
+  static async getDoctorAvailability(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { doctorId } = req.params;
+      const { startDate, endDate } = req.query;
 
-  //       const doctor = await Doctor.findById(doctorId);
-  //       if (!doctor) {
-  //         throw new AppError("Doctor not found", 404);
-  //       }
+      // Type guard and parse using moment
+      const start =
+        typeof startDate === "string"
+          ? moment(startDate, moment.ISO_8601, true)
+          : null;
+      const end =
+        typeof endDate === "string"
+          ? moment(endDate, moment.ISO_8601, true)
+          : null;
 
-  //       const availability = await AppointmentService.getDoctorAvailability(
-  //         doctorId,
-  //         new Date(startDate),
-  //         new Date(endDate)
-  //       );
+      // Validate both dates
+      if (!start?.isValid() || !end?.isValid()) {
+        throw new AppError("Invalid or missing startDate or endDate", 400);
+      }
 
-  //       res.json({
-  //         success: true,
-  //         data: {
-  //           doctor: {
-  //             id: doctor._id,
-  //             name: doctor.fullName,
-  //             specialization: doctor.professionalInfo.specialization,
-  //           },
-  //           availability,
-  //         },
-  //       });
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
+      const doctor = await Doctor.findById(doctorId);
+      if (!doctor) {
+        throw new AppError("Doctor not found", 404);
+      }
 
-  //   // Get available slots for a specific date
-  //   static async getAvailableSlots(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction
-  //   ) {
-  //     try {
-  //       const { doctorId, date } = req.params;
+      const availability = await AppointmentService.getDoctorAvailability(
+        doctorId,
+        start.toDate(),
+        end.toDate()
+      );
 
-  //       const doctor = await Doctor.findById(doctorId);
-  //       if (!doctor) {
-  //         throw new AppError("Doctor not found", 404);
-  //       }
+      res.json({
+        success: true,
+        data: {
+          doctor: {
+            id: doctor._id,
+            name: doctor.fullName,
+            specialization: doctor.professionalInfo.specialization,
+          },
+          availability,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
-  //       const slots = await AppointmentService.getAvailableSlots(
-  //         doctorId,
-  //         new Date(date)
-  //       );
+  // Get available slots for a specific date
+  static async getAvailableSlots(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { doctorId, date } = req.params;
 
-  //       res.json({
-  //         success: true,
-  //         data: {
-  //           date,
-  //           doctorId,
-  //           slots,
-  //         },
-  //       });
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
+      const parsedDate =
+        typeof date === "string" ? moment(date, moment.ISO_8601, true) : null;
+
+      if (!parsedDate || !parsedDate.isValid()) {
+        throw new AppError("Invalid or missing date parameter", 400);
+      }
+
+      const doctor = await Doctor.findById(doctorId);
+      if (!doctor) {
+        throw new AppError("Doctor not found", 404);
+      }
+
+      const slots = await AppointmentService.getAvailableSlots(
+        doctorId,
+        parsedDate.toDate()
+      );
+
+      res.json({
+        success: true,
+        data: {
+          date: parsedDate.format("YYYY-MM-DD"),
+          doctorId,
+          slots,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   // Get all appointments with filters
   static async getAllAppointments(
@@ -329,7 +348,7 @@ class AppointmentController {
         // If updating appointment time, check availability
         if (
           appointmentDateTime &&
-          appointmentDateTime !== appointment.appointmentDateTime.toISOString()
+          appointmentDateTime !== appointment.appointmentStartTime.toISOString()
         ) {
           const doctor = await Doctor.findById(appointment.doctor);
           if (!doctor) {
@@ -413,7 +432,7 @@ class AppointmentController {
       twentyFourHoursFromNow.setHours(twentyFourHoursFromNow.getHours() + 24);
 
       const canCancelWithoutPenalty =
-        appointment.appointmentDateTime > twentyFourHoursFromNow;
+        appointment.appointmentStartTime > twentyFourHoursFromNow;
 
       const updatedAppointment = await Appointment.findByIdAndUpdate(
         id,
@@ -658,7 +677,7 @@ class AppointmentController {
         throw new AppError("New time slot is not available", 409);
       }
 
-      const oldDateTime = appointment.appointmentDateTime;
+      const oldDateTime = appointment.appointmentStartTime;
       const updatedAppointment = await Appointment.findByIdAndUpdate(
         id,
         {

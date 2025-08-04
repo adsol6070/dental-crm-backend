@@ -17,6 +17,7 @@ export const config = {
   jwtExpiration: process.env.JWT_EXPIRATION || "7d",
   allowedOrigins: process.env.ALLOWED_ORIGINS?.split(",") || [
     "http://localhost:3000",
+    "http://localhost:4173",
   ],
 
   // Rate Limiting

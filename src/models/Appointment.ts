@@ -53,7 +53,9 @@ export interface IAppointment {
   appointmentId: string;
   patient: Types.ObjectId;
   doctor: Types.ObjectId;
-  appointmentDateTime: Date;
+  appointmentDate: string;
+  appointmentStartTime: Date;
+  appointmentEndTime: Date;
   duration: number;
   appointmentType: AppointmentType;
   status: AppointmentStatus;
@@ -108,10 +110,18 @@ const appointmentSchema = new Schema<AppointmentDocument>(
       ref: "Doctor",
       required: true,
     },
-    appointmentDateTime: {
-      type: Date,
+    appointmentDate: {
+      type: String, // e.g., "2025-08-14"
       required: true,
       index: true,
+    },
+    appointmentStartTime: {
+      type: Date, // stored as UTC
+      required: true,
+    },
+    appointmentEndTime: {
+      type: Date, // stored as UTC
+      required: true,
     },
     duration: {
       type: Number,
@@ -204,17 +214,19 @@ const appointmentSchema = new Schema<AppointmentDocument>(
 );
 
 // Indexes for performance
-appointmentSchema.index({ appointmentDateTime: 1, doctor: 1 });
-appointmentSchema.index({ patient: 1, appointmentDateTime: -1 });
-appointmentSchema.index({ status: 1, appointmentDateTime: 1 });
+appointmentSchema.index({ doctor: 1, appointmentStartTime: 1 });
+appointmentSchema.index({ patient: 1, appointmentStartTime: -1 });
+appointmentSchema.index({ status: 1, appointmentStartTime: 1 });
 appointmentSchema.index({ bookingSource: 1, createdAt: -1 });
 
 // Virtual for appointment end time
-appointmentSchema
-  .virtual("endDateTime")
-  .get(function (this: AppointmentDocument): Date {
-    return new Date(this.appointmentDateTime.getTime() + this.duration * 60000);
-  });
+// appointmentSchema
+//   .virtual("endDateTime")
+//   .get(function (this: AppointmentDocument): Date {
+//     return new Date(
+//       this.appointmentStartTime.getTime() + this.duration * 60000
+//     );
+//   });
 
 // Pre-save middleware
 appointmentSchema.pre<AppointmentDocument>("save", function (next): void {
