@@ -11,10 +11,10 @@
     "dev:ts-node": "nodemon --exec ts-node src/server.ts",
     "dev:tsx": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "start:prod": "pm2 start dist/server.js --name dental-crm",
     "init:super-admin": "npx ts-node scripts/initSuperAdmin.ts",
-    "prebuild": "npm run clean",
+    "prebuild": "npm i",
     "clean": "rimraf dist",
     "postbuild": "npm run copy-scripts",
     "copy-scripts": "copyfiles -u 1 scripts/**/*.js dist/"
