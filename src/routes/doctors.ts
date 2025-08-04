@@ -119,13 +119,15 @@ router.delete(
 // Unavailable dates management
 router.get("/doctor/unavailable-dates", DoctorController.getUnavailableDates);
 
-router.get("/doctor/unavailable-dates/summary", DoctorController.getUnavailableDatesSummary);
+router.get(
+  "/doctor/unavailable-dates/summary",
+  DoctorController.getUnavailableDatesSummary
+);
 router.post(
   "/doctor/unavailable-dates",
   validateRequest(doctorValidation.addUnavailableDate),
   DoctorController.addUnavailableDate
 );
-
 
 router.post(
   "/doctor/unavailable-dates/range",

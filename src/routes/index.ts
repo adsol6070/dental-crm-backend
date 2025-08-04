@@ -4,6 +4,7 @@ import patientRoutes from "./patients";
 import appointmentRoutes from "./appointments";
 import doctorRoutes from "./doctors";
 import userRoutes from "./user";
+import serviceRoutes from "./services";
 
 export const setupRoutes = (app: Application): void => {
   app.use("/health", healthRoutes);
@@ -27,6 +28,7 @@ export const setupRoutes = (app: Application): void => {
   app.use("/api/appointments", appointmentRoutes);
   app.use("/api/doctors", doctorRoutes);
   app.use("/api/users", userRoutes)
+  app.use("/api/services", serviceRoutes);
   // app.use("/api/webhooks", webhookRoutes);
   // app.use("/api/analytics", authMiddleware, analyticsRoutes);
   // app.use("/api/notifications", authMiddleware, notificationRoutes);

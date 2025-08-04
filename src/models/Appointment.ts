@@ -48,6 +48,16 @@ interface Metadata {
   campaignId?: string;
 }
 
+// Add this interface after the existing interfaces
+interface RescheduleInfo {
+  originalStartDateTime: Date;
+  originalEndDateTime: Date;
+  newStartDateTime: Date;
+  newEndDateTime: Date;
+  reason?: string;
+  rescheduledAt: Date;
+}
+
 // Define the main appointment interface
 export interface IAppointment {
   appointmentId: string;
@@ -67,6 +77,7 @@ export interface IAppointment {
   remindersSent: number;
   lastReminderSent?: Date;
   cancelledAt?: Date;
+  reschedule?: RescheduleInfo; // Add this field
   paymentStatus: PaymentStatus;
   paymentAmount?: number;
   paymentMethod?: string;
@@ -186,6 +197,15 @@ const appointmentSchema = new Schema<AppointmentDocument>(
     },
     lastReminderSent: Date,
     cancelledAt: Date,
+    // Add this reschedule field
+    reschedule: {
+      originalStartDateTime: Date,
+      originalEndDateTime: Date,
+      newStartDateTime: Date,
+      newEndDateTime: Date,
+      reason: String,
+      rescheduledAt: Date,
+    },
     paymentStatus: {
       type: String,
       enum: ["pending", "paid", "failed", "refunded"] as const,
