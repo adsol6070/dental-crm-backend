@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 import DoctorController from "../controllers/doctorController";
+import UserController from "../controllers/adminController";
 import authMiddleware from "../middleware/auth";
 import validateRequest from "../middleware/validateRequest";
 import { doctorValidation } from "../validators/doctorValidator";
@@ -257,18 +258,18 @@ router.patch("/admin/:doctorId/verify", DoctorController.verifyDoctor);
 router.delete("/admin/:doctorId", DoctorController.deleteDoctorByAdmin);
 
 // Admin analytics
-router.get(
-  "/admin/analytics/performance",
-  DoctorController.getDoctorPerformanceAnalytics
-);
-router.get(
-  "/admin/analytics/specialization-stats",
-  DoctorController.getSpecializationStats
-);
-router.get(
-  "/admin/analytics/appointment-trends",
-  DoctorController.getAppointmentTrends
-);
-
+// router.get(
+//   "/admin/analytics/performance",
+//   DoctorController.getDoctorPerformanceAnalytics
+// );
+// router.get(
+//   "/admin/analytics/specialization-stats",
+//   DoctorController.getSpecializationStats
+// );
+// router.get(
+//   "/admin/analytics/appointment-trends",
+//   DoctorController.getAppointmentTrends
+// );
+router.get("/admin/stats/dashboard", UserController.getDashboardStats);
 // module.exports = router;
 export default router;

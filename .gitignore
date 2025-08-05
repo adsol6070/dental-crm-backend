@@ -2,4 +2,8 @@ node_modules
 dist
 .env
 logs
+<<<<<<< HEAD
 package-lock.json
+=======
+package-lock.json
+>>>>>>> 26a92d1b5834fa3f15aa9ca08e576a517251b884

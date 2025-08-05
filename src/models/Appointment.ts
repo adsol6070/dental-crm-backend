@@ -240,13 +240,13 @@ appointmentSchema.index({ status: 1, appointmentStartTime: 1 });
 appointmentSchema.index({ bookingSource: 1, createdAt: -1 });
 
 // Virtual for appointment end time
-appointmentSchema
-  .virtual("endDateTime")
-  .get(function (this: AppointmentDocument): Date {
-    return new Date(
-      this.appointmentStartTime.getTime() + this.duration * 60000
-    );
-  });
+// appointmentSchema
+//   .virtual("endDateTime")
+//   .get(function (this: AppointmentDocument): Date {
+//     return new Date(
+//       this.appointmentStartTime.getTime() + this.duration * 60000
+//     );
+//   });
 
 // Pre-save middleware
 appointmentSchema.pre<AppointmentDocument>("save", function (next): void {
