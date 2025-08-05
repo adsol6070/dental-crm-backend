@@ -5,9 +5,9 @@ import app from "./app";
 import { config } from "./config/environment";
 import { setupGlobalErrorHandlers } from "./utils/globalErrorHandlers";
 
-setupGlobalErrorHandlers(); 
+setupGlobalErrorHandlers();
 
-const startServer = async (): Promise<void> => { 
+const startServer = async (): Promise<void> => {
   try {
     // Connect to database
     await connectDatabase();
@@ -16,7 +16,7 @@ const startServer = async (): Promise<void> => {
     setupScheduledJobs();
 
     // Start the server
-    const server = app.listen(config.port, "0.0.0.0", () => {
+    const server = app.listen(config.port, "127.0.0.1", () => {
       logger.info(`🚀 Server running on port ${config.port}`);
       logger.info(`📝 Environment: ${config.nodeEnv}`);
       logger.info(`🔗 Health check: http://localhost:${config.port}/health`);
