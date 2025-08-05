@@ -2975,106 +2975,100 @@ class DoctorController {
   }
 
   // Get specialization statistics (Admin only)
-  static async getSpecializationStats(
-    req: Request,
-    res: Response<ApiResponse>,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const stats = await Doctor.aggregate([
+static async getDoctorPerformanceAnalyticsRaw(period: string = "month", year: string = new Date().getFullYear().toString()) {
+    let dateRange = {
+        $gte: new Date(`${year}-01-01`),
+        $lte: new Date(`${year}-12-31`),
+    };
+
+    const performance = await Appointment.aggregate([
+        { $match: { appointmentDateTime: dateRange } },
         {
-          $match: {
-            isActive: true,
-            "availability.isAvailable": true,
-          },
+            $lookup: {
+                from: "doctors",
+                localField: "doctor",
+                foreignField: "_id",
+                as: "doctorInfo",
+            },
+        },
+        { $unwind: "$doctorInfo" },
+        {
+            $group: {
+                _id: "$doctor",
+                doctorName: { $first: "$doctorInfo.fullName" },
+                doctorId: { $first: "$doctorInfo.doctorId" },
+                totalAppointments: { $sum: 1 },
+                completedAppointments: { $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] } },
+                cancelledAppointments: { $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] } },
+                averageRating: { $avg: "$review.rating" },
+                totalRevenue: { $sum: "$fees.consultationFee" },
+            },
         },
         {
-          $group: {
-            _id: "$professionalInfo.specialization",
-            count: { $sum: 1 },
-            averageExperience: { $avg: "$professionalInfo.experience" },
-            averageRating: { $avg: "$statistics.rating" },
-          },
+            $addFields: {
+                completionRate: {
+                    $cond: [
+                        { $gt: ["$totalAppointments", 0] },
+                        { $multiply: [{ $divide: ["$completedAppointments", "$totalAppointments"] }, 100] },
+                        0,
+                    ],
+                },
+            },
         },
+        { $sort: { totalAppointments: -1 } },
+    ]);
+
+    return { performance, period, year };
+}
+
+static async getSpecializationStatsRaw() {
+    const stats = await Doctor.aggregate([
+        { $match: { isActive: true, "availability.isAvailable": true } },
         {
-          $sort: { count: -1 },
+            $group: {
+                _id: "$professionalInfo.specialization",
+                count: { $sum: 1 },
+                averageExperience: { $avg: "$professionalInfo.experience" },
+                averageRating: { $avg: "$statistics.rating" },
+            },
         },
-      ]);
+        { $sort: { count: -1 } },
+    ]);
 
-      res.json({
-        success: true,
-        data: { stats },
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
+    return { stats };
+}
 
-  // Get appointment trends (Admin only)
-  static async getAppointmentTrends(
-    req: Request,
-    res: Response<ApiResponse>,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const { period = "month", year = new Date().getFullYear().toString() } =
-        req.validatedQuery || {};
+static async getAppointmentTrendsRaw(period: string = "month", year: string = new Date().getFullYear().toString()) {
+    let groupBy: any;
+    let dateRange = {
+        $gte: new Date(`${year}-01-01`),
+        $lte: new Date(`${year}-12-31`),
+    };
 
-      let groupBy: any;
-      let dateRange: any;
-
-      if (period === "month") {
+    if (period === "month") {
         groupBy = { $month: "$appointmentDateTime" };
-        dateRange = {
-          $gte: new Date(`${year}-01-01`),
-          $lte: new Date(`${year}-12-31`),
-        };
-      } else if (period === "week") {
+    } else if (period === "week") {
         groupBy = { $week: "$appointmentDateTime" };
-        dateRange = {
-          $gte: new Date(`${year}-01-01`),
-          $lte: new Date(`${year}-12-31`),
-        };
-      } else {
+    } else {
         groupBy = { $dayOfYear: "$appointmentDateTime" };
-        dateRange = {
-          $gte: new Date(`${year}-01-01`),
-          $lte: new Date(`${year}-12-31`),
-        };
-      }
-
-      const trends = await Appointment.aggregate([
-        {
-          $match: {
-            appointmentDateTime: dateRange,
-          },
-        },
-        {
-          $group: {
-            _id: groupBy,
-            totalAppointments: { $sum: 1 },
-            completedAppointments: {
-              $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] },
-            },
-            cancelledAppointments: {
-              $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] },
-            },
-            revenue: { $sum: "$fees.consultationFee" },
-          },
-        },
-        {
-          $sort: { _id: 1 },
-        },
-      ]);
-
-      res.json({
-        success: true,
-        data: { trends, period, year },
-      });
-    } catch (error) {
-      next(error);
     }
-  }
+
+    const trends = await Appointment.aggregate([
+        { $match: { appointmentDateTime: dateRange } },
+        {
+            $group: {
+                _id: groupBy,
+                totalAppointments: { $sum: 1 },
+                completedAppointments: { $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] } },
+                cancelledAppointments: { $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] } },
+                revenue: { $sum: "$fees.consultationFee" },
+            },
+        },
+        { $sort: { _id: 1 } },
+    ]);
+
+    return { trends, period, year };
+}
 }
 
 export default DoctorController;

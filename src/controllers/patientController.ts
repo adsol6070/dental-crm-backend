@@ -1760,352 +1760,195 @@ class PatientController {
   }
 
   // Get registration trends (Admin only)
-  static async getRegistrationTrends(
-    req: Request,
-    res: Response<ApiResponse<{ trends: any[]; period: string; year: string }>>,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const { period = "month", year = new Date().getFullYear().toString() } =
-        req.validatedQuery || {};
+static async getRegistrationTrendsRaw(period: string = "month", year: string = new Date().getFullYear().toString()) {
+    let groupBy: any;
+    let dateRange: any;
 
-      let groupBy: any;
-      let dateRange: any;
-
-      if (period === "month") {
-        groupBy = { $month: "$createdAt" };
-        dateRange = {
-          $gte: new Date(`${year}-01-01`),
-          $lte: new Date(`${year}-12-31`),
-        };
-      } else if (period === "week") {
-        groupBy = { $week: "$createdAt" };
-        dateRange = {
-          $gte: new Date(`${year}-01-01`),
-          $lte: new Date(`${year}-12-31`),
-        };
-      } else {
-        groupBy = { $dayOfYear: "$createdAt" };
-        dateRange = {
-          $gte: new Date(`${year}-01-01`),
-          $lte: new Date(`${year}-12-31`),
-        };
-      }
-
-      const trends = await Patient.aggregate([
-        {
-          $match: {
-            createdAt: dateRange,
-          },
-        },
-        {
-          $group: {
-            _id: groupBy,
-            count: { $sum: 1 },
-            sources: {
-              $push: "$registrationSource",
-            },
-          },
-        },
-        {
-          $sort: { _id: 1 },
-        },
-      ]);
-
-      res.json({
-        success: true,
-        data: { trends, period, year },
-      });
-    } catch (error) {
-      next(error);
+    if (period === "month") {
+      groupBy = { $month: "$createdAt" };
+    } else if (period === "week") {
+      groupBy = { $week: "$createdAt" };
+    } else {
+      groupBy = { $dayOfYear: "$createdAt" };
     }
+
+    dateRange = {
+      $gte: new Date(`${year}-01-01`),
+      $lte: new Date(`${year}-12-31`),
+    };
+
+    const trends = await Patient.aggregate([
+      { $match: { createdAt: dateRange } },
+      {
+        $group: {
+          _id: groupBy,
+          count: { $sum: 1 },
+          sources: { $push: "$registrationSource" },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ]);
+
+    return { trends, period, year };
   }
 
-  // Get patient demographics (Admin only)
-  static async getPatientDemographics(
-    req: Request,
-    res: Response<ApiResponse>,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const demographics = await Patient.aggregate([
-        {
-          $group: {
-            _id: null,
-            totalPatients: { $sum: 1 },
-            activePatients: {
-              $sum: { $cond: [{ $eq: ["$isActive", true] }, 1, 0] },
-            },
-            verifiedPatients: {
-              $sum: {
-                $cond: [{ $eq: ["$authentication.isVerified", true] }, 1, 0],
-              },
-            },
-            genderDistribution: {
-              $push: "$personalInfo.gender",
-            },
-            ageGroups: {
-              $push: {
-                $switch: {
-                  branches: [
-                    {
-                      case: {
-                        $lt: [
-                          {
-                            $divide: [
-                              {
-                                $subtract: [
-                                  new Date(),
-                                  "$personalInfo.dateOfBirth",
-                                ],
-                              },
-                              1000 * 60 * 60 * 24 * 365,
-                            ],
-                          },
-                          18,
-                        ],
-                      },
-                      then: "Under 18",
-                    },
-                    {
-                      case: {
-                        $lt: [
-                          {
-                            $divide: [
-                              {
-                                $subtract: [
-                                  new Date(),
-                                  "$personalInfo.dateOfBirth",
-                                ],
-                              },
-                              1000 * 60 * 60 * 24 * 365,
-                            ],
-                          },
-                          30,
-                        ],
-                      },
-                      then: "18-29",
-                    },
-                    {
-                      case: {
-                        $lt: [
-                          {
-                            $divide: [
-                              {
-                                $subtract: [
-                                  new Date(),
-                                  "$personalInfo.dateOfBirth",
-                                ],
-                              },
-                              1000 * 60 * 60 * 24 * 365,
-                            ],
-                          },
-                          50,
-                        ],
-                      },
-                      then: "30-49",
-                    },
-                    {
-                      case: {
-                        $lt: [
-                          {
-                            $divide: [
-                              {
-                                $subtract: [
-                                  new Date(),
-                                  "$personalInfo.dateOfBirth",
-                                ],
-                              },
-                              1000 * 60 * 60 * 24 * 365,
-                            ],
-                          },
-                          65,
-                        ],
-                      },
-                      then: "50-64",
-                    },
-                  ],
-                  default: "65+",
-                },
-              },
-            },
-            registrationSources: {
-              $push: "$registrationSource",
-            },
-          },
-        },
-      ]);
-
-      // Process the results to get counts
-      const result = demographics[0] || {
-        totalPatients: 0,
-        activePatients: 0,
-        verifiedPatients: 0,
-        genderDistribution: [],
-        ageGroups: [],
-        registrationSources: [],
-      };
-
-      // Count gender distribution
-      const genderCounts = result.genderDistribution.reduce(
-        (acc: any, gender: string) => {
-          acc[gender] = (acc[gender] || 0) + 1;
-          return acc;
-        },
-        {}
-      );
-
-      // Count age groups
-      const ageCounts = result.ageGroups.reduce((acc: any, age: string) => {
-        acc[age] = (acc[age] || 0) + 1;
-        return acc;
-      }, {});
-
-      // Count registration sources
-      const sourceCounts = result.registrationSources.reduce(
-        (acc: any, source: string) => {
-          acc[source] = (acc[source] || 0) + 1;
-          return acc;
-        },
-        {}
-      );
-
-      res.json({
-        success: true,
-        data: {
-          totalPatients: result.totalPatients,
-          activePatients: result.activePatients,
-          verifiedPatients: result.verifiedPatients,
-          genderDistribution: genderCounts,
-          ageDistribution: ageCounts,
-          registrationSources: sourceCounts,
-        },
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  // Get patient engagement (Admin only)
-  static async getPatientEngagement(
-    req: Request,
-    res: Response<ApiResponse>,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const engagement = await Patient.aggregate([
-        {
-          $lookup: {
-            from: "appointments",
-            localField: "_id",
-            foreignField: "patient",
-            as: "appointments",
-          },
-        },
-        {
-          $addFields: {
-            appointmentCount: { $size: "$appointments" },
-            lastAppointment: { $max: "$appointments.appointmentDateTime" },
-            completedAppointments: {
-              $size: {
-                $filter: {
-                  input: "$appointments",
-                  cond: { $eq: ["$this.status", "completed"] },
-                },
-              },
-            },
-          },
-        },
-        {
-          $group: {
-            _id: null,
-            totalPatients: { $sum: 1 },
-            patientsWithAppointments: {
-              $sum: { $cond: [{ $gt: ["$appointmentCount", 0] }, 1, 0] },
-            },
-            averageAppointmentsPerPatient: { $avg: "$appointmentCount" },
-            activePatients: {
-              $sum: {
-                $cond: [
+  static async getPatientDemographicsRaw() {
+    const demographics = await Patient.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalPatients: { $sum: 1 },
+          activePatients: { $sum: { $cond: [{ $eq: ["$isActive", true] }, 1, 0] } },
+          verifiedPatients: { $sum: { $cond: [{ $eq: ["$authentication.isVerified", true] }, 1, 0] } },
+          genderDistribution: { $push: "$personalInfo.gender" },
+          ageGroups: {
+            $push: {
+              $switch: {
+                branches: [
                   {
-                    $and: [
-                      { $ne: ["$lastAppointment", null] },
-                      {
-                        $gte: [
-                          "$lastAppointment",
-                          new Date(Date.now() - 90 * 24 * 60 * 60 * 1000),
-                        ],
-                      },
-                    ],
+                    case: { $lt: [{ $divide: [{ $subtract: [new Date(), "$personalInfo.dateOfBirth"] }, 1000 * 60 * 60 * 24 * 365] }, 18] },
+                    then: "Under 18",
                   },
-                  1,
-                  0,
+                  {
+                    case: { $lt: [{ $divide: [{ $subtract: [new Date(), "$personalInfo.dateOfBirth"] }, 1000 * 60 * 60 * 24 * 365] }, 30] },
+                    then: "18-29",
+                  },
+                  {
+                    case: { $lt: [{ $divide: [{ $subtract: [new Date(), "$personalInfo.dateOfBirth"] }, 1000 * 60 * 60 * 24 * 365] }, 50] },
+                    then: "30-49",
+                  },
+                  {
+                    case: { $lt: [{ $divide: [{ $subtract: [new Date(), "$personalInfo.dateOfBirth"] }, 1000 * 60 * 60 * 24 * 365] }, 65] },
+                    then: "50-64",
+                  },
                 ],
+                default: "65+",
               },
             },
-            patientsByAppointmentCount: {
-              $push: {
-                $switch: {
-                  branches: [
-                    {
-                      case: { $eq: ["$appointmentCount", 0] },
-                      then: "No appointments",
-                    },
-                    {
-                      case: { $lte: ["$appointmentCount", 3] },
-                      then: "1-3 appointments",
-                    },
-                    {
-                      case: { $lte: ["$appointmentCount", 10] },
-                      then: "4-10 appointments",
-                    },
-                  ],
-                  default: "10+ appointments",
-                },
+          },
+          registrationSources: { $push: "$registrationSource" },
+        },
+      },
+    ]);
+
+    const result = demographics[0] || {
+      totalPatients: 0,
+      activePatients: 0,
+      verifiedPatients: 0,
+      genderDistribution: [],
+      ageGroups: [],
+      registrationSources: [],
+    };
+
+    const genderCounts = result.genderDistribution.reduce((acc: any, gender: string) => {
+      acc[gender] = (acc[gender] || 0) + 1;
+      return acc;
+    }, {});
+
+    const ageCounts = result.ageGroups.reduce((acc: any, age: string) => {
+      acc[age] = (acc[age] || 0) + 1;
+      return acc;
+    }, {});
+
+    const sourceCounts = result.registrationSources.reduce((acc: any, source: string) => {
+      acc[source] = (acc[source] || 0) + 1;
+      return acc;
+    }, {});
+
+    return {
+      totalPatients: result.totalPatients,
+      activePatients: result.activePatients,
+      verifiedPatients: result.verifiedPatients,
+      genderDistribution: genderCounts,
+      ageDistribution: ageCounts,
+      registrationSources: sourceCounts,
+    };
+  }
+
+  static async getPatientEngagementRaw() {
+    const engagement = await Patient.aggregate([
+      {
+        $lookup: {
+          from: "appointments",
+          localField: "_id",
+          foreignField: "patient",
+          as: "appointments",
+        },
+      },
+      {
+        $addFields: {
+          appointmentCount: { $size: "$appointments" },
+          lastAppointment: { $max: "$appointments.appointmentDateTime" },
+          completedAppointments: {
+            $size: {
+              $filter: {
+                input: "$appointments",
+                cond: { $eq: ["$$this.status", "completed"] },
               },
             },
           },
         },
-      ]);
-
-      const result = engagement[0] || {
-        totalPatients: 0,
-        patientsWithAppointments: 0,
-        averageAppointmentsPerPatient: 0,
-        activePatients: 0,
-        patientsByAppointmentCount: [],
-      };
-
-      // Count appointment distribution
-      const appointmentDistribution = result.patientsByAppointmentCount.reduce(
-        (acc: any, category: string) => {
-          acc[category] = (acc[category] || 0) + 1;
-          return acc;
+      },
+      {
+        $group: {
+          _id: null,
+          totalPatients: { $sum: 1 },
+          patientsWithAppointments: { $sum: { $cond: [{ $gt: ["$appointmentCount", 0] }, 1, 0] } },
+          averageAppointmentsPerPatient: { $avg: "$appointmentCount" },
+          activePatients: {
+            $sum: {
+              $cond: [
+                {
+                  $and: [
+                    { $ne: ["$lastAppointment", null] },
+                    { $gte: ["$lastAppointment", new Date(Date.now() - 90 * 24 * 60 * 60 * 1000)] },
+                  ],
+                },
+                1,
+                0,
+              ],
+            },
+          },
+          patientsByAppointmentCount: {
+            $push: {
+              $switch: {
+                branches: [
+                  { case: { $eq: ["$appointmentCount", 0] }, then: "No appointments" },
+                  { case: { $lte: ["$appointmentCount", 3] }, then: "1-3 appointments" },
+                  { case: { $lte: ["$appointmentCount", 10] }, then: "4-10 appointments" },
+                ],
+                default: "10+ appointments",
+              },
+            },
+          },
         },
-        {}
-      );
+      },
+    ]);
 
-      res.json({
-        success: true,
-        data: {
-          totalPatients: result.totalPatients,
-          patientsWithAppointments: result.patientsWithAppointments,
-          engagementRate:
-            result.totalPatients > 0
-              ? (
-                  (result.patientsWithAppointments / result.totalPatients) *
-                  100
-                ).toFixed(1)
-              : "0",
-          averageAppointmentsPerPatient:
-            Math.round(result.averageAppointmentsPerPatient * 100) / 100,
-          activePatients: result.activePatients,
-          appointmentDistribution,
-        },
-      });
-    } catch (error) {
-      next(error);
-    }
+    const result = engagement[0] || {
+      totalPatients: 0,
+      patientsWithAppointments: 0,
+      averageAppointmentsPerPatient: 0,
+      activePatients: 0,
+      patientsByAppointmentCount: [],
+    };
+
+    const appointmentDistribution = result.patientsByAppointmentCount.reduce((acc: any, category: string) => {
+      acc[category] = (acc[category] || 0) + 1;
+      return acc;
+    }, {});
+
+    return {
+      totalPatients: result.totalPatients,
+      patientsWithAppointments: result.patientsWithAppointments,
+      engagementRate:
+        result.totalPatients > 0
+          ? ((result.patientsWithAppointments / result.totalPatients) * 100).toFixed(1)
+          : "0",
+      averageAppointmentsPerPatient: Math.round(result.averageAppointmentsPerPatient * 100) / 100,
+      activePatients: result.activePatients,
+      appointmentDistribution,
+    };
   }
 }
 

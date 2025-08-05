@@ -79,18 +79,18 @@ router.patch("/admin/:patientId/status", PatientController.updatePatientStatus);
 router.delete("/admin/:patientId", PatientController.deletePatientByAdmin);
 
 // Admin analytics
-router.get(
-  "/admin/analytics/registration-trends",
-  PatientController.getRegistrationTrends
-);
-router.get(
-  "/admin/analytics/demographics",
-  PatientController.getPatientDemographics
-);
-router.get(
-  "/admin/analytics/engagement",
-  PatientController.getPatientEngagement
-);
+// router.get(
+//   "/admin/analytics/registration-trends",
+//   PatientController.getRegistrationTrends
+// );
+// router.get(
+//   "/admin/analytics/demographics",
+//   PatientController.getPatientDemographics
+// );
+// router.get(
+//   "/admin/analytics/engagement",
+//   PatientController.getPatientEngagement
+// );
 
 router.use(patientAuthMiddleware); // Apply patient auth middleware to routes below
 
