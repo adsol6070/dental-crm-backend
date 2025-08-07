@@ -54,6 +54,8 @@
     "compression": "^1.8.0",
     "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
+    "csv-parse": "^6.1.0",
+    "csv-stringify": "^6.6.0",
     "dotenv": "^17.0.0",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.1",
@@ -71,6 +73,7 @@
     "speakeasy": "^2.0.0",
     "ts-node": "^10.9.2",
     "twilio": "^5.7.1",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "xlsx": "^0.18.5"
   }
 }

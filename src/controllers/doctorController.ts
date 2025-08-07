@@ -323,7 +323,7 @@ class DoctorController {
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
       }
-
+      
       res.json({
         success: true,
         data: { doctor },

@@ -290,7 +290,7 @@ const doctorSchema = new Schema<IDoctorDocument, IDoctorModel>(
                 values: Object.values(DayOfWeek),
                 message: "Invalid day for break time",
               },
-              required: [true, "Break day is required"],
+              // required: [true, "Break day is required"],
             },
             startTime: {
               type: String,
