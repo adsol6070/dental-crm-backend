@@ -5,9 +5,9 @@ import app from "./app";
 import { config } from "./config/environment";
 import { setupGlobalErrorHandlers } from "./utils/globalErrorHandlers";
 
-setupGlobalErrorHandlers(); 
+setupGlobalErrorHandlers();
 
-const startServer = async (): Promise<void> => { 
+const startServer = async (): Promise<void> => {
   try {
     // Connect to database
     await connectDatabase();
