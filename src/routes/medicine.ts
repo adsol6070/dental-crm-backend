@@ -23,7 +23,9 @@ router.get('/', validateRequest(medicineSearchValidation), MedicineController.ge
 router.get('/:medicineId', validateRequest(medicineIdParamValidation), MedicineController.getMedicineById);
 router.post('/', requireAdmin, validateRequest(createMedicineValidation), MedicineController.createMedicine);
 router.put('/:medicineId', requireAdmin, validateRequest(medicineIdParamValidation), validateRequest(updateMedicineValidation), MedicineController.updateMedicine);
-router.patch('/:medicineId/status', requireAdmin, validateRequest(medicineIdParamValidation), validateRequest(updateMedicineStatusValidation), MedicineController.updateMedicineStatus);
+router.put('/:medicineId/status', 
+    requireAdmin, validateRequest(medicineIdParamValidation),
+    validateRequest(updateMedicineStatusValidation), MedicineController.updateMedicineStatus);
 router.delete('/:medicineId', requireAdmin, validateRequest(medicineIdParamValidation), MedicineController.deleteMedicine);
 
 export default router;
