@@ -67,20 +67,36 @@ export const createImplantMaterialValidation = Joi.object({
   unit: Joi.string().valid(...unitValues).required(),
   unitPrice: Joi.number().min(0).required(),
   receivedDate: Joi.date().max('now').required(),
-  expiryDate: Joi.date().min(Joi.ref('receivedDate')).optional(),
-  batchNumber: Joi.string().trim().max(50).optional(),
-  description: Joi.string().trim().max(1000).optional(),
-  specifications: Joi.string().trim().max(1000).optional(),
-  storageConditions: Joi.string().trim().max(500).optional(),
+  
+  // FIXED: Optional fields that should allow empty strings or be omitted
+  expiryDate: Joi.alternatives().try(
+    Joi.date().min(Joi.ref('receivedDate')),
+    Joi.string().allow('').optional(),
+    Joi.allow(null)
+  ).optional(),
+  
+  batchNumber: Joi.string().trim().max(50).allow('').optional(),
+  description: Joi.string().trim().max(1000).allow('').optional(),
+  specifications: Joi.string().trim().max(1000).allow('').optional(),
+  storageConditions: Joi.string().trim().max(500).allow('').optional(),
+  
   minimumStock: Joi.number().integer().min(0).required(),
   paymentStatus: Joi.string().valid(...paymentStatusValues).required(),
+  
   paymentMode: Joi.string().valid(...paymentModeValues).when('paymentStatus', {
     is: Joi.valid('paid', 'partial'),
     then: Joi.required(),
     otherwise: Joi.optional()
   }),
-  paymentDate: Joi.date().optional(),
-  invoiceNumber: Joi.string().trim().max(100).optional(),
+  
+  paymentDate: Joi.alternatives().try(
+    Joi.date(),
+    Joi.string().allow('').optional(),
+    Joi.allow(null)
+  ).optional(),
+  
+  invoiceNumber: Joi.string().trim().max(100).allow('').optional(),
+  
   // New payment fields with conditional validation
   amountPaid: Joi.number().min(0).when('paymentStatus', {
     is: 'partial',
@@ -105,6 +121,7 @@ export const createImplantMaterialValidation = Joi.object({
       otherwise: Joi.optional()
     })
   }),
+  
   amountPending: Joi.number().min(0).when('paymentStatus', {
     is: 'partial',
     then: Joi.required().custom((value, helpers) => {
@@ -117,7 +134,8 @@ export const createImplantMaterialValidation = Joi.object({
     }),
     otherwise: Joi.optional()
   }),
-  paymentNotes: Joi.string().trim().max(500).optional()
+  
+  paymentNotes: Joi.string().trim().max(500).allow('').optional()
 });
 
 // Update implant material validation
@@ -131,32 +149,48 @@ export const updateImplantMaterialValidation = Joi.object({
   unit: Joi.string().valid(...unitValues).optional(),
   unitPrice: Joi.number().min(0).optional(),
   receivedDate: Joi.date().max('now').optional(),
-  expiryDate: Joi.date().optional(),
-  batchNumber: Joi.string().trim().max(50).optional(),
-  description: Joi.string().trim().max(1000).optional(),
-  specifications: Joi.string().trim().max(1000).optional(),
-  storageConditions: Joi.string().trim().max(500).optional(),
+  
+  // FIXED: Optional fields that should allow empty strings
+  expiryDate: Joi.alternatives().try(
+    Joi.date(),
+    Joi.string().allow('').optional(),
+    Joi.allow(null)
+  ).optional(),
+  
+  batchNumber: Joi.string().trim().max(50).allow('').optional(),
+  description: Joi.string().trim().max(1000).allow('').optional(),
+  specifications: Joi.string().trim().max(1000).allow('').optional(),
+  storageConditions: Joi.string().trim().max(500).allow('').optional(),
+  
   minimumStock: Joi.number().integer().min(0).optional(),
   paymentStatus: Joi.string().valid(...paymentStatusValues).optional(),
-  paymentMode: Joi.string().valid(...paymentModeValues).optional(),
-  paymentDate: Joi.date().optional(),
-  invoiceNumber: Joi.string().trim().max(100).optional(),
+  
+  paymentMode: Joi.string().valid(...paymentModeValues).allow('').optional(),
+  
+  paymentDate: Joi.alternatives().try(
+    Joi.date(),
+    Joi.string().allow('').optional(),
+    Joi.allow(null)
+  ).optional(),
+  
+  invoiceNumber: Joi.string().trim().max(100).allow('').optional(),
+  
   // New payment fields
   amountPaid: Joi.number().min(0).optional(),
   amountPending: Joi.number().min(0).optional(),
-  paymentNotes: Joi.string().trim().max(500).optional()
+  paymentNotes: Joi.string().trim().max(500).allow('').optional()
 });
 
 // Implant material search validation
 export const implantMaterialSearchValidation = Joi.object({
   page: Joi.number().integer().min(1).optional().default(1),
   limit: Joi.number().integer().min(1).max(100).optional().default(10),
-  search: Joi.string().trim().min(1).max(100).optional(),
-  category: Joi.string().valid(...itemCategoryValues).optional(),
-  supplier: Joi.string().valid(...supplierValues).optional(),
-  status: Joi.string().valid(...statusValues).optional(),
-  paymentStatus: Joi.string().valid(...paymentStatusValues).optional(),
-  paymentMode: Joi.string().valid(...paymentModeValues).optional(),
+  search: Joi.string().trim().min(1).max(100).allow('').optional(),
+  category: Joi.string().valid(...itemCategoryValues).allow('').optional(),
+  supplier: Joi.string().valid(...supplierValues).allow('').optional(),
+  status: Joi.string().valid(...statusValues).allow('').optional(),
+  paymentStatus: Joi.string().valid(...paymentStatusValues).allow('').optional(),
+  paymentMode: Joi.string().valid(...paymentModeValues).allow('').optional(),
   sortBy: Joi.string().valid('itemName', 'category', 'supplier', 'quantity', 'unitPrice', 'totalCost', 'receivedDate', 'expiryDate', 'amountPaid', 'amountPending', 'createdAt', 'updatedAt').optional().default('itemName'),
   sortOrder: Joi.string().valid('asc', 'desc').optional().default('asc')
 });
@@ -179,30 +213,44 @@ export const updateImplantMaterialStatusValidation = Joi.object({
 export const updateStockValidation = Joi.object({
   quantity: Joi.number().integer().min(0).required(),
   operation: Joi.string().valid('add', 'subtract', 'set').required(),
-  reason: Joi.string().trim().max(500).optional()
+  reason: Joi.string().trim().max(500).allow('').optional()
 });
 
 // Payment status update validation
 export const updatePaymentStatusValidation = Joi.object({
   paymentStatus: Joi.string().valid(...paymentStatusValues).required(),
+  
   paymentMode: Joi.string().valid(...paymentModeValues).when('paymentStatus', {
+    is: Joi.valid('paid', 'partial'),
+    then: Joi.required(),
+    otherwise: Joi.allow('').optional()
+  }),
+  
+  paymentDate: Joi.alternatives().try(
+    Joi.date(),
+    Joi.string().allow('').optional(),
+    Joi.allow(null)
+  ).when('paymentStatus', {
     is: Joi.valid('paid', 'partial'),
     then: Joi.required(),
     otherwise: Joi.optional()
   }),
-  paymentDate: Joi.date().optional(),
-  invoiceNumber: Joi.string().trim().max(100).optional(),
+  
+  invoiceNumber: Joi.string().trim().max(100).allow('').optional(),
+  
   amountPaid: Joi.number().min(0).when('paymentStatus', {
     is: 'partial',
     then: Joi.required(),
     otherwise: Joi.optional()
   }),
+  
   amountPending: Joi.number().min(0).when('paymentStatus', {
     is: 'partial',
     then: Joi.required(),
     otherwise: Joi.optional()
   }),
-  paymentNotes: Joi.string().trim().max(500).optional()
+  
+  paymentNotes: Joi.string().trim().max(500).allow('').optional()
 });
 
 // Bulk operation validation
