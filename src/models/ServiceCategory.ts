@@ -8,6 +8,8 @@ export interface IServiceCategory extends Document {
   serviceCount: number;
   createdBy: Types.ObjectId;
   updatedBy?: Types.ObjectId;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const ServiceCategorySchema: Schema = new Schema<IServiceCategory>(

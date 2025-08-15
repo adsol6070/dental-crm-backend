@@ -152,7 +152,9 @@ class NotificationService {
         const smsMessage: string = this.generateSMSMessage("confirmation", {
           patientName: patient.personalInfo.firstName,
           doctorName: doctor.fullName,
-          appointmentDate: this.formatDateTime(appointment.appointmentStartTime),
+          appointmentDate: this.formatDateTime(
+            appointment.appointmentStartTime
+          ),
           appointmentId: appointment.appointmentId,
         });
 
@@ -261,7 +263,9 @@ class NotificationService {
         const smsMessage: string = this.generateSMSMessage("reminder", {
           patientName: patient.personalInfo.firstName,
           doctorName: doctor.fullName,
-          appointmentDate: this.formatDateTime(appointment.appointmentStartTime),
+          appointmentDate: this.formatDateTime(
+            appointment.appointmentStartTime
+          ),
           appointmentId: appointment.appointmentId,
         });
 
@@ -395,11 +399,13 @@ class NotificationService {
         patient.preferences?.communicationMethod &&
         ["sms", "phone"].includes(patient.preferences.communicationMethod)
       ) {
-        const message: string = `🚫 CANCELLED: Your appointment ${appointment.appointmentId
-          } with ${doctor.fullName} on ${this.formatDateTime(
-            appointment.appointmentStartTime
-          )} has been cancelled. ${cancellationReason ? "Reason: " + cancellationReason : ""
-          } Please book a new appointment if needed.`;
+        const message: string = `🚫 CANCELLED: Your appointment ${
+          appointment.appointmentId
+        } with ${doctor.fullName} on ${this.formatDateTime(
+          appointment.appointmentStartTime
+        )} has been cancelled. ${
+          cancellationReason ? "Reason: " + cancellationReason : ""
+        } Please book a new appointment if needed.`;
 
         await this.sendSMS({
           to: patient.contactInfo.phone,
@@ -457,10 +463,11 @@ class NotificationService {
         patient.preferences?.communicationMethod &&
         ["sms", "phone"].includes(patient.preferences.communicationMethod)
       ) {
-        const message: string = `🔄 RESCHEDULED: Your appointment ${appointment.appointmentId
-          } with ${doctor.fullName} has been moved from ${this.formatDateTime(
-            oldDateTime
-          )} to ${this.formatDateTime(newDateTime)}`;
+        const message: string = `🔄 RESCHEDULED: Your appointment ${
+          appointment.appointmentId
+        } with ${doctor.fullName} has been moved from ${this.formatDateTime(
+          oldDateTime
+        )} to ${this.formatDateTime(newDateTime)}`;
 
         await this.sendSMS({
           to: patient.contactInfo.phone,
@@ -513,7 +520,9 @@ class NotificationService {
         data: {
           doctorName: doctor.fullName,
           patientName: patient.fullName,
-          appointmentDate: this.formatDateTime(appointment.appointmentStartTime),
+          appointmentDate: this.formatDateTime(
+            appointment.appointmentStartTime
+          ),
           appointmentId: appointment.appointmentId,
           appointmentType: appointment.appointmentType,
           patientPhone: patient.contactInfo.phone,
@@ -539,8 +548,9 @@ class NotificationService {
       );
 
       const mailOptions: SendMailOptions = {
-        from: `${process.env.CLINIC_NAME || "Healthcare Clinic"} <${process.env.FROM_EMAIL
-          }>`,
+        from: `${process.env.CLINIC_NAME || "Healthcare Clinic"} <${
+          process.env.FROM_EMAIL
+        }>`,
         to: emailData.to,
         subject: emailData.subject,
         html: emailContent,
@@ -638,8 +648,9 @@ class NotificationService {
             <h1 style="color: #2c5aa0; margin: 0;">✅ Appointment Confirmed</h1>
           </div>
           
-          <p style="font-size: 16px; color: #333;">Dear <strong>${data.patientName
-        }</strong>,</p>
+          <p style="font-size: 16px; color: #333;">Dear <strong>${
+            data.patientName
+          }</strong>,</p>
           
           <p style="font-size: 16px; color: #333;">Your appointment has been successfully scheduled. Here are the details:</p>
           
@@ -651,23 +662,27 @@ class NotificationService {
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">📅 Date & Time:</td>
-                <td style="padding: 8px 0; color: #333;">${data.appointmentDate
-        }</td>
+                <td style="padding: 8px 0; color: #333;">${
+                  data.appointmentDate
+                }</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">🆔 Appointment ID:</td>
-                <td style="padding: 8px 0; color: #333; font-family: monospace;">${data.appointmentId
-        }</td>
+                <td style="padding: 8px 0; color: #333; font-family: monospace;">${
+                  data.appointmentId
+                }</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">⏱️ Duration:</td>
-                <td style="padding: 8px 0; color: #333;">${data.duration
-        } minutes</td>
+                <td style="padding: 8px 0; color: #333;">${
+                  data.duration
+                } minutes</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">🏥 Type:</td>
-                <td style="padding: 8px 0; color: #333; text-transform: capitalize;">${data.appointmentType
-        }</td>
+                <td style="padding: 8px 0; color: #333; text-transform: capitalize;">${
+                  data.appointmentType
+                }</td>
               </tr>
             </table>
           </div>
@@ -684,8 +699,9 @@ class NotificationService {
           
           <div style="text-align: center; margin: 30px 0;">
             <p style="color: #666; margin: 0;">Need to reschedule or have questions?</p>
-            <p style="color: #2c5aa0; font-weight: bold; margin: 5px 0;">Contact us at ${process.env.CLINIC_PHONE || "clinic phone"
-        }</p>
+            <p style="color: #2c5aa0; font-weight: bold; margin: 5px 0;">Contact us at ${
+              process.env.CLINIC_PHONE || "clinic phone"
+            }</p>
           </div>
           
           <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 30px; text-align: center;">
@@ -706,8 +722,9 @@ class NotificationService {
             <h1 style="color: #ff9800; margin: 0;">⏰ Appointment Reminder</h1>
           </div>
           
-          <p style="font-size: 16px; color: #333;">Dear <strong>${data.patientName
-        }</strong>,</p>
+          <p style="font-size: 16px; color: #333;">Dear <strong>${
+            data.patientName
+          }</strong>,</p>
           
           <p style="font-size: 16px; color: #333;">This is a friendly reminder about your upcoming appointment:</p>
           
@@ -719,22 +736,25 @@ class NotificationService {
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">📅 Date & Time:</td>
-                <td style="padding: 8px 0; color: #333; font-weight: bold;">${data.appointmentDate
-        }</td>
+                <td style="padding: 8px 0; color: #333; font-weight: bold;">${
+                  data.appointmentDate
+                }</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">🆔 Appointment ID:</td>
-                <td style="padding: 8px 0; color: #333; font-family: monospace;">${data.appointmentId
-        }</td>
+                <td style="padding: 8px 0; color: #333; font-family: monospace;">${
+                  data.appointmentId
+                }</td>
               </tr>
             </table>
           </div>
           
           <div style="background-color: #f3e5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
             <h3 style="margin: 0 0 10px 0; color: #7b1fa2;">📍 Location:</h3>
-            <p style="margin: 0; color: #333;">${data.clinicAddress ||
-        "Please check your confirmation email for clinic address"
-        }</p>
+            <p style="margin: 0; color: #333;">${
+              data.clinicAddress ||
+              "Please check your confirmation email for clinic address"
+            }</p>
           </div>
           
           <div style="text-align: center; margin: 30px 0;">
@@ -756,8 +776,9 @@ class NotificationService {
             <h1 style="color: #f44336; margin: 0;">❌ Appointment Cancelled</h1>
           </div>
           
-          <p style="font-size: 16px; color: #333;">Dear <strong>${data.patientName
-        }</strong>,</p>
+          <p style="font-size: 16px; color: #333;">Dear <strong>${
+            data.patientName
+          }</strong>,</p>
           
           <p style="font-size: 16px; color: #333;">We regret to inform you that your appointment has been cancelled:</p>
           
@@ -769,29 +790,33 @@ class NotificationService {
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">📅 Original Date:</td>
-                <td style="padding: 8px 0; color: #333;">${data.appointmentDate
-        }</td>
+                <td style="padding: 8px 0; color: #333;">${
+                  data.appointmentDate
+                }</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">🆔 Appointment ID:</td>
-                <td style="padding: 8px 0; color: #333; font-family: monospace;">${data.appointmentId
-        }</td>
+                <td style="padding: 8px 0; color: #333; font-family: monospace;">${
+                  data.appointmentId
+                }</td>
               </tr>
-              ${data.cancellationReason
-          ? `
+              ${
+                data.cancellationReason
+                  ? `
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">📝 Reason:</td>
                 <td style="padding: 8px 0; color: #333;">${data.cancellationReason}</td>
               </tr>
               `
-          : ""
-        }
+                  : ""
+              }
             </table>
           </div>
           
           <div style="text-align: center; margin: 30px 0;">
-            <a href="${data.rebookingUrl
-        }" style="background-color: #2196f3; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
+            <a href="${
+              data.rebookingUrl
+            }" style="background-color: #2196f3; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
               📅 Book New Appointment
             </a>
           </div>
@@ -871,36 +896,40 @@ class NotificationService {
               </tr>
               <tr>
                 <td style="padding: 5px 0; font-weight: bold;">Appointment ID:</td>
-                <td style="padding: 5px 0; font-family: monospace;">${data.appointmentId
-        }</td>
+                <td style="padding: 5px 0; font-family: monospace;">${
+                  data.appointmentId
+                }</td>
               </tr>
               <tr>
                 <td style="padding: 5px 0; font-weight: bold;">Type:</td>
-                <td style="padding: 5px 0; text-transform: capitalize;">${data.appointmentType
-        }</td>
+                <td style="padding: 5px 0; text-transform: capitalize;">${
+                  data.appointmentType
+                }</td>
               </tr>
               <tr>
                 <td style="padding: 5px 0; font-weight: bold;">Patient Phone:</td>
                 <td style="padding: 5px 0;">${data.patientPhone}</td>
               </tr>
-              ${data.symptoms
-          ? `
+              ${
+                data.symptoms
+                  ? `
               <tr>
                 <td style="padding: 5px 0; font-weight: bold;">Symptoms:</td>
                 <td style="padding: 5px 0;">${data.symptoms}</td>
               </tr>
               `
-          : ""
-        }
-              ${data.notes
-          ? `
+                  : ""
+              }
+              ${
+                data.notes
+                  ? `
               <tr>
                 <td style="padding: 5px 0; font-weight: bold;">Notes:</td>
                 <td style="padding: 5px 0;">${data.notes}</td>
               </tr>
               `
-          : ""
-        }
+                  : ""
+              }
             </table>
           </div>
           
@@ -1005,11 +1034,15 @@ class NotificationService {
             <table style="width: 100%; border-collapse: collapse;">
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">📧 Email:</td>
-                <td style="padding: 8px 0; color: #333; font-family: monospace;">${data.email}</td>
+                <td style="padding: 8px 0; color: #333; font-family: monospace;">${
+                  data.email
+                }</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">🔑 Temporary Password:</td>
-                <td style="padding: 8px 0; color: #d32f2f; font-family: monospace; font-weight: bold;">${data.tempPassword}</td>
+                <td style="padding: 8px 0; color: #d32f2f; font-family: monospace; font-weight: bold;">${
+                  data.tempPassword
+                }</td>
               </tr>
             </table>
           </div>
@@ -1025,7 +1058,9 @@ class NotificationService {
           </div>
           
           <div style="text-align: center; margin: 30px 0;">
-            <a href="${data.loginUrl || '#'}" style="background-color: #2c5aa0; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
+            <a href="${
+              data.loginUrl || "#"
+            }" style="background-color: #2c5aa0; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
               🚀 Login to Your Account
             </a>
           </div>
@@ -1057,21 +1092,29 @@ class NotificationService {
           
           <h2 style="color: #4caf50;">\${data.role.charAt(0).toUpperCase() + data.role.slice(1)} Account Created</h2>
           <p>Hello <strong>${data.firstName} ${data.lastName}</strong>,</p>
-          <p>A ${data.role} account has been created for you with the following credentials:</p>
+          <p>A ${
+            data.role
+          } account has been created for you with the following credentials:</p>
           
           <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #4caf50;">
             <table style="width: 100%; border-collapse: collapse;">
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">📧 Email:</td>
-                <td style="padding: 8px 0; color: #333; font-family: monospace;">${data.email}</td>
+                <td style="padding: 8px 0; color: #333; font-family: monospace;">${
+                  data.email
+                }</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">🔑 Temporary Password:</td>
-                <td style="padding: 8px 0; color: #d32f2f; font-family: monospace; font-weight: bold;">${data.tempPassword}</td>
+                <td style="padding: 8px 0; color: #d32f2f; font-family: monospace; font-weight: bold;">${
+                  data.tempPassword
+                }</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">👤 Role:</td>
-                <td style="padding: 8px 0; color: #333; text-transform: capitalize;">${data.role}</td>
+                <td style="padding: 8px 0; color: #333; text-transform: capitalize;">${
+                  data.role
+                }</td>
               </tr>
             </table>
           </div>
@@ -1086,7 +1129,9 @@ class NotificationService {
           </div>
           
           <div style="text-align: center; margin: 30px 0;">
-            <a href="${data.loginUrl || '#'}" style="background-color: #4caf50; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
+            <a href="${
+              data.loginUrl || "#"
+            }" style="background-color: #4caf50; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
               🚀 Login to Your Account
             </a>
           </div>
@@ -1103,45 +1148,70 @@ class NotificationService {
       "doctor-verification-status": `
   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
     <div style="text-align: center; margin-bottom: 30px;">
-      <h1 style="color: ${data.status === 'verified' ? '#4caf50' : '#f44336'}; margin: 0;">
-        ${data.status === 'verified' ? '✅ Account Verified' : '❌ Account Verification Update'}
+      <h1 style="color: ${
+        data.status === "verified" ? "#4caf50" : "#f44336"
+      }; margin: 0;">
+        ${
+          data.status === "verified"
+            ? "✅ Account Verified"
+            : "❌ Account Verification Update"
+        }
       </h1>
     </div>
     
-    <p style="font-size: 16px; color: #333;">Dear <strong>Dr. ${data.doctorName}</strong>,</p>
+    <p style="font-size: 16px; color: #333;">Dear <strong>Dr. ${
+      data.doctorName
+    }</strong>,</p>
     
     <p style="font-size: 16px; color: #333;">
       We are writing to inform you about the status of your account verification:
     </p>
     
-    <div style="background-color: ${data.status === 'verified' ? '#e8f5e8' : '#ffebee'}; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid ${data.status === 'verified' ? '#4caf50' : '#f44336'};">
+    <div style="background-color: ${
+      data.status === "verified" ? "#e8f5e8" : "#ffebee"
+    }; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid ${
+        data.status === "verified" ? "#4caf50" : "#f44336"
+      };">
       <table style="width: 100%; border-collapse: collapse;">
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #555;">📋 Verification Status:</td>
-          <td style="padding: 8px 0; color: ${data.status === 'verified' ? '#2e7d32' : '#d32f2f'}; font-weight: bold; text-transform: capitalize;">
-            ${data.status === 'verified' ? '✅ Verified' : '❌ ' + data.status}
+          <td style="padding: 8px 0; color: ${
+            data.status === "verified" ? "#2e7d32" : "#d32f2f"
+          }; font-weight: bold; text-transform: capitalize;">
+            ${data.status === "verified" ? "✅ Verified" : "❌ " + data.status}
           </td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #555;">📅 Date:</td>
-          <td style="padding: 8px 0; color: #333;">${new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      })}</td>
+          <td style="padding: 8px 0; color: #333;">${new Date().toLocaleDateString(
+            "en-US",
+            {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            }
+          )}</td>
         </tr>
-        ${data.reason ? `
+        ${
+          data.reason
+            ? `
         <tr>
-          <td style="padding: 8px 0; font-weight: bold; color: #555;">${data.status === 'verified' ? '📝 Notes:' : '⚠️ Reason:'}</td>
+          <td style="padding: 8px 0; font-weight: bold; color: #555;">${
+            data.status === "verified" ? "📝 Notes:" : "⚠️ Reason:"
+          }</td>
           <td style="padding: 8px 0; color: #333;">${data.reason}</td>
         </tr>
-        ` : ''}
+        `
+            : ""
+        }
       </table>
     </div>
     
-    ${data.status === 'verified' ? `
+    ${
+      data.status === "verified"
+        ? `
     <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; margin: 20px 0;">
       <h3 style="margin: 0 0 10px 0; color: #1976d2;">🎉 Congratulations!</h3>
       <p style="margin: 0; color: #333;">
@@ -1156,29 +1226,41 @@ class NotificationService {
     </div>
     
     <div style="text-align: center; margin: 30px 0;">
-      <a href="${data.loginUrl || process.env.DOCTOR_PORTAL_URL || '#'}" style="background-color: #4caf50; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
+      <a href="${
+        data.loginUrl || process.env.DOCTOR_PORTAL_URL || "#"
+      }" style="background-color: #4caf50; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
         🚀 Access Your Dashboard
       </a>
     </div>
-    ` : `
+    `
+        : `
     <div style="background-color: #fff3e0; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ff9800;">
       <h3 style="margin: 0 0 10px 0; color: #f57c00;">📋 Next Steps:</h3>
       <p style="margin: 0; color: #333;">
-        ${data.status === 'rejected'
-          ? 'Your verification was not approved. Please review the reason above and contact our support team if you need assistance with resubmitting your application.'
-          : 'Your verification is still under review. We will notify you once the process is complete.'
+        ${
+          data.status === "rejected"
+            ? "Your verification was not approved. Please review the reason above and contact our support team if you need assistance with resubmitting your application."
+            : "Your verification is still under review. We will notify you once the process is complete."
         }
       </p>
     </div>
     
-    ${data.status === 'rejected' ? `
+    ${
+      data.status === "rejected"
+        ? `
     <div style="text-align: center; margin: 30px 0;">
-      <a href="${data.supportUrl || 'mailto:' + (process.env.SUPPORT_EMAIL || 'support@clinic.com')}" style="background-color: #2196f3; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
+      <a href="${
+        data.supportUrl ||
+        "mailto:" + (process.env.SUPPORT_EMAIL || "support@clinic.com")
+      }" style="background-color: #2196f3; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">
         📞 Contact Support
       </a>
     </div>
-    ` : ''}
-    `}
+    `
+        : ""
+    }
+    `
+    }
     
     <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin: 20px 0;">
       <h3 style="margin: 0 0 10px 0; color: #555;">📞 Need Help?</h3>
@@ -1186,8 +1268,8 @@ class NotificationService {
         If you have any questions about your verification status or need assistance, please don't hesitate to contact our support team:
       </p>
       <ul style="margin: 10px 0 0 0; padding-left: 20px; color: #333;">
-        <li>📧 Email: ${process.env.SUPPORT_EMAIL || 'support@clinic.com'}</li>
-        <li>📞 Phone: ${process.env.SUPPORT_PHONE || 'Contact clinic'}</li>
+        <li>📧 Email: ${process.env.SUPPORT_EMAIL || "support@clinic.com"}</li>
+        <li>📞 Phone: ${process.env.SUPPORT_PHONE || "Contact clinic"}</li>
         <li>🕒 Support Hours: Monday - Friday, 9:00 AM - 6:00 PM</li>
       </ul>
     </div>
@@ -1195,7 +1277,7 @@ class NotificationService {
     <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 30px; text-align: center;">
       <p style="color: #888; font-size: 14px; margin: 0;">
         Best regards,<br>
-        <strong>${data.clinicDetails || 'Medical Platform Team'}</strong>
+        <strong>${data.clinicDetails || "Medical Platform Team"}</strong>
       </p>
       <p style="color: #888; font-size: 12px; margin: 10px 0 0 0;">
         This is an automated message. Please do not reply to this email.
@@ -1204,6 +1286,78 @@ class NotificationService {
   </div>
 `,
 
+      "doctor-email-verification": `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #2c5aa0; margin: 0;">✉️ Verify Your Email Address</h1>
+        </div>
+        
+        <p style="font-size: 16px; color: #333;">Dear <strong>Dr. ${
+          data.doctorName
+        }</strong>,</p>
+        
+        <p style="font-size: 16px; color: #333;">
+          Thank you for registering with us! To complete your registration and activate your doctor account, 
+          please verify your email address by clicking the button below:
+        </p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${data.verificationUrl}" 
+             style="background-color: #2c5aa0; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: bold; font-size: 16px;">
+            ✅ Verify Email Address
+          </a>
+        </div>
+        
+        <div style="background-color: #e3f2fd; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #2196f3;">
+          <h3 style="margin: 0 0 10px 0; color: #1976d2;">⏰ Important Information:</h3>
+          <ul style="margin: 0; padding-left: 20px; color: #333;">
+            <li><strong>This verification link expires in ${
+              data.expiresIn
+            }</strong></li>
+            <li>Once verified, you'll be able to access your doctor dashboard</li>
+            <li>You can start managing your schedule and accepting appointments</li>
+            <li>Your profile will be visible to patients looking for healthcare services</li>
+          </ul>
+        </div>
+        
+        <div style="background-color: #fff3e0; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ff9800;">
+          <h3 style="margin: 0 0 10px 0; color: #f57c00;">🔗 Can't Click the Button?</h3>
+          <p style="margin: 0; color: #333;">
+            Copy and paste this link into your browser:<br>
+            <span style="word-break: break-all; color: #2c5aa0; font-family: monospace; font-size: 14px;">
+              ${data.verificationUrl}
+            </span>
+          </p>
+        </div>
+        
+        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="margin: 0 0 10px 0; color: #555;">🚫 Didn't Register?</h3>
+          <p style="margin: 0; color: #333;">
+            If you didn't create an account with us, you can safely ignore this email. 
+            The verification link will expire automatically.
+          </p>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <p style="color: #666; margin: 0;">Need help or have questions?</p>
+          <p style="color: #2c5aa0; font-weight: bold; margin: 5px 0;">
+            Contact our support team at ${
+              process.env.SUPPORT_EMAIL || "support@clinic.com"
+            }
+          </p>
+        </div>
+        
+        <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 30px; text-align: center;">
+          <p style="color: #888; font-size: 14px; margin: 0;">
+            Best regards,<br>
+            <strong>${data.clinicDetails}</strong>
+          </p>
+          <p style="color: #888; font-size: 12px; margin: 10px 0 0 0;">
+            This is an automated message. Please do not reply to this email.
+          </p>
+        </div>
+      </div>
+    `,
     };
 
     return templates[template] || "<p>Default email content</p>";
@@ -1395,8 +1549,9 @@ Your new appointment time is confirmed. Thank you! ✅`,
           if (channels.includes("sms") && patient.contactInfo.phone) {
             await this.sendSMS({
               to: patient.contactInfo.phone,
-              message: `${subject}\n\n${message}\n\n- ${process.env.CLINIC_NAME || "Healthcare Team"
-                }`,
+              message: `${subject}\n\n${message}\n\n- ${
+                process.env.CLINIC_NAME || "Healthcare Team"
+              }`,
             });
           }
 

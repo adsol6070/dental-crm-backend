@@ -89,7 +89,8 @@ export interface IStatistics {
 export interface IAuthentication {
   password?: string;
   isVerified?: boolean;
-  verificationToken?: string;
+  emailVerificationToken?: string;
+  emailVerificationExpires?: string;
   passwordResetToken?: string;
   passwordResetExpires?: Date;
   twoFactorEnabled?: boolean;
@@ -460,10 +461,8 @@ const doctorSchema = new Schema<IDoctorDocument, IDoctorModel>(
         type: Boolean,
         default: false,
       },
-      verificationToken: {
-        type: String,
-        select: false,
-      },
+      emailVerificationToken: { type: String },
+      emailVerificationExpires: { type: Date },
       passwordResetToken: {
         type: String,
         select: false,
@@ -590,8 +589,11 @@ doctorSchema.pre<IDoctorDocument>("save", async function (next): Promise<void> {
   }
 
   if (this.isModified("availability.unavailableDates")) {
-    this.availability.unavailableDates.forEach(date => {
-      if (!date.updatedAt || this.isModified(`availability.unavailableDates.${date.id}`)) {
+    this.availability.unavailableDates.forEach((date) => {
+      if (
+        !date.updatedAt ||
+        this.isModified(`availability.unavailableDates.${date.id}`)
+      ) {
         date.updatedAt = new Date();
       }
     });
@@ -602,7 +604,7 @@ doctorSchema.pre<IDoctorDocument>("save", async function (next): Promise<void> {
 
 doctorSchema.methods.addUnavailableDate = function (
   this: IDoctorDocument,
-  dateData: Omit<IUnavailableDate, 'id' | 'createdAt' | 'updatedAt'>
+  dateData: Omit<IUnavailableDate, "id" | "createdAt" | "updatedAt">
 ): IUnavailableDate {
   const unavailableDate: IUnavailableDate = {
     id: new Date().getTime().toString(),
@@ -613,7 +615,7 @@ doctorSchema.methods.addUnavailableDate = function (
     createdAt: new Date(),
     updatedAt: new Date(),
   };
-  
+
   this.availability.unavailableDates.push(unavailableDate);
   return unavailableDate;
 };
@@ -625,11 +627,11 @@ doctorSchema.methods.removeUnavailableDate = function (
   const index = this.availability.unavailableDates.findIndex(
     (date) => date.id === dateId
   );
-  
+
   if (index === -1) {
     return false;
   }
-  
+
   this.availability.unavailableDates.splice(index, 1);
   return true;
 };
@@ -637,16 +639,16 @@ doctorSchema.methods.removeUnavailableDate = function (
 doctorSchema.methods.updateUnavailableDate = function (
   this: IDoctorDocument,
   dateId: string,
-  updateData: Partial<Omit<IUnavailableDate, 'id' | 'createdAt'>>
+  updateData: Partial<Omit<IUnavailableDate, "id" | "createdAt">>
 ): IUnavailableDate | null {
   const unavailableDate = this.availability.unavailableDates.find(
     (date) => date.id === dateId
   );
-  
+
   if (!unavailableDate) {
     return null;
   }
-  
+
   Object.assign(unavailableDate, updateData, { updatedAt: new Date() });
   return unavailableDate;
 };
@@ -655,9 +657,11 @@ doctorSchema.methods.isDateUnavailable = function (
   this: IDoctorDocument,
   date: string
 ): IUnavailableDate | null {
-  return this.availability.unavailableDates.find(
-    (unavailableDate) => unavailableDate.date === date
-  ) || null;
+  return (
+    this.availability.unavailableDates.find(
+      (unavailableDate) => unavailableDate.date === date
+    ) || null
+  );
 };
 
 // ✅ Added authentication instance methods
@@ -686,7 +690,7 @@ doctorSchema.methods.generateEmailVerificationToken = function (
 ): string {
   const crypto = require("crypto");
   const verificationToken = crypto.randomBytes(32).toString("hex");
-  this.authentication.verificationToken = verificationToken;
+  this.authentication.emailVerificationToken = verificationToken;
   return verificationToken;
 };
 
