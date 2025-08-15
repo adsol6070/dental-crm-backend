@@ -2,6 +2,8 @@ import { Application, Request, Response } from "express";
 import healthRoutes from "./health";
 import patientRoutes from "./patients";
 import appointmentRoutes from "./appointments";
+import medicineRoutes from "./medicine";
+import inventoryRoutes from "./inventory";
 import doctorRoutes from "./doctors";
 import userRoutes from "./user";
 import serviceRoutes from "./services";
