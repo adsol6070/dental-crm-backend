@@ -23,6 +23,7 @@ const priorities = ["low", "medium", "high", "urgent"];
 
 const bookingSources = [
   "website",
+  "patient-dashboard",
   "mobile-app",
   "whatsapp",
   "phone-call",

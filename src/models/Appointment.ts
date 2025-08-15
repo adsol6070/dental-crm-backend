@@ -19,6 +19,7 @@ type AppointmentStatus =
 type Priority = "low" | "medium" | "high" | "urgent";
 type BookingSource =
   | "website"
+  | "patient-dashboard"
   | "mobile-app"
   | "whatsapp"
   | "phone-call"
@@ -172,6 +173,8 @@ const appointmentSchema = new Schema<AppointmentDocument>(
       type: String,
       enum: [
         "website",
+        "website",
+        "patient-dashboard",
         "mobile-app",
         "whatsapp",
         "phone-call",
