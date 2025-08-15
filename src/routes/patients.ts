@@ -171,5 +171,4 @@ router.post("/deactivate-account", PatientController.deactivateAccount);
 router.post("/delete-account", PatientController.requestAccountDeletion);
 router.post("/export-data", PatientController.exportPatientData);
 
-
 export default router;

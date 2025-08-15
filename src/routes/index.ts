@@ -7,6 +7,7 @@ import inventoryRoutes from "./inventory";
 import doctorRoutes from "./doctors";
 import userRoutes from "./user";
 import serviceRoutes from "./services";
+import serviceCategoryRoutes from "./category";
 
 export const setupRoutes = (app: Application): void => {
   app.use("/health", healthRoutes);
@@ -29,10 +30,9 @@ export const setupRoutes = (app: Application): void => {
   app.use("/api/patients", patientRoutes);
   app.use("/api/appointments", appointmentRoutes);
   app.use("/api/doctors", doctorRoutes);
-  app.use("/api/users", userRoutes)
-  app.use("/api/medicines", medicineRoutes);
-  app.use("/api/inventory", inventoryRoutes);
+  app.use("/api/users", userRoutes);
   app.use("/api/services", serviceRoutes);
+  app.use("/api/service-categories", serviceCategoryRoutes);
   // app.use("/api/webhooks", webhookRoutes);
   // app.use("/api/analytics", authMiddleware, analyticsRoutes);
   // app.use("/api/notifications", authMiddleware, notificationRoutes);

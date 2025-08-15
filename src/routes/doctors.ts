@@ -45,7 +45,7 @@ router.post(
   validateRequest(doctorValidation.resetPassword),
   DoctorController.resetPassword
 );
-router.get("/verify-email/:token", DoctorController.verifyEmail);
+router.post("/verify-email", DoctorController.verifyEmail);
 router.post(
   "/resend-verification",
   validateRequest(doctorValidation.resendVerification),

@@ -23,7 +23,7 @@ const startServer = async (): Promise<void> => {
       logger.info(`🔗 API Documentation: http://localhost:${config.port}/`);
     });
 
-    // Handle server errors
+    // Handle server errors 
     server.on("error", (error: any) => {
       if (error.code === "EADDRINUSE") {
         logger.error(`❌ Port ${config.port} is already in use`);

@@ -5,6 +5,7 @@ import Appointment from "../models/Appointment";
 import Patient from "../models/Patient";
 import NotificationService from "../services/notificationService";
 import logger from "../utils/logger";
+import crypto from "crypto";
 import { AppError } from "../types/errors";
 
 // Types for request bodies
@@ -189,6 +190,10 @@ class DoctorController {
         );
       }
 
+      const verificationToken = crypto.randomBytes(32).toString("hex");
+      const tokenExpiry = new Date();
+      tokenExpiry.setHours(tokenExpiry.getHours() + 24);
+
       // Create new doctor
       const doctor = new Doctor({
         personalInfo: {
@@ -228,11 +233,40 @@ class DoctorController {
         },
         authentication: {
           password: data.authentication.password,
+          emailVerificationToken: verificationToken, // ← Fixed field name
+          emailVerificationExpires: tokenExpiry, // ← Added expiry field
+          isVerified: false,
         },
-        isActive: true,
+        isActive: false,
       });
 
       await doctor.save();
+
+      try {
+        await NotificationService.sendEmail({
+          to: doctor.personalInfo.email,
+          subject: "✉️ Verify Your Email Address - Doctor Registration",
+          template: "doctor-email-verification",
+          data: {
+            doctorName: doctor.fullName,
+            verificationUrl: `${
+              process.env.FRONTEND_URL || "http://localhost:5173"
+            }/auth/verifyemail/${verificationToken}?type=doctor`,
+            expiresIn: "24 hours",
+            clinicDetails: process.env.CLINIC_DETAILS || "Healthcare Clinic",
+          },
+        });
+
+        logger.info(`Verification email sent to doctor: ${doctor.doctorId}`, {
+          doctorId: doctor.doctorId,
+          email: doctor.personalInfo.email,
+        });
+      } catch (emailError) {
+        logger.error(
+          `Failed to send verification email to ${doctor.personalInfo.email}:`,
+          emailError
+        );
+      }
 
       // Generate token
       const token = DoctorController.generateToken(doctor._id.toString());
@@ -342,10 +376,14 @@ class DoctorController {
     try {
       const updateData = req.validatedData;
 
-      const doctor = await Doctor.findByIdAndUpdate(res.locals.doctor?.id, updateData, {
-        new: true,
-        runValidators: true,
-      });
+      const doctor = await Doctor.findByIdAndUpdate(
+        res.locals.doctor?.id,
+        updateData,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -684,7 +722,6 @@ class DoctorController {
     res: Response<ApiResponse<{ unavailableDate: any }>>,
     next: NextFunction
   ): Promise<void> {
-
     try {
       const {
         date,
@@ -1082,7 +1119,9 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const doctor = await Doctor.findById(res.locals.doctor?.id).select("fees");
+      const doctor = await Doctor.findById(res.locals.doctor?.id).select(
+        "fees"
+      );
 
       if (!doctor) {
         throw new AppError("Doctor not found", 404);
@@ -1422,12 +1461,15 @@ class DoctorController {
         );
       }
 
-      logger.info(`Appointment status updated by doctor: ${res.locals.doctor?.id}`, {
-        appointmentId: appointment._id,
-        oldStatus,
-        newStatus: status,
-        reason,
-      });
+      logger.info(
+        `Appointment status updated by doctor: ${res.locals.doctor?.id}`,
+        {
+          appointmentId: appointment._id,
+          oldStatus,
+          newStatus: status,
+          reason,
+        }
+      );
 
       res.json({
         success: true,
@@ -1461,10 +1503,13 @@ class DoctorController {
         throw new AppError("Appointment not found", 404);
       }
 
-      logger.info(`Consultation notes added by doctor: ${res.locals.doctor?.id}`, {
-        appointmentId: appointment._id,
-        doctorId: res.locals.doctor?.id,
-      });
+      logger.info(
+        `Consultation notes added by doctor: ${res.locals.doctor?.id}`,
+        {
+          appointmentId: appointment._id,
+          doctorId: res.locals.doctor?.id,
+        }
+      );
 
       res.json({
         success: true,
@@ -1564,86 +1609,88 @@ class DoctorController {
   }
 
   // Get doctor statistics
- static async getDoctorStatistics(
-  req: Request,
-  res: Response<ApiResponse<{ statistics: any }>>,
-  next: NextFunction
-): Promise<void> {
-  try {
-    const doctorId = res.locals.doctor?.id;
+  static async getDoctorStatistics(
+    req: Request,
+    res: Response<ApiResponse<{ statistics: any }>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const doctorId = res.locals.doctor?.id;
 
-    const stats = await Appointment.aggregate([
-      { $match: { doctor: doctorId } },
-      {
-        $group: {
-          _id: null,
-          totalAppointments: { $sum: 1 },
-          completedAppointments: {
-            $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] },
-          },
-          cancelledAppointments: {
-            $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] },
-          },
-          noShowAppointments: {
-            $sum: { $cond: [{ $eq: ["$status", "no-show"] }, 1, 0] },
-          },
-          upcomingAppointments: {
-            $sum: {
-              $cond: [
-                {
-                  $and: [
-                    { $gte: ["$appointmentDateTime", new Date()] },
-                    { $in: ["$status", ["scheduled", "confirmed"]] },
-                  ],
-                },
-                1,
-                0,
-              ],
+      const stats = await Appointment.aggregate([
+        { $match: { doctor: doctorId } },
+        {
+          $group: {
+            _id: null,
+            totalAppointments: { $sum: 1 },
+            completedAppointments: {
+              $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] },
+            },
+            cancelledAppointments: {
+              $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] },
+            },
+            noShowAppointments: {
+              $sum: { $cond: [{ $eq: ["$status", "no-show"] }, 1, 0] },
+            },
+            upcomingAppointments: {
+              $sum: {
+                $cond: [
+                  {
+                    $and: [
+                      { $gte: ["$appointmentDateTime", new Date()] },
+                      { $in: ["$status", ["scheduled", "confirmed"]] },
+                    ],
+                  },
+                  1,
+                  0,
+                ],
+              },
             },
           },
         },
-      },
-    ]);
+      ]);
 
-    const statistics = stats[0] || {
-      totalAppointments: 0,
-      completedAppointments: 0,
-      cancelledAppointments: 0,
-      noShowAppointments: 0,
-      upcomingAppointments: 0,
-    };
+      const statistics = stats[0] || {
+        totalAppointments: 0,
+        completedAppointments: 0,
+        cancelledAppointments: 0,
+        noShowAppointments: 0,
+        upcomingAppointments: 0,
+      };
 
-    // Calculate Rates
-    statistics.completionRate =
-      statistics.totalAppointments > 0
-        ? (
-            (statistics.completedAppointments / statistics.totalAppointments) *
-            100
-          ).toFixed(1)
-        : "0";
+      // Calculate Rates
+      statistics.completionRate =
+        statistics.totalAppointments > 0
+          ? (
+              (statistics.completedAppointments /
+                statistics.totalAppointments) *
+              100
+            ).toFixed(1)
+          : "0";
 
-    statistics.cancellationRate =
-      statistics.totalAppointments > 0
-        ? (
-            (statistics.cancelledAppointments / statistics.totalAppointments) *
-            100
-          ).toFixed(1)
-        : "0";
+      statistics.cancellationRate =
+        statistics.totalAppointments > 0
+          ? (
+              (statistics.cancelledAppointments /
+                statistics.totalAppointments) *
+              100
+            ).toFixed(1)
+          : "0";
 
-    // Get Unique Patients Count
-    const uniquePatients = await Appointment.distinct("patient", {
-      doctor: doctorId,
-    });
-    statistics.totalPatients = uniquePatients.length;
+      // Get Unique Patients Count
+      const uniquePatients = await Appointment.distinct("patient", {
+        doctor: doctorId,
+      });
+      statistics.totalPatients = uniquePatients.length;
 
-    res.json({
-      success: true,
-      data: { statistics },
-    });
-  } catch (error) {
-    next(error);
+      res.json({
+        success: true,
+        data: { statistics },
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-}
 
   // Get monthly calendar
   static async getMonthlyCalendar(
@@ -2426,10 +2473,27 @@ class DoctorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { token } = req.validatedParams;
+      const { token } = req.body;
 
-      // Email verification logic would go here
-      // For now, just return success
+      if (!token) {
+        throw new AppError("Verification token is required", 400);
+      }
+
+      const doctor = await Doctor.findOne({
+        "authentication.emailVerificationToken": token,
+        "authentication.emailVerificationExpires": { $gt: new Date() },
+      });
+
+      if (!doctor) {
+        throw new AppError("Invalid or expired verification token", 400);
+      }
+
+      doctor.authentication.isVerified = true;
+      doctor.authentication.emailVerificationToken = undefined;
+      doctor.isActive = true;
+      doctor.availability.isAvailable = true;
+
+      await doctor.save();
 
       res.json({
         success: true,
@@ -2756,8 +2820,9 @@ class DoctorController {
 
       res.json({
         success: true,
-        message: `Doctor ${isActive ? "activated" : "deactivated"
-          } successfully`,
+        message: `Doctor ${
+          isActive ? "activated" : "deactivated"
+        } successfully`,
         data: { doctor },
       });
     } catch (error) {
@@ -2766,75 +2831,80 @@ class DoctorController {
   }
 
   // Verify doctor
- static async verifyDoctor(
-  req: Request,
-  res: Response<ApiResponse<{ doctor: IDoctorDocument }>>,
-  next: NextFunction
-): Promise<void> {
-  try {
-    const { doctorId } = req.params;
-    const { verificationStatus, reason } = req.body; 
-    console.log("Status:", verificationStatus, "Reason:", reason);
+  static async verifyDoctor(
+    req: Request,
+    res: Response<ApiResponse<{ doctor: IDoctorDocument }>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { doctorId } = req.params;
+      const { verificationStatus, reason } = req.body;
+      console.log("Status:", verificationStatus, "Reason:", reason);
 
-    if (!["verified", "rejected"].includes(verificationStatus)) {
-      throw new AppError("Invalid status. Must be 'verified' or 'rejected'", 400);
+      if (!["verified", "rejected"].includes(verificationStatus)) {
+        throw new AppError(
+          "Invalid status. Must be 'verified' or 'rejected'",
+          400
+        );
+      }
+
+      const isVerifiedByAdmin = verificationStatus === "verified";
+      const updateData: {
+        isVerifiedByAdmin: boolean;
+        verificationNotes: any;
+        approvalDate?: Date;
+      } = {
+        isVerifiedByAdmin: true,
+        verificationNotes: reason,
+      };
+
+      // Set approval date only if approved
+      if (isVerifiedByAdmin) {
+        updateData.approvalDate = new Date();
+      }
+
+      const doctor = await Doctor.findOneAndUpdate(
+        {
+          $or: [{ _id: doctorId }, { doctorId }],
+        },
+        updateData,
+        { new: true }
+      );
+
+      if (!doctor) {
+        throw new AppError("Doctor not found", 404);
+      }
+
+      // Send email notification
+      await NotificationService.sendEmail({
+        to: doctor.personalInfo.email,
+        subject: `Doctor Account ${
+          verificationStatus === "verified" ? "verified" : "Rejected"
+        }`,
+        template: "doctor-verification-status",
+        data: {
+          doctorName: doctor.fullName,
+          status: verificationStatus,
+          reason: reason || "",
+        },
+      });
+
+      logger.info(`Doctor ${verificationStatus}: ${doctor.doctorId}`, {
+        doctorId: doctor.doctorId,
+        isVerifiedByAdmin,
+        reason,
+        adminUser: res.locals.user?.id,
+      });
+
+      res.json({
+        success: true,
+        message: `Doctor ${verificationStatus} successfully`,
+        data: { doctor },
+      });
+    } catch (error) {
+      next(error);
     }
-
-    const isVerifiedByAdmin = verificationStatus === "verified";
-    const updateData: {
-      isVerifiedByAdmin: boolean;
-      verificationNotes: any;
-      approvalDate?: Date;
-    } = {
-      isVerifiedByAdmin: true,
-      verificationNotes: reason,
-    };
-
-    // Set approval date only if approved
-    if (isVerifiedByAdmin) {
-      updateData.approvalDate = new Date();
-    }
-
-    const doctor = await Doctor.findOneAndUpdate(
-      {
-        $or: [{ _id: doctorId }, { doctorId }],
-      },
-      updateData,
-      { new: true }
-    );
-
-    if (!doctor) {
-      throw new AppError("Doctor not found", 404);
-    }
-
-    // Send email notification
-    await NotificationService.sendEmail({
-      to: doctor.personalInfo.email,
-      subject: `Doctor Account ${verificationStatus === "verified" ? "verified" : "Rejected"}`,
-      template: "doctor-verification-status",
-      data: {
-        doctorName: doctor.fullName,
-        status: verificationStatus,
-        reason: reason || "",
-      },
-    });
-
-    logger.info(`Doctor ${verificationStatus}: ${doctor.doctorId}`, {
-      doctorId: doctor.doctorId,
-      isVerifiedByAdmin,
-      reason,
-      adminUser: res.locals.user?.id,
-    });
-
-    res.json({
-      success: true,
-      message: `Doctor ${verificationStatus} successfully`,
-      data: { doctor },
-    });
-  } catch (error) {
-    next(error);
   }
-}
 
   // Delete doctor by admin
   static async deleteDoctorByAdmin(
@@ -2975,100 +3045,119 @@ class DoctorController {
   }
 
   // Get specialization statistics (Admin only)
-static async getDoctorPerformanceAnalyticsRaw(period: string = "month", year: string = new Date().getFullYear().toString()) {
+  static async getDoctorPerformanceAnalyticsRaw(
+    period: string = "month",
+    year: string = new Date().getFullYear().toString()
+  ) {
     let dateRange = {
-        $gte: new Date(`${year}-01-01`),
-        $lte: new Date(`${year}-12-31`),
+      $gte: new Date(`${year}-01-01`),
+      $lte: new Date(`${year}-12-31`),
     };
 
     const performance = await Appointment.aggregate([
-        { $match: { appointmentDateTime: dateRange } },
-        {
-            $lookup: {
-                from: "doctors",
-                localField: "doctor",
-                foreignField: "_id",
-                as: "doctorInfo",
-            },
+      { $match: { appointmentDateTime: dateRange } },
+      {
+        $lookup: {
+          from: "doctors",
+          localField: "doctor",
+          foreignField: "_id",
+          as: "doctorInfo",
         },
-        { $unwind: "$doctorInfo" },
-        {
-            $group: {
-                _id: "$doctor",
-                doctorName: { $first: "$doctorInfo.fullName" },
-                doctorId: { $first: "$doctorInfo.doctorId" },
-                totalAppointments: { $sum: 1 },
-                completedAppointments: { $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] } },
-                cancelledAppointments: { $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] } },
-                averageRating: { $avg: "$review.rating" },
-                totalRevenue: { $sum: "$fees.consultationFee" },
-            },
+      },
+      { $unwind: "$doctorInfo" },
+      {
+        $group: {
+          _id: "$doctor",
+          doctorName: { $first: "$doctorInfo.fullName" },
+          doctorId: { $first: "$doctorInfo.doctorId" },
+          totalAppointments: { $sum: 1 },
+          completedAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] },
+          },
+          cancelledAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] },
+          },
+          averageRating: { $avg: "$review.rating" },
+          totalRevenue: { $sum: "$fees.consultationFee" },
         },
-        {
-            $addFields: {
-                completionRate: {
-                    $cond: [
-                        { $gt: ["$totalAppointments", 0] },
-                        { $multiply: [{ $divide: ["$completedAppointments", "$totalAppointments"] }, 100] },
-                        0,
-                    ],
-                },
-            },
+      },
+      {
+        $addFields: {
+          completionRate: {
+            $cond: [
+              { $gt: ["$totalAppointments", 0] },
+              {
+                $multiply: [
+                  { $divide: ["$completedAppointments", "$totalAppointments"] },
+                  100,
+                ],
+              },
+              0,
+            ],
+          },
         },
-        { $sort: { totalAppointments: -1 } },
+      },
+      { $sort: { totalAppointments: -1 } },
     ]);
 
     return { performance, period, year };
-}
+  }
 
-static async getSpecializationStatsRaw() {
+  static async getSpecializationStatsRaw() {
     const stats = await Doctor.aggregate([
-        { $match: { isActive: true, "availability.isAvailable": true } },
-        {
-            $group: {
-                _id: "$professionalInfo.specialization",
-                count: { $sum: 1 },
-                averageExperience: { $avg: "$professionalInfo.experience" },
-                averageRating: { $avg: "$statistics.rating" },
-            },
+      { $match: { isActive: true, "availability.isAvailable": true } },
+      {
+        $group: {
+          _id: "$professionalInfo.specialization",
+          count: { $sum: 1 },
+          averageExperience: { $avg: "$professionalInfo.experience" },
+          averageRating: { $avg: "$statistics.rating" },
         },
-        { $sort: { count: -1 } },
+      },
+      { $sort: { count: -1 } },
     ]);
 
     return { stats };
-}
+  }
 
-static async getAppointmentTrendsRaw(period: string = "month", year: string = new Date().getFullYear().toString()) {
+  static async getAppointmentTrendsRaw(
+    period: string = "month",
+    year: string = new Date().getFullYear().toString()
+  ) {
     let groupBy: any;
     let dateRange = {
-        $gte: new Date(`${year}-01-01`),
-        $lte: new Date(`${year}-12-31`),
+      $gte: new Date(`${year}-01-01`),
+      $lte: new Date(`${year}-12-31`),
     };
 
     if (period === "month") {
-        groupBy = { $month: "$appointmentDateTime" };
+      groupBy = { $month: "$appointmentDateTime" };
     } else if (period === "week") {
-        groupBy = { $week: "$appointmentDateTime" };
+      groupBy = { $week: "$appointmentDateTime" };
     } else {
-        groupBy = { $dayOfYear: "$appointmentDateTime" };
+      groupBy = { $dayOfYear: "$appointmentDateTime" };
     }
 
     const trends = await Appointment.aggregate([
-        { $match: { appointmentDateTime: dateRange } },
-        {
-            $group: {
-                _id: groupBy,
-                totalAppointments: { $sum: 1 },
-                completedAppointments: { $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] } },
-                cancelledAppointments: { $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] } },
-                revenue: { $sum: "$fees.consultationFee" },
-            },
+      { $match: { appointmentDateTime: dateRange } },
+      {
+        $group: {
+          _id: groupBy,
+          totalAppointments: { $sum: 1 },
+          completedAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] },
+          },
+          cancelledAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] },
+          },
+          revenue: { $sum: "$fees.consultationFee" },
         },
-        { $sort: { _id: 1 } },
+      },
+      { $sort: { _id: 1 } },
     ]);
 
     return { trends, period, year };
-}
+  }
 }
 
 export default DoctorController;
